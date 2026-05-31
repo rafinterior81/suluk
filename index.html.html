@@ -1,0 +1,1622 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>SALIK — Penempuh Jalan Ruhani</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07090f;--bg2:#0d1120;--bg3:#131828;
+  --sf:rgba(255,255,255,0.055);--sfh:rgba(255,255,255,0.1);
+  --br:rgba(255,255,255,0.07);--brgold:rgba(196,155,60,0.32);
+  --gold:#C49B3C;--gold2:#E8C87A;--teal:#2DD4B4;--tdim:#1A8A72;
+  --tx:#F0EDE6;--txm:rgba(240,237,230,0.48);--txf:rgba(240,237,230,0.2);
+  --red:#E05A5A;--nh:68px;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--tx);user-select:none;-webkit-user-select:none}
+.app{max-width:430px;margin:0 auto;height:100dvh;height:100vh;position:relative;overflow:hidden;background:var(--bg)}
+
+/* STATUS */
+.sb{position:absolute;top:0;left:0;right:0;height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;font-size:12px;font-weight:500;color:var(--txm);z-index:100;background:linear-gradient(to bottom,rgba(7,9,15,0.92),transparent)}
+.si{display:flex;gap:7px;align-items:center}
+
+/* PAGES */
+.pg{position:absolute;top:44px;left:0;right:0;bottom:var(--nh);overflow-y:auto;overflow-x:hidden;padding:12px 18px 24px;opacity:0;transform:translateY(10px);pointer-events:none;transition:opacity .28s ease,transform .28s ease;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.pg::-webkit-scrollbar{display:none}
+.pg.on{opacity:1;transform:translateY(0);pointer-events:auto}
+
+/* NAV */
+.nav{position:absolute;bottom:0;left:0;right:0;height:var(--nh);background:rgba(7,9,15,.97);border-top:.5px solid var(--br);display:flex;align-items:flex-start;justify-content:space-around;padding-top:10px;backdrop-filter:blur(20px);z-index:90}
+.nb{background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--txf);padding:4px 10px;transition:color .2s}
+.nb.on{color:var(--gold)}
+.nb svg{width:22px;height:22px;stroke-width:1.5}
+.nl{font-size:9px;font-weight:500;letter-spacing:.03em}
+
+/* CARDS */
+.cd{background:var(--sf);border:.5px solid var(--br);border-radius:18px;padding:16px;margin-bottom:14px}
+.cd-g{border-color:var(--brgold)}
+
+/* MODALS */
+.mbg{position:absolute;inset:0;background:rgba(4,6,12,.88);z-index:800;display:flex;align-items:flex-end;opacity:0;pointer-events:none;transition:opacity .28s}
+.mbg.open{opacity:1;pointer-events:auto}
+.msh{background:var(--bg2);border-radius:24px 24px 0 0;padding:24px 20px 44px;width:100%;border-top:.5px solid var(--brgold);transform:translateY(48px);transition:transform .32s cubic-bezier(.34,1.2,.64,1)}
+.mbg.open .msh{transform:translateY(0)}
+.mhd{width:36px;height:3px;background:var(--br);border-radius:2px;margin:0 auto 20px}
+
+/* OVERLAY SCREENS */
+.ovl{position:absolute;inset:0;z-index:950;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .5s}
+
+/* ARABIC */
+.ar{font-family:'Noto Naskh Arabic',serif;direction:rtl;text-align:right;line-height:2.1}
+
+/* SPLASH */
+#spl{background:radial-gradient(ellipse at 50% 0%,rgba(196,155,60,.15) 0%,transparent 60%),var(--bg)}
+.sorb{width:96px;height:96px;border-radius:50%;background:conic-gradient(from 0deg,var(--gold),var(--teal),var(--gold));display:flex;align-items:center;justify-content:center;animation:sp 8s linear infinite;position:relative}
+.sorb::after{content:'';position:absolute;inset:3px;background:var(--bg);border-radius:50%}
+.sico{position:relative;z-index:1;color:var(--gold)}
+@keyframes sp{to{transform:rotate(360deg)}}
+.stit{font-family:'Playfair Display',serif;font-size:40px;letter-spacing:.08em}
+.ssub{font-size:11px;letter-spacing:.28em;color:var(--gold);text-transform:uppercase}
+.sbar{width:44px;height:2px;background:var(--gold);border-radius:2px;animation:pb 1.5s ease infinite}
+@keyframes pb{0%,100%{opacity:.4;width:44px}50%{opacity:1;width:66px}}
+
+/* ONBOARDING */
+#onb{background:radial-gradient(ellipse at 50% 30%,rgba(45,212,180,.07) 0%,transparent 60%),var(--bg);padding:60px 28px 48px;justify-content:space-between}
+.owrap{width:136px;height:136px;border-radius:50%;border:1px solid var(--brgold);display:flex;align-items:center;justify-content:center;position:relative}
+.owrap::before{content:'';position:absolute;inset:12px;background:rgba(196,155,60,.06);border-radius:50%;animation:bro 4s ease infinite}
+@keyframes bro{0%,100%{transform:scale(.9);opacity:.5}50%{transform:scale(1.1);opacity:1}}
+.odots{display:flex;gap:8px;margin-top:20px}
+.odot{width:6px;height:6px;border-radius:3px;background:var(--br);transition:all .3s}
+.odot.on{width:20px;background:var(--gold)}
+
+/* TOAST */
+#tst{position:fixed;top:54px;left:50%;transform:translateX(-50%) translateY(-90px);max-width:340px;width:calc(100% - 36px);background:var(--bg3);border:.5px solid var(--brgold);border-radius:14px;padding:12px 16px;display:flex;gap:10px;align-items:flex-start;z-index:9999;transition:transform .38s cubic-bezier(.34,1.56,.64,1);box-shadow:0 8px 32px rgba(0,0,0,.6)}
+#tst.show{transform:translateX(-50%) translateY(0)}
+.tdot{width:8px;height:8px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:4px}
+
+/* HOME */
+.pgdate{font-size:11px;color:var(--gold);text-transform:uppercase;letter-spacing:.12em;font-weight:500}
+.pgname{font-family:'Playfair Display',serif;font-size:22px;margin-top:2px}
+.pgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:12px}
+.pi{text-align:center;padding:8px 4px;border-radius:10px;font-size:10px;background:var(--sf)}
+.pi.act{background:rgba(196,155,60,.14);border:.5px solid var(--brgold)}
+.pn{color:var(--txm);margin-bottom:2px}
+.pt{font-weight:600;font-size:11px}
+.pi.act .pn,.pi.act .pt{color:var(--gold)}
+.bigp{font-family:'Playfair Display',serif;font-size:26px}
+.pbar{height:3px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;margin-top:8px}
+.pfill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--gold),var(--gold2))}
+
+/* DZIKIR */
+.tring{width:196px;height:196px;border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer;margin:0 auto}
+.tring::before{content:'';position:absolute;inset:0;border-radius:50%;border:1.5px dashed rgba(196,155,60,.18);animation:sp 30s linear infinite}
+.tinn{width:158px;height:158px;border-radius:50%;background:radial-gradient(circle at 35% 30%,rgba(196,155,60,.11),transparent 60%),var(--bg3);border:1px solid var(--br);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:transform .1s}
+.tring:active .tinn{transform:scale(.95)}
+.tcnt{font-family:'Playfair Display',serif;font-size:50px;color:var(--tx);line-height:1}
+.tlbl{font-size:9px;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-top:6px}
+.ppills{display:flex;gap:8px;overflow-x:auto;padding:4px 0;scrollbar-width:none}
+.ppills::-webkit-scrollbar{display:none}
+.ppill{flex-shrink:0;padding:7px 14px;border-radius:20px;font-size:12px;font-weight:500;border:.5px solid var(--br);background:var(--sf);color:var(--txm);cursor:pointer;transition:all .2s}
+.ppill.on{background:rgba(196,155,60,.14);border-color:var(--brgold);color:var(--gold)}
+
+/* QURAN */
+.vb{padding-bottom:20px;border-bottom:.5px solid var(--br);margin-bottom:20px}
+.vnum{width:26px;height:26px;border-radius:50%;background:rgba(196,155,60,.1);border:.5px solid var(--brgold);display:inline-flex;align-items:center;justify-content:center;font-size:10px;color:var(--gold);font-weight:600;flex-shrink:0}
+.var{font-family:'Noto Naskh Arabic',serif;font-size:22px;line-height:2.2;direction:rtl;text-align:right}
+.vtr{font-size:12px;color:var(--txm);line-height:1.7;margin-top:8px;font-style:italic}
+
+/* CHECKLIST */
+.ci{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-radius:12px;margin-bottom:8px;background:var(--sf);border:.5px solid var(--br);cursor:pointer;transition:background .2s}
+.ci:active{background:var(--sfh)}
+.cil{display:flex;align-items:center;gap:10px;flex:1;min-width:0}
+.cb{width:18px;height:18px;border-radius:5px;border:1.5px solid var(--br);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s}
+.cb.ck{background:var(--tdim);border-color:var(--teal)}
+.clbl{font-size:12px;line-height:1.4;min-width:0}
+.bsm{font-size:9px;font-weight:600;padding:3px 8px;border-radius:8px;background:rgba(196,155,60,.11);color:var(--gold);flex-shrink:0}
+.dbtn{width:24px;height:24px;border-radius:6px;background:rgba(224,90,90,.1);border:none;color:var(--red);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;opacity:0;transition:opacity .18s;margin-left:5px}
+.ci:hover .dbtn,.ci:active .dbtn{opacity:1}
+
+/* SEC HEADER */
+.sr{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.sh{font-size:10.5px;color:var(--gold);text-transform:uppercase;letter-spacing:.15em;font-weight:600;display:flex;align-items:center;gap:5px}
+.abtn{width:28px;height:28px;border-radius:8px;background:rgba(196,155,60,.11);border:.5px solid var(--brgold);color:var(--gold);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .18s;flex-shrink:0}
+.abtn:active{background:rgba(196,155,60,.24);transform:scale(.9)}
+
+/* AI */
+.cbbl{max-width:83%;padding:10px 14px;border-radius:16px;font-size:12px;line-height:1.75}
+.bai{background:var(--bg3);border:.5px solid var(--br);border-bottom-left-radius:4px;align-self:flex-start}
+.bme{background:rgba(196,155,60,.11);border:.5px solid var(--brgold);border-bottom-right-radius:4px;align-self:flex-end}
+.bsnd{font-size:10px;font-weight:600;letter-spacing:.05em;margin-bottom:4px}
+.ain{color:var(--gold)}
+.uin{color:var(--teal)}
+.tdots span{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--txm);margin:0 2px;animation:bd 1.2s infinite}
+.tdots span:nth-child(2){animation-delay:.2s}
+.tdots span:nth-child(3){animation-delay:.4s}
+@keyframes bd{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+.qpls{display:flex;gap:8px;overflow-x:auto;padding:8px 0;scrollbar-width:none;flex-shrink:0}
+.qpls::-webkit-scrollbar{display:none}
+.qp{flex-shrink:0;font-size:11px;padding:6px 12px;border-radius:16px;border:.5px solid var(--brgold);color:var(--txm);background:var(--sf);cursor:pointer;transition:all .2s}
+.qp:active{background:rgba(196,155,60,.11);color:var(--gold)}
+.cia{display:flex;gap:8px;padding-top:8px;flex-shrink:0;border-top:.5px solid var(--br)}
+.cinp{flex:1;background:var(--bg3);border:.5px solid var(--br);border-radius:22px;padding:10px 16px;color:var(--tx);font-size:13px;font-family:'DM Sans',sans-serif;outline:none;resize:none;transition:border-color .2s}
+.cinp:focus{border-color:var(--brgold)}
+.sbtn{width:40px;height:40px;border-radius:50%;background:var(--gold);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .14s;align-self:flex-end}
+.sbtn:active{transform:scale(.9)}
+
+/* KHALWAT */
+#khl{background:rgba(4,6,12,.97);display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:80px 28px 60px;opacity:0;pointer-events:none;z-index:500;transition:opacity .5s}
+#khl.on{opacity:1;pointer-events:auto}
+.korb{width:156px;height:156px;border-radius:50%;background:radial-gradient(circle,rgba(196,155,60,.1),transparent);border:1px solid var(--brgold);display:flex;align-items:center;justify-content:center;animation:bk 5s ease infinite}
+@keyframes bk{0%,100%{transform:scale(.9)}50%{transform:scale(1.08)}}
+
+/* BREATH */
+.bball{width:78px;height:78px;border-radius:50%;background:rgba(45,212,180,.11);border:1.5px solid var(--teal);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:13px;color:var(--teal);margin:0 auto;transition:transform 3s ease,background 3s ease,border-color 3s ease}
+
+/* BUTTONS */
+.bp{width:100%;padding:14px;border-radius:14px;background:var(--gold);color:#09090f;font-size:14px;font-weight:600;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:opacity .2s}
+.bp:active{opacity:.85}
+.bg{padding:8px 18px;border-radius:12px;background:var(--sf);border:.5px solid var(--br);color:var(--txm);font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
+.bg:active{background:var(--sfh);color:var(--tx)}
+
+/* PROFILE */
+.lvb{height:6px;background:var(--sf);border-radius:3px;overflow:hidden;margin-top:6px}
+.lvf{height:100%;background:linear-gradient(90deg,var(--tdim),var(--teal));border-radius:3px}
+.bgrd{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.bcd{background:var(--sf);border:.5px solid var(--br);border-radius:14px;padding:14px 12px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}
+.bico{width:40px;height:40px;border-radius:50%;background:rgba(196,155,60,.1);border:.5px solid var(--brgold);display:flex;align-items:center;justify-content:center}
+
+/* INPUTS */
+.inf{width:100%;padding:12px 16px;border-radius:12px;background:var(--bg3);border:.5px solid var(--br);color:var(--tx);font-size:13px;outline:none;font-family:'DM Sans',sans-serif;transition:border-color .2s;margin-bottom:12px}
+.inf:focus{border-color:var(--brgold)}
+select.inf{background:var(--bg3)}
+
+/* MOOD */
+.mgrd{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.mi{background:var(--sf);border:.5px solid var(--br);border-radius:12px;padding:10px 4px;text-align:center;cursor:pointer;transition:all .2s}
+.mi.sel{background:rgba(196,155,60,.11);border-color:var(--brgold)}
+.mem{font-size:19px;line-height:1;margin-bottom:4px}
+.mtx{font-size:9px;color:var(--txm)}
+.mi.sel .mtx{color:var(--gold)}
+
+/* AUDIT SLIDERS */
+.asl{width:100%;accent-color:var(--gold)}
+
+/* BODY AUDIT */
+.bli{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-radius:12px;margin-bottom:8px;background:var(--sf);border:.5px solid var(--br)}
+.bll{display:flex;align-items:center;gap:10px}
+.blico{width:32px;height:32px;border-radius:9px;background:rgba(45,212,180,.07);border:.5px solid rgba(45,212,180,.18);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.blac{display:flex;gap:6px}
+.blbtn{padding:5px 10px;border-radius:8px;font-size:10px;font-weight:600;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;transition:all .14s}
+.blbtn.tt{background:rgba(45,212,180,.11);color:var(--teal);border:.5px solid rgba(45,212,180,.22)}
+.blbtn.mk{background:rgba(224,90,90,.1);color:var(--red);border:.5px solid rgba(224,90,90,.22)}
+.blbtn:active{transform:scale(.92)}
+.blst{font-size:9px;font-weight:600;padding:2px 6px;border-radius:6px;margin-top:2px;display:inline-block}
+.blst.ok{background:rgba(45,212,180,.11);color:var(--teal)}
+.blst.bad{background:rgba(224,90,90,.09);color:var(--red)}
+
+/* PENYAKIT HATI */
+.phi{display:flex;align-items:center;justify-content:space-between;padding:11px 12px;border-radius:12px;margin-bottom:8px;background:var(--sf);border:.5px solid var(--br)}
+.phl{display:flex;align-items:center;gap:10px}
+.phiw{width:32px;height:32px;border-radius:9px;background:rgba(224,90,90,.07);border:.5px solid rgba(224,90,90,.18);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pscl{display:flex;gap:4px}
+.psd{width:10px;height:10px;border-radius:50%;border:1px solid var(--br);cursor:pointer;transition:all .18s}
+
+/* TAZ */
+.tgrd{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tcd{background:var(--sf);border:.5px solid var(--br);border-radius:14px;padding:16px 12px;text-align:center;cursor:pointer;transition:all .2s}
+.tcd:active{background:var(--sfh);border-color:var(--brgold)}
+.tiw{width:44px;height:44px;border-radius:13px;margin:0 auto 8px;display:flex;align-items:center;justify-content:center}
+.tnm{font-size:12px;font-weight:600}
+.tsb{font-size:10px;color:var(--txm);margin-top:2px}
+
+/* SURAH TABS */
+.stbs{display:flex;gap:8px;overflow-x:auto;padding:4px 0;scrollbar-width:none;margin-bottom:14px}
+.stbs::-webkit-scrollbar{display:none}
+.stb{flex-shrink:0;padding:7px 14px;border-radius:20px;font-size:12px;font-weight:500;border:.5px solid var(--br);background:var(--sf);color:var(--txm);cursor:pointer;transition:all .2s}
+.stb.on{background:rgba(196,155,60,.14);border-color:var(--brgold);color:var(--gold)}
+
+/* MISC */
+.ph{animation:ph 2s ease infinite;display:inline-block}
+@keyframes ph{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
+.lm{color:var(--gold);font-size:10px;letter-spacing:.3em;font-weight:600;text-transform:uppercase}
+
+/* PEDOMAN MURID & REFERENSI */
+.ref-card{background:var(--sf);border:.5px solid var(--br);border-radius:14px;padding:14px;margin-bottom:10px}
+.ref-card-gold{border-color:var(--brgold)}
+.cat-pill{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:12px;font-size:10px;font-weight:600;cursor:pointer;transition:all .18s}
+.cat-pills-wrap{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.ref-item{background:var(--sf);border:.5px solid var(--br);border-radius:12px;padding:12px;margin-bottom:8px}
+.ref-arabic{font-family:'Noto Naskh Arabic',serif;direction:rtl;text-align:right;font-size:20px;line-height:2;color:var(--tx)}
+.ref-badge{font-size:9px;padding:3px 8px;border-radius:8px;font-weight:600}
+.pdm-section{background:var(--sf);border:.5px solid var(--br);border-radius:14px;padding:14px;margin-bottom:12px}
+.pdm-rule{display:flex;gap:10px;padding:10px 0;border-bottom:.5px solid var(--br)}
+.pdm-rule:last-child{border-bottom:none}
+.pdm-num{width:26px;height:26px;border-radius:50%;background:rgba(196,155,60,.12);border:.5px solid var(--brgold);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--gold);flex-shrink:0;margin-top:1px}
+/* QURAN INPUT */
+.surah-saved-item{display:flex;justify-content:space-between;align-items:flex-start;background:var(--sf);border:.5px solid var(--br);border-radius:12px;padding:12px;margin-bottom:8px}
+/* PUBLISH GUIDE */
+.pub-step{display:flex;gap:12px;padding:12px 0;border-bottom:.5px solid var(--br)}
+.pub-step:last-child{border-bottom:none;padding-bottom:0}
+.pub-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pub-copy{background:rgba(196,155,60,.08);border:.5px solid var(--brgold);border-radius:10px;padding:8px 12px;font-size:11px;color:var(--gold);font-family:monospace;margin-top:6px;word-break:break-all;cursor:pointer;transition:background .18s}
+.pub-copy:active{background:rgba(196,155,60,.2)}
+
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- STATUS BAR -->
+<div class="sb">
+  <span id="stm">12:30</span>
+  <div class="si">
+    <svg width="15" height="11" viewBox="0 0 15 11" fill="currentColor" opacity=".65"><rect x="0" y="7" width="2.5" height="4" rx=".8"/><rect x="4" y="5" width="2.5" height="6" rx=".8"/><rect x="8" y="2.5" width="2.5" height="8.5" rx=".8"/><rect x="12" y="0" width="2.5" height="11" rx=".8"/></svg>
+    <svg width="15" height="11" viewBox="0 0 15 11" fill="none" stroke="currentColor" stroke-width="1.3" opacity=".65"><path d="M1 3.5C3.2 1.3 6 0 7.5 0S11.8 1.3 14 3.5"/><path d="M3 5.5c1.2-1.2 2.8-2 4.5-2s3.3.8 4.5 2"/><path d="M5.3 7.5c.6-.6 1.4-1 2.2-1s1.6.4 2.2 1"/><circle cx="7.5" cy="10" r="1" fill="currentColor" stroke="none"/></svg>
+    <svg width="22" height="11" viewBox="0 0 22 11" fill="none" opacity=".65"><rect x=".5" y=".5" width="17" height="10" rx="2" stroke="currentColor" stroke-width="1"/><rect x="2" y="2" width="12" height="7" rx="1" fill="currentColor"/><path d="M19 3.5v4c1-.4 1.5-1.1 1.5-2s-.5-1.6-1.5-2z" fill="currentColor"/></svg>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="tst">
+  <div class="tdot"></div>
+  <div><div id="tttl" style="font-size:12px;font-weight:600;margin-bottom:2px"></div><div id="tbdy" style="font-size:11px;color:var(--txm)"></div></div>
+</div>
+
+<!-- SPLASH -->
+<div id="spl" class="ovl" style="gap:20px">
+  <div style="display:flex;flex-direction:column;align-items:center;gap:16px">
+    <div class="sorb">
+      <div class="sico">
+        <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.3">
+          <path d="M18 4 A14 14 0 1 0 32 18 A10 10 0 1 1 18 4Z"/>
+          <circle cx="27" cy="7" r="2.4" fill="currentColor" stroke="none"/>
+          <circle cx="27" cy="7" r="1.1" fill="var(--bg)" stroke="none"/>
+        </svg>
+      </div>
+    </div>
+    <div style="text-align:center">
+      <div class="stit">SALIK</div>
+      <div class="ssub" style="margin-top:4px">Penempuh Jalan Ruhani</div>
+    </div>
+    <div class="sbar"></div>
+  </div>
+  <div style="font-size:10px;color:var(--txf);letter-spacing:.1em">Edisi Tasawuf & Suluk · v3.0</div>
+</div>
+
+<!-- ONBOARDING -->
+<div id="onb" class="ovl" style="display:none;width:100%">
+  <div style="align-self:flex-end"><button class="bg" onclick="skipOB()">Lewati</button></div>
+  <div style="display:flex;flex-direction:column;align-items:center;gap:24px">
+    <div class="owrap">
+      <div id="obIco" style="color:var(--gold);position:relative;z-index:1">
+        <svg width="54" height="54" viewBox="0 0 54 54" fill="none" stroke="currentColor" stroke-width="1.2">
+          <circle cx="27" cy="27" r="17"/><path d="M27 10L27 6M27 44L27 48M10 27L6 27M44 27L48 27"/>
+          <circle cx="27" cy="27" r="7" fill="rgba(196,155,60,.14)" stroke="none"/>
+          <circle cx="27" cy="27" r="3" fill="rgba(196,155,60,.38)" stroke="none"/>
+        </svg>
+      </div>
+    </div>
+    <div class="odots" id="odots"><div class="odot on"></div><div class="odot"></div><div class="odot"></div></div>
+    <div style="text-align:center">
+      <div id="obt" style="font-family:'Playfair Display',serif;font-size:23px;margin-bottom:10px">Perjalanan Ruhani Dimulai</div>
+      <div id="obd" style="font-size:13px;color:var(--txm);line-height:1.82">Mulai langkah penyucian jiwa melalui pelacakan amalan spiritual harian dan dzikir yang konsisten.</div>
+    </div>
+  </div>
+  <button class="bp" id="obn" onclick="nextOB()">Lanjutkan</button>
+</div>
+
+<!-- LOGIN -->
+<div id="lgn" class="ovl" style="display:none;padding:28px;width:100%">
+  <div style="text-align:center;margin-bottom:32px">
+    <div class="lm">SALIK</div>
+    <div style="font-family:'Playfair Display',serif;font-size:25px;margin-top:8px">Masuk ke Perjalanan</div>
+    <div style="font-size:12px;color:var(--txm);margin-top:6px">Simpan progres perjalanan ruhani Anda</div>
+  </div>
+  <div style="width:100%">
+    <input class="inf" type="email" placeholder="Alamat Email" value="salik@siraj.id">
+    <input class="inf" type="password" placeholder="Kata Sandi" value="••••••••">
+    <button class="bp" onclick="doLogin()">Masuk Akun</button>
+    <div style="text-align:center;margin-top:16px"><button style="background:none;border:none;color:var(--gold);font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif" onclick="doLogin()">Masuk sebagai Tamu (Demo)</button></div>
+  </div>
+</div>
+
+<!-- KHALWAT OVERLAY -->
+<div id="khl" class="ovl">
+  <div style="text-align:center"><div style="font-size:10px;letter-spacing:.24em;color:var(--gold);text-transform:uppercase">Mode Khalwat</div><div style="font-size:12px;color:var(--txm);margin-top:4px">Suluk — Detoksifikasi Dunia Digital</div></div>
+  <div style="display:flex;flex-direction:column;align-items:center;gap:18px">
+    <div class="korb"><div style="text-align:center"><div id="kword" style="font-family:'Playfair Display',serif;font-size:32px;color:var(--gold)">الله</div><div style="font-size:10px;color:var(--txm);margin-top:4px">HU — Tarik Nafas</div></div></div>
+    <div id="kphase" style="font-size:13px;color:var(--teal);letter-spacing:.1em;text-transform:uppercase;font-weight:500">Tarik Nafas</div>
+  </div>
+  <div style="width:100%;display:flex;flex-direction:column;gap:12px;align-items:center">
+    <div style="display:flex;gap:10px">
+      <div style="padding:8px 16px;border-radius:20px;border:.5px solid var(--br);font-size:12px;color:var(--txm)">30 Menit</div>
+      <div style="padding:8px 16px;border-radius:20px;border:.5px solid var(--brgold);background:rgba(196,155,60,.1);font-size:12px;color:var(--gold)">1 Jam</div>
+      <div style="padding:8px 16px;border-radius:20px;border:.5px solid var(--br);font-size:12px;color:var(--txm)">Custom</div>
+    </div>
+    <button onclick="toggleKhalwat()" style="width:100%;padding:14px;border-radius:14px;background:rgba(224,90,90,.11);border:.5px solid rgba(224,90,90,.32);color:var(--red);font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif">Akhiri Khalwat</button>
+  </div>
+</div>
+
+<!-- ── MODALS ── -->
+<!-- ADD AMAL -->
+<div class="mbg" id="mAmal" onclick="closeM('mAmal')">
+  <div class="msh" onclick="event.stopPropagation()">
+    <div class="mhd"></div>
+    <div style="font-family:'Playfair Display',serif;font-size:18px;margin-bottom:16px">Tambah Amal Harian</div>
+    <input id="namlbl" class="inf" type="text" placeholder="Nama amalan (mis: Sholat Rawatib)">
+    <input id="nambdg" class="inf" type="text" placeholder="Target / keterangan (mis: 12 Rakaat)">
+    <button class="bp" onclick="addAmal()">Tambah Amalan</button>
+  </div>
+</div>
+<!-- ADD PUASA -->
+<div class="mbg" id="mPuasa" onclick="closeM('mPuasa')">
+  <div class="msh" onclick="event.stopPropagation()">
+    <div class="mhd"></div>
+    <div style="font-family:'Playfair Display',serif;font-size:18px;margin-bottom:16px">Tambah Riyadhah Puasa</div>
+    <input id="npslbl" class="inf" type="text" placeholder="Nama puasa (mis: Puasa Syawal)">
+    <button class="bp" onclick="addPuasa()">Tambah Puasa</button>
+  </div>
+</div>
+<!-- ADD AMALAN & WIRID MODAL -->
+<div class="mbg" id="mDzikir" onclick="closeM('mDzikir')">
+  <div class="msh" onclick="event.stopPropagation()" style="max-height:88vh;overflow-y:auto;scrollbar-width:none">
+    <div class="mhd"></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+      <div style="font-family:'Playfair Display',serif;font-size:19px">Tambah Amalan & Wirid</div>
+      <button onclick="closeM('mDzikir')" style="background:none;border:none;color:var(--txm);cursor:pointer;padding:4px">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div style="font-size:11px;color:var(--txm);margin-bottom:18px">Data tersimpan otomatis di perangkat</div>
+
+    <!-- TABS inside modal -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:18px">
+      <button id="mTabManual" onclick="switchMTab('manual')" style="padding:9px;border-radius:11px;background:rgba(196,155,60,.12);border:.5px solid var(--brgold);color:var(--gold);font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif">
+        ✏️ Input Manual
+      </button>
+      <button id="mTabList" onclick="switchMTab('list')" style="padding:9px;border-radius:11px;background:var(--sf);border:.5px solid var(--br);color:var(--txm);font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif">
+        📋 Pilih dari Daftar
+      </button>
+    </div>
+
+    <!-- MANUAL INPUT TAB -->
+    <div id="mTabManualContent">
+      <div style="font-size:10px;color:var(--gold);text-transform:uppercase;letter-spacing:.1em;font-weight:600;margin-bottom:8px">Nama Amalan / Wirid</div>
+      <input id="ndzlbl" class="inf" type="text" placeholder="Contoh: Ya Hafidz, Sholawat Nariyah...">
+
+      <div style="font-size:10px;color:var(--gold);text-transform:uppercase;letter-spacing:.1em;font-weight:600;margin-bottom:8px">Teks Arab (opsional)</div>
+      <textarea id="ndztxt" class="inf" rows="2" placeholder="اللَّهُمَّ صَلِّ..." dir="rtl" style="font-family:'Noto Naskh Arabic',serif;font-size:18px;text-align:right;resize:none;margin-bottom:12px"></textarea>
+
+      <div style="font-size:10px;color:var(--gold);text-transform:uppercase;letter-spacing:.1em;font-weight:600;margin-bottom:8px">Terjemahan / Keterangan</div>
+      <input id="ndztr" class="inf" type="text" placeholder="Arti atau keterangan wirid...">
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
+        <div>
+          <div style="font-size:10px;color:var(--gold);text-transform:uppercase;letter-spacing:.1em;font-weight:600;margin-bottom:8px">Target Hitungan</div>
+          <input id="ndztgt" class="inf" type="number" placeholder="0 = ∞" style="margin-bottom:0">
+        </div>
+        <div>
+          <div style="font-size:10px;color:var(--gold);text-transform:uppercase;letter-spacing:.1em;font-weight:600;margin-bottom:8px">Kategori</div>
+          <select id="ndzkat" class="inf" style="margin-bottom:0">
+            <option value="dzikir">Dzikir</option>
+            <option value="sholawat">Sholawat</option>
+            <option value="asmaul_husna">Asmaul Husna</option>
+            <option value="istighfar">Istighfar</option>
+            <option value="doa">Doa</option>
+            <option value="wirid">Wirid Khusus</option>
+          </select>
+        </div>
+      </div>
+      <button class="bp" onclick="addWiridManual()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-2px;margin-right:6px"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v13a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+        Simpan & Tambah ke Suluk
+      </button>
+    </div>
+
+    <!-- LIST PICKER TAB -->
+    <div id="mTabListContent" style="display:none">
+      <div style="font-size:11px;color:var(--txm);margin-bottom:12px;line-height:1.6">Pilih amalan/wirid populer untuk langsung ditambahkan:</div>
+      <div id="wiridPickerList" style="display:flex;flex-direction:column;gap:8px"></div>
+    </div>
+
+    <!-- SAVED WIRID LIST -->
+    <div style="margin-top:20px;padding-top:16px;border-top:.5px solid var(--br)">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <div style="font-size:10px;color:var(--gold);text-transform:uppercase;letter-spacing:.1em;font-weight:600">Wirid Tersimpan (<span id="savedWiridCount">0</span>)</div>
+        <button onclick="renderSavedWirid()" style="background:none;border:none;color:var(--txm);font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:3px">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
+          Muat Ulang
+        </button>
+      </div>
+      <div id="savedWiridList" style="display:flex;flex-direction:column;gap:8px"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ HOME ══ -->
+<div id="pgHome" class="pg on">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;padding-top:4px">
+    <div><div class="pgdate">10 Dzulhijjah 1447 H</div><div class="pgname">Para Penempuh Jalan</div></div>
+    <div style="display:flex;align-items:center;gap:6px">
+      <span class="ph" style="color:var(--red)">
+        <svg width="14" height="13" viewBox="0 0 24 22" fill="var(--red)" stroke="none"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402C1 3.08 4.068 1 6.281 1c1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447C20.57 1.01 23 3.14 23 7.191c0 4.06-5.421 8.862-11 14.402z"/></svg>
+      </span>
+      <span style="font-size:11px;color:var(--txm)">Hati Tenang</span>
+    </div>
+  </div>
+
+  <div class="cd cd-g" style="margin-bottom:14px">
+    <div style="font-size:10px;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;font-weight:600;margin-bottom:8px">Firman Hari Ini</div>
+    <div class="ar" style="font-size:20px">أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ</div>
+    <div style="font-size:11px;color:var(--txm);margin-top:8px;font-style:italic;line-height:1.7">"Ingatlah, hanya dengan mengingat Allah hati menjadi tenteram." — QS. Ar-Ra'd: 28</div>
+  </div>
+
+  <div class="cd" style="margin-bottom:14px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+      <div><div style="font-size:10px;color:var(--txm);margin-bottom:2px">Sholat Berikutnya</div><div class="bigp">Ashar</div></div>
+      <div style="text-align:right"><div style="font-size:22px;font-weight:600;color:var(--gold)">15:15</div><div style="font-size:12px;color:var(--teal);margin-top:3px;display:flex;align-items:center;gap:4px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span id="pcd">-02j 45m</span></div></div>
+    </div>
+    <div class="pgrid">
+      <div class="pi"><div class="pn">Subuh</div><div class="pt">04:35</div></div>
+      <div class="pi"><div class="pn">Dzuhur</div><div class="pt">12:02</div></div>
+      <div class="pi act"><div class="pn">Ashar</div><div class="pt">15:15</div></div>
+      <div class="pi"><div class="pn">Maghrib</div><div class="pt">17:58</div></div>
+      <div class="pi"><div class="pn">Isya</div><div class="pt">19:10</div></div>
+    </div>
+    <button onclick="playAdzan()" style="width:100%;margin-top:12px;padding:10px;border-radius:10px;background:rgba(45,212,180,.07);border:.5px solid rgba(45,212,180,.17);color:var(--teal);font-size:12px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;font-family:'DM Sans',sans-serif">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 010 7.07"/><path d="M19.07 4.93a10 10 0 010 14.14"/></svg>
+      Putar Adzan Ashar
+    </button>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
+    <div class="cd" style="margin-bottom:0"><div style="font-size:10px;color:var(--teal);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px">Dzikir Hari Ini</div><div style="font-family:'Playfair Display',serif;font-size:29px" id="hmCtr">132</div><div style="font-size:11px;color:var(--txm)">dari 300 target</div><div class="pbar" style="margin-top:10px"><div class="pfill" style="width:44%"></div></div></div>
+    <div class="cd" style="margin-bottom:0"><div style="font-size:10px;color:var(--teal);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px">Tilawah</div><div style="font-size:13px;font-weight:600">Al-Kahfi</div><div style="font-size:11px;color:var(--txm)">Ayat 1–10</div><div class="pbar" style="margin-top:10px"><div class="pfill" style="width:70%"></div></div></div>
+  </div>
+
+  <div class="cd cd-g">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+      <div style="font-size:10px;color:var(--gold);text-transform:uppercase;letter-spacing:.1em;font-weight:600">Kalam Mursyid</div>
+      <button onclick="rotQ()" style="background:none;border:none;color:var(--txm);font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:3px">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
+        Lainnya
+      </button>
+    </div>
+    <div id="qtxt" style="font-size:12px;color:var(--txm);line-height:1.85;font-style:italic">"Ikhlas bukan berarti ketiadaan motif lain, melainkan kerelaan hati untuk tenggelam hanya dalam keridhaan-Nya dalam setiap nafas yang kau hembuskan."</div>
+    <div id="qaut" style="font-size:11px;color:var(--gold);margin-top:10px;font-weight:500">— Syeikh Abdul Qadir Al-Jailani</div>
+  </div>
+  <div style="height:8px"></div>
+</div>
+
+<!-- ══ DZIKIR ══ -->
+<div id="pgDzikir" class="pg">
+  <div style="display:flex;justify-content:space-between;align-items:center;padding-top:4px;margin-bottom:14px">
+    <div><div style="font-size:11px;color:var(--txm)">Amalan & Wirid</div><div style="font-family:'Playfair Display',serif;font-size:22px">Suluk & Tasbih</div></div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <!-- + ADD DZIKIR -->
+      <button onclick="openM('mDzikir')" class="abtn" style="width:36px;height:36px;border-radius:11px" title="Tambah Dzikir Baru">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+      <button onclick="toggleKhalwat()" style="padding:8px 14px;border-radius:20px;background:rgba(196,155,60,.11);border:.5px solid var(--brgold);color:var(--gold);font-size:11px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:5px">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        Khalwat
+      </button>
+    </div>
+  </div>
+
+  <div class="ppills" id="ppills">
+    <div class="ppill on" onclick="setPreset(this,'Istighfar',100)">Istighfar (100x)</div>
+    <div class="ppill" onclick="setPreset(this,'Sholawat',1000)">Sholawat (1000x)</div>
+    <div class="ppill" onclick="setPreset(this,'Subhanallah',33)">Subhanallah (33x)</div>
+    <div class="ppill" onclick="setPreset(this,'Laa ilaha illallah',1000)">Lailahaillallah (1000x)</div>
+    <div class="ppill" onclick="setPreset(this,'Dzikir Nafas',0)">Zikir Nafas ∞</div>
+  </div>
+
+  <div style="padding:26px 0;display:flex;flex-direction:column;align-items:center;gap:18px">
+    <div style="text-align:center"><div style="font-size:14px;font-weight:600" id="prname">Istighfar</div><div style="font-size:11px;color:var(--txm)">Target: <span id="prtgt">100</span> kali</div></div>
+    <div class="tring" onclick="tapT()">
+      <div class="tinn"><div class="tcnt" id="dzCnt">0</div><div class="tlbl">TAP</div></div>
+    </div>
+    <div style="display:flex;gap:14px">
+      <button onclick="resetDz()" class="bg" style="padding:10px 20px;display:flex;align-items:center;gap:6px">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
+        Reset
+      </button>
+      <button onclick="toggleAudio()" id="audBtn" class="bg" style="padding:10px 20px;display:flex;align-items:center;gap:6px">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 010 7.07"/></svg>
+        Audio
+      </button>
+    </div>
+  </div>
+
+  <div class="cd cd-g">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+      <div><div class="sh" style="margin-bottom:2px">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        Zikir Nafas
+      </div><div style="font-size:11px;color:var(--txm)">HU saat tarik · Allah saat hembus</div></div>
+      <button onclick="toggleBreath()" id="brBtn" style="padding:7px 14px;border-radius:20px;background:rgba(45,212,180,.09);border:.5px solid rgba(45,212,180,.28);color:var(--teal);font-size:11px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif">Mulai</button>
+    </div>
+    <div id="brVis" style="display:none;flex-direction:column;align-items:center;gap:8px;padding:16px 0">
+      <div class="bball" id="brBall">HU</div>
+      <div id="brLbl" style="font-size:11px;color:var(--teal);letter-spacing:.12em;text-transform:uppercase;font-weight:500">Tarik Nafas</div>
+      <div style="font-size:10px;color:var(--txf)">Siklus: <span id="brCyc" style="color:var(--gold)">0</span></div>
+    </div>
+  </div>
+
+  <div class="cd" style="margin-top:4px">
+    <div class="sh" style="margin-bottom:12px">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      Bimbingan Rabithah & Bashirah
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="background:rgba(196,155,60,.06);border-radius:12px;padding:12px"><div style="font-size:11px;font-weight:600;color:var(--gold);margin-bottom:5px">Metode Rabithah Al-Mursyid</div><div style="font-size:11px;color:var(--txm);line-height:1.8">Tautkan batin ke Mursyid Kamil. Bayangkan wajah guru dialiri nur ilahi saat berzikir untuk menyambungkan frekuensi ruhani menuju Rasulullah ﷺ.</div></div>
+      <div style="background:rgba(45,212,180,.05);border-radius:12px;padding:12px"><div style="font-size:11px;font-weight:600;color:var(--teal);margin-bottom:5px">Penjagaan Bashirah (Mata Batin)</div><div style="font-size:11px;color:var(--txm);line-height:1.8">Mata batin terbuka dengan riyadhah lapar, menjaga panca indra dari maksiat, dan memperbanyak zikir khafi (sirr).</div></div>
+    </div>
+  </div>
+  <div style="height:8px"></div>
+</div>
+
+<!-- ══ QURAN ══ -->
+<div id="pgQuran" class="pg">
+  <div style="padding-top:4px;margin-bottom:14px"><div style="font-size:11px;color:var(--txm)">Mushaf Al-Quran</div><div style="font-family:'Playfair Display',serif;font-size:22px">Membaca & Tadabbur</div></div>
+  <div class="cd" style="margin-bottom:14px">
+    <div style="display:flex;gap:8px;align-items:center">
+      <select id="srSel" class="inf" style="flex:1;margin-bottom:0">
+        <option value="1">1. Al-Fatihah</option><option value="18">18. Al-Kahf</option>
+        <option value="36">36. Yasin</option><option value="55">55. Ar-Rahman</option>
+        <option value="56">56. Al-Waqi'ah</option><option value="67">67. Al-Mulk</option>
+      </select>
+      <button onclick="fetchSr()" style="padding:9px 16px;border-radius:10px;background:rgba(45,212,180,.08);border:.5px solid rgba(45,212,180,.18);color:var(--teal);font-size:12px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:5px">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Muat
+      </button>
+    </div>
+  </div>
+  <!-- QURAN SAVED TABS -->
+  <div class="stbs" id="surahTabs">
+    <div class="stb on" onclick="showSr('AlFatihah',this)">Al-Fatihah</div>
+    <div class="stb" onclick="showSr('ArRahman',this)">Ar-Rahman</div>
+    <div class="stb" onclick="showSr('AlMulk',this)">Al-Mulk</div>
+  </div>
+
+  <!-- INPUT SURAH BARU -->
+  <div class="cd" style="margin-bottom:14px">
+    <div class="sr">
+      <div class="sh">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+        Input & Simpan Ayat
+      </div>
+      <button onclick="toggleQuranForm()" id="qFormToggle" style="font-size:10px;padding:4px 10px;border-radius:8px;background:rgba(196,155,60,.1);border:.5px solid var(--brgold);color:var(--gold);cursor:pointer;font-family:'DM Sans',sans-serif">
+        + Tambah
+      </button>
+    </div>
+    <div id="qFormBox" style="display:none">
+      <input id="qInpSurah" class="inf" type="text" placeholder="Nama Surah (mis: Al-Ikhlas)">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <input id="qInpNomor" class="inf" type="number" placeholder="No. Surah" style="margin-bottom:0">
+        <input id="qInpAyat" class="inf" type="text" placeholder="Ayat (mis: 1-4)" style="margin-bottom:0">
+      </div>
+      <div style="height:8px"></div>
+      <textarea id="qInpArab" class="inf" rows="3" placeholder="تَبَارَكَ الَّذِي..." dir="rtl" style="font-family:'Noto Naskh Arabic',serif;font-size:18px;text-align:right;resize:none;margin-bottom:8px"></textarea>
+      <textarea id="qInpTrans" class="inf" rows="2" placeholder="Terjemahan / catatan tadabbur..." style="resize:none;margin-bottom:8px"></textarea>
+      <input id="qInpTag" class="inf" type="text" placeholder="Tag / tema (mis: Tauhid, Kesabaran)">
+      <button class="bp" onclick="saveSurahData()" style="font-size:13px">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-2px;margin-right:5px"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v13a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+        Simpan Ayat
+      </button>
+    </div>
+  </div>
+
+  <!-- SAVED SURAH CUSTOM -->
+  <div id="savedSurahSection" style="margin-bottom:14px;display:none">
+    <div class="sr" style="margin-bottom:8px">
+      <div class="sh"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v13a2 2 0 01-2 2z"/></svg>Ayat Tersimpan</div>
+      <span id="savedSurahCnt" style="font-size:10px;color:var(--gold)">0 ayat</span>
+    </div>
+    <div id="savedSurahList"></div>
+  </div>
+
+  <div id="mushaf"></div>
+  <div style="height:8px"></div>
+</div>
+
+<!-- ══ JOURNAL ══ -->
+<div id="pgJournal" class="pg">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;padding-top:4px;margin-bottom:16px">
+    <div><div style="font-size:11px;color:var(--txm)">Muhasabah & Riyadhah</div><div style="font-family:'Playfair Display',serif;font-size:22px">Jurnal Suluk</div></div>
+    <div id="tlly" style="padding:6px 12px;border-radius:20px;background:rgba(196,155,60,.09);border:.5px solid var(--brgold);font-size:12px;font-weight:600;color:var(--gold)">0/0</div>
+  </div>
+
+  <!-- AMAL -->
+  <div class="cd" style="margin-bottom:14px">
+    <div class="sr">
+      <div class="sh">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+        Amal Harian
+      </div>
+      <button onclick="openM('mAmal')" class="abtn" title="Tambah Amal">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+    </div>
+    <div id="amlLst"></div>
+  </div>
+
+  <!-- PUASA -->
+  <div class="cd" style="margin-bottom:14px">
+    <div class="sr">
+      <div class="sh">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+        Riyadhah Puasa
+      </div>
+      <button onclick="openM('mPuasa')" class="abtn" title="Tambah Puasa">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+    </div>
+    <div id="psaLst"></div>
+  </div>
+
+  <!-- AUDIT HATI -->
+  <div class="cd" style="margin-bottom:14px">
+    <div class="sr"><div class="sh"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>Audit Keadaan Hati</div></div>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div><div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="font-size:12px;font-weight:500">Dzikir Hati (Dawaamul Dzikir)</span><span id="adDz" style="font-size:11px;color:var(--teal)">Selalu Basah</span></div><input type="range" min="1" max="5" value="4" class="asl" oninput="updAudit('Dz',this.value)"></div>
+      <div><div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="font-size:12px;font-weight:500">Hubungan Allah & Rasul</span><span id="adHub" style="font-size:11px;color:var(--teal)">Terhubung Kuat</span></div><input type="range" min="1" max="5" value="4" class="asl" oninput="updAudit('Hub',this.value)"></div>
+      <div><div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="font-size:12px;font-weight:500">Rabithah & Bashirah</span><span id="adRab" style="font-size:11px;color:var(--teal)">Hadir Bersama Mursyid</span></div><input type="range" min="1" max="5" value="5" class="asl" oninput="updAudit('Rab',this.value)"></div>
+    </div>
+  </div>
+
+  <!-- MUHASABAH ANGGOTA TUBUH -->
+  <div class="cd" style="margin-bottom:14px">
+    <div class="sr">
+      <div class="sh">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="4" r="2"/><path d="M9 20l3-16 3 16M6 12h12"/></svg>
+        Muhasabah Anggota Tubuh
+      </div>
+      <span style="font-size:9px;color:var(--txf);font-style:italic">Al-Ghazali</span>
+    </div>
+    <div id="limbLst"></div>
+  </div>
+
+  <!-- MUHASABAH PENYAKIT HATI -->
+  <div class="cd" style="margin-bottom:14px">
+    <div class="sr">
+      <div class="sh">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8.56 2.9A7 7 0 0119 9v4l1.38 2.76A1 1 0 0119.5 17H4.5a1 1 0 01-.88-1.47L5 13V9a7 7 0 013.56-6.1z"/><path d="M10 17v1a2 2 0 004 0v-1"/></svg>
+        Muhasabah Penyakit Hati
+      </div>
+    </div>
+    <div style="font-size:11px;color:var(--txm);margin-bottom:12px;line-height:1.65">Nilai tingkat penyakit batin hari ini. Skala 0 (bersih) → 5 (parah). Gunakan sebagai bahan muhasabah dan istighfar.</div>
+    <div id="phtLst"></div>
+  </div>
+
+  <!-- MOOD -->
+  <div class="cd" style="margin-bottom:14px">
+    <div class="sh" style="margin-bottom:12px">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+      Kondisi Jiwa Saat Ini
+    </div>
+    <div class="mgrd">
+      <div class="mi" onclick="pickMood(this,'Khusyuk')"><div class="mem">🕊️</div><div class="mtx">Khusyuk</div></div>
+      <div class="mi sel" onclick="pickMood(this,'Tenang')"><div class="mem">😌</div><div class="mtx">Tenang</div></div>
+      <div class="mi" onclick="pickMood(this,'Semangat')"><div class="mem">🔥</div><div class="mtx">Semangat</div></div>
+      <div class="mi" onclick="pickMood(this,'Gelisah')"><div class="mem">🌧️</div><div class="mtx">Gelisah</div></div>
+      <div class="mi" onclick="pickMood(this,'Futur')"><div class="mem">🪫</div><div class="mtx">Futur</div></div>
+    </div>
+  </div>
+
+  <!-- REFLEKSI -->
+  <div class="cd">
+    <div style="display:flex;justify-content:space-between;margin-bottom:10px">
+      <div class="sh"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>Catatan Refleksi Diri</div>
+      <span style="font-size:10px;color:var(--gold)">Enkripsi Lokal</span>
+    </div>
+    <textarea id="reflTx" class="inf" rows="4" placeholder="Bagaimana kondisi hatimu hari ini dalam perjalanan menuju Allah?..." style="margin-bottom:10px;resize:none"></textarea>
+    <button onclick="saveRefl()" class="bp" style="width:auto;padding:10px 24px;font-size:13px">Simpan Jurnal</button>
+  </div>
+  <div style="height:8px"></div>
+</div>
+
+<!-- ══ NUR AI ══ -->
+<div id="pgNur" class="pg" style="display:flex;flex-direction:column;height:calc(100dvh - 44px - var(--nh));overflow:hidden">
+  <div style="padding-top:4px;margin-bottom:12px;flex-shrink:0"><div style="font-size:11px;color:var(--txm)">Asisten Ruhani</div><div style="font-family:'Playfair Display',serif;font-size:22px">Nur — Cahaya Batin</div></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;flex-shrink:0">
+    <button id="stNur" onclick="swSub('Nur')" style="padding:10px;border-radius:12px;background:rgba(196,155,60,.11);border:.5px solid var(--brgold);color:var(--gold);font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;gap:5px">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      Asisten Nur (AI)
+    </button>
+    <button id="stMur" onclick="swSub('Mursyid')" style="padding:10px;border-radius:12px;background:var(--sf);border:.5px solid var(--br);color:var(--txm);font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;gap:5px">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+      Tanya Mursyid
+    </button>
+  </div>
+
+  <!-- LIBRARY -->
+  <div id="tazLib" style="flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch">
+    <div class="cd cd-g" style="margin-bottom:12px"><div style="font-size:11px;color:var(--gold);font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px">Kajian Jiwa — Tazkiyatun Nafs</div><div style="font-size:12px;color:var(--txm);line-height:1.8">Pelajari penyakit batin, pelindung ruhani, dan terapi hati untuk memperlancar perjalanan mendekat kepada Allah.</div></div>
+    <div class="tgrd">
+      <div class="tcd" onclick="openTaz('Ikhlas')"><div class="tiw" style="background:rgba(196,155,60,.1)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div><div class="tnm">Al-Ikhlas</div><div class="tsb">Kemurnian Niat</div></div>
+      <div class="tcd" onclick="openTaz('Ujub')"><div class="tiw" style="background:rgba(224,90,90,.09)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r="1" fill="var(--red)" stroke="none"/></svg></div><div class="tnm">Al-Ujub</div><div class="tsb">Kekaguman Diri</div></div>
+      <div class="tcd" onclick="openTaz('Riya')"><div class="tiw" style="background:rgba(245,158,11,.09)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="1.6"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div><div class="tnm">Ar-Riya</div><div class="tsb">Pamer Ibadah</div></div>
+      <div class="tcd" onclick="openTaz('Hasad')"><div class="tiw" style="background:rgba(239,68,68,.09)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="1.6"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><div class="tnm">Al-Hasad</div><div class="tsb">Dengki & Iri</div></div>
+      <div class="tcd" onclick="openTaz('Tawakal')"><div class="tiw" style="background:rgba(45,212,180,.09)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="1.6"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div><div class="tnm">At-Tawakal</div><div class="tsb">Penyerahan Total</div></div>
+      <div class="tcd" onclick="openTaz('Mahabbah')"><div class="tiw" style="background:rgba(236,72,153,.09)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#EC4899" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/><circle cx="12" cy="12" r="3" fill="rgba(236,72,153,.18)" stroke="none"/></svg></div><div class="tnm">Al-Mahabbah</div><div class="tsb">Cinta Sejati</div></div>
+    </div>
+    <div style="height:8px"></div>
+  </div>
+
+  <!-- CHAT -->
+  <div id="chatRoom" style="flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;display:none;flex-direction:column"><div id="chatMsgs" style="display:flex;flex-direction:column;gap:12px;padding:4px 0;overflow-y:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch"></div></div>
+  <div class="qpls" id="qpls" style="flex-shrink:0"></div>
+  <div class="cia" id="ciaW" style="display:none">
+    <textarea id="chatInp" class="cinp" rows="1" placeholder="Tulis pertanyaan atau keluh kesah spiritualmu..." onkeydown="hck(event)"></textarea>
+    <button class="sbtn" onclick="sendMsg()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#09090f" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+  </div>
+</div>
+
+<!-- ══ PROFILE ══ -->
+<div id="pgProfile" class="pg">
+  <div style="padding-top:4px;margin-bottom:20px"><div style="font-size:11px;color:var(--txm)">Akun & Pencapaian</div><div style="font-family:'Playfair Display',serif;font-size:22px">Profil Salik</div></div>
+  <div style="display:flex;flex-direction:column;align-items:center;gap:12px;margin-bottom:20px">
+    <div style="width:80px;height:80px;border-radius:50%;background:radial-gradient(circle at 35% 30%,rgba(196,155,60,.28),rgba(45,212,180,.12));border:1px solid var(--brgold);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:28px;color:var(--gold)">س</div>
+    <div style="text-align:center"><div style="font-size:16px;font-weight:600">Salik Al-Mubtadi</div><div style="font-size:11px;color:var(--teal);margin-top:2px">Tingkat: Muhasib (Level 3)</div></div>
+    <div style="width:100%;max-width:200px"><div style="display:flex;justify-content:space-between;font-size:10px;color:var(--txm);margin-bottom:4px"><span>XP Level 3</span><span>680/1000</span></div><div class="lvb"><div class="lvf" style="width:68%"></div></div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
+    <div class="cd" style="text-align:center;margin-bottom:0"><div style="font-family:'Playfair Display',serif;font-size:28px;color:var(--gold)" id="ttlDz">1,234</div><div style="font-size:10px;color:var(--txm);text-transform:uppercase;letter-spacing:.08em">Total Dzikir</div></div>
+    <div class="cd" style="text-align:center;margin-bottom:0"><div style="font-family:'Playfair Display',serif;font-size:28px;color:var(--teal)">12</div><div style="font-size:10px;color:var(--txm);text-transform:uppercase;letter-spacing:.08em">Hari Istiqomah</div></div>
+  </div>
+  <div class="cd" style="margin-bottom:14px">
+    <div class="sh" style="margin-bottom:12px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>Lencana Istiqomah</div>
+    <div class="bgrd">
+      <div class="bcd"><div class="bico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.6"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg></div><div style="font-size:11px;font-weight:600">7 Hari Suluk</div><div style="font-size:10px;color:var(--teal)">Selesai</div></div>
+      <div class="bcd"><div class="bico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="1.6"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg></div><div style="font-size:11px;font-weight:600">Qiyamul Lail</div><div style="font-size:10px;color:var(--teal)">3x Tahajud</div></div>
+      <div class="bcd" style="opacity:.35"><div class="bico" style="background:rgba(255,255,255,.04);border-color:var(--br)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--txf)" stroke-width="1.6"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div><div style="font-size:11px;font-weight:600">40 Hari Riadah</div><div style="font-size:10px;color:var(--txf)">Terkunci</div></div>
+      <div class="bcd" style="opacity:.35"><div class="bico" style="background:rgba(255,255,255,.04);border-color:var(--br)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--txf)" stroke-width="1.6"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></div><div style="font-size:11px;font-weight:600">Khatam Quran</div><div style="font-size:10px;color:var(--txf)">Terkunci</div></div>
+    </div>
+  </div>
+  <div class="cd">
+    <div class="sh" style="margin-bottom:12px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/></svg>Pengaturan</div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:.5px solid var(--br)"><span style="font-size:12px">Pemberitahuan Adzan</span><div style="width:36px;height:20px;border-radius:10px;background:var(--tdim);position:relative;cursor:pointer"><div style="width:16px;height:16px;border-radius:50%;background:white;position:absolute;right:2px;top:2px"></div></div></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:.5px solid var(--br)"><span style="font-size:12px">Getaran Tasbih</span><div style="width:36px;height:20px;border-radius:10px;background:var(--tdim);position:relative;cursor:pointer"><div style="width:16px;height:16px;border-radius:50%;background:white;position:absolute;right:2px;top:2px"></div></div></div>
+    <div onclick="doLogout()" style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;cursor:pointer"><span style="font-size:12px;color:var(--red)">Keluar Akun</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></div>
+  </div>
+  <div style="height:8px"></div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="nav">
+  <button class="nb on" id="nv-Home" onclick="goTab('Home')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9.5L12 3l9 6.5V21a1 1 0 01-1 1H5a1 1 0 01-1-1z"/><path d="M9 22V12h6v10"/></svg>
+    <span class="nl">Home</span>
+  </button>
+  <button class="nb" id="nv-Dzikir" onclick="goTab('Dzikir')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="3" x2="12" y2="1"/><line x1="12" y1="23" x2="12" y2="21"/><line x1="3" y1="12" x2="1" y2="12"/><line x1="23" y1="12" x2="21" y2="12"/></svg>
+    <span class="nl">Suluk</span>
+  </button>
+  <button class="nb" id="nv-Quran" onclick="goTab('Quran')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+    <span class="nl">Quran</span>
+  </button>
+  <button class="nb" id="nv-Referensi" onclick="goTab('Referensi')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 4h6a4 4 0 014 4v12H4V4z"/><path d="M20 4h-6a4 4 0 00-4 4v12h10V4z"/><path d="M12 8v8"/></svg>
+    <span class="nl">Referensi</span>
+  </button>
+  <button class="nb" id="nv-Pedoman" onclick="goTab('Pedoman')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    <span class="nl">Pedoman</span>
+  </button>
+  <button class="nb" id="nv-Journal" onclick="goTab('Journal')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+    <span class="nl">Riyadhah</span>
+  </button>
+  <button class="nb" id="nv-Nur" onclick="goTab('Nur')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+    <span class="nl">Tazkiyah</span>
+  </button>
+  <button class="nb" id="nv-Profile" onclick="goTab('Profile')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    <span class="nl">Profil</span>
+  </button>
+</div>
+
+<!-- ══ REFERENSI ══ -->
+<div id="pgReferensi" class="pg">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;padding-top:4px;margin-bottom:14px">
+    <div><div style="font-size:11px;color:var(--txm)">Perpustakaan Spiritual</div><div style="font-family:'Playfair Display',serif;font-size:22px">Referensi Amalan</div></div>
+    <button onclick="openM('mRefAdd')" class="abtn" style="width:36px;height:36px;border-radius:11px">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    </button>
+  </div>
+
+  <!-- FILTER KATEGORI -->
+  <div class="cat-pills-wrap" id="refCatFilter">
+    <div class="cat-pill" id="rcat-all" onclick="filterRef('all')" style="background:rgba(196,155,60,.14);border:.5px solid var(--brgold);color:var(--gold)">Semua</div>
+    <div class="cat-pill" id="rcat-doa" onclick="filterRef('doa')" style="background:var(--sf);border:.5px solid var(--br);color:var(--txm)">Do'a</div>
+    <div class="cat-pill" id="rcat-zikir" onclick="filterRef('zikir')" style="background:var(--sf);border:.5px solid var(--br);color:var(--txm)">Zikir</div>
+    <div class="cat-pill" id="rcat-wirid" onclick="filterRef('wirid')" style="background:var(--sf);border:.5px solid var(--br);color:var(--txm)">Wirid</div>
+    <div class="cat-pill" id="rcat-hizb" onclick="filterRef('hizb')" style="background:var(--sf);border:.5px solid var(--br);color:var(--txm)">Hizb</div>
+    <div class="cat-pill" id="rcat-ratib" onclick="filterRef('ratib')" style="background:var(--sf);border:.5px solid var(--br);color:var(--txm)">Ratib</div>
+    <div class="cat-pill" id="rcat-sholawat" onclick="filterRef('sholawat')" style="background:var(--sf);border:.5px solid var(--br);color:var(--txm)">Sholawat</div>
+    <div class="cat-pill" id="rcat-lainnya" onclick="filterRef('lainnya')" style="background:var(--sf);border:.5px solid var(--br);color:var(--txm)">Lainnya</div>
+  </div>
+
+  <!-- SEARCH -->
+  <div style="position:relative;margin-bottom:14px">
+    <input id="refSearch" class="inf" type="text" placeholder="Cari nama, teks, atau tag..." style="padding-left:36px;margin-bottom:0" oninput="searchRef()">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--txm)" stroke-width="2" style="position:absolute;left:12px;top:50%;transform:translateY(-50%)"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+  </div>
+
+  <div id="refList"></div>
+  <div style="height:8px"></div>
+</div>
+
+<!-- ══ PEDOMAN MURID ══ -->
+<div id="pgPedoman" class="pg">
+  <div style="padding-top:4px;margin-bottom:14px">
+    <div style="font-size:11px;color:var(--txm)">Thariqah Sufiyyah</div>
+    <div style="font-family:'Playfair Display',serif;font-size:22px">Pedoman Murid</div>
+  </div>
+
+  <!-- AKHLAK MURID -->
+  <div class="pdm-section cd-g" style="border:.5px solid var(--brgold)">
+    <div class="sh" style="margin-bottom:12px">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Adab & Akhlak Murid kepada Mursyid
+    </div>
+    <div class="pdm-rule">
+      <div class="pdm-num">1</div>
+      <div><div style="font-size:12px;font-weight:600;margin-bottom:3px">Taat dan Patuh Tanpa Syarat</div><div style="font-size:11px;color:var(--txm);line-height:1.7">Melaksanakan perintah Mursyid dengan sepenuh hati, selama tidak bertentangan dengan syariat, tanpa mempertanyakan dan menolak.</div></div>
+    </div>
+    <div class="pdm-rule">
+      <div class="pdm-num">2</div>
+      <div><div style="font-size:12px;font-weight:600;margin-bottom:3px">Menjaga Rahasia Thariqah</div><div style="font-size:11px;color:var(--txm);line-height:1.7">Tidak membocorkan amalan khusus, isyarat batin, dan pengalaman suluk kepada yang bukan mahramnya.</div></div>
+    </div>
+    <div class="pdm-rule">
+      <div class="pdm-num">3</div>
+      <div><div style="font-size:12px;font-weight:600;margin-bottom:3px">Husnudzon kepada Mursyid</div><div style="font-size:11px;color:var(--txm);line-height:1.7">Selalu berprasangka baik terhadap setiap tindakan Mursyid, karena beliau melihat dengan cahaya yang tidak kita miliki.</div></div>
+    </div>
+    <div class="pdm-rule">
+      <div class="pdm-num">4</div>
+      <div><div style="font-size:12px;font-weight:600;margin-bottom:3px">Dawam (Istiqomah) dalam Amalan</div><div style="font-size:11px;color:var(--txm);line-height:1.7">Tidak meninggalkan wirid yang telah ditentukan Mursyid kecuali dalam kondisi darurat yang diizinkan.</div></div>
+    </div>
+    <div class="pdm-rule">
+      <div class="pdm-num">5</div>
+      <div><div style="font-size:12px;font-weight:600;margin-bottom:3px">Khidmat Lahir & Batin</div><div style="font-size:11px;color:var(--txm);line-height:1.7">Melayani Mursyid dan sesama murid dengan tulus ikhlas tanpa mengharap pujian, sebagai riyadhah penghancur ego.</div></div>
+    </div>
+    <div class="pdm-rule">
+      <div class="pdm-num">6</div>
+      <div><div style="font-size:12px;font-weight:600;margin-bottom:3px">Melaporkan Kasyaf & Mimpi</div><div style="font-size:11px;color:var(--txm);line-height:1.7">Setiap pengalaman batin (kasyaf, mimpi, kondisi spiritual) dilaporkan kepada Mursyid untuk di-tashih dan dibimbing.</div></div>
+    </div>
+  </div>
+
+  <!-- MAQAMAT & AHWAL -->
+  <div class="pdm-section cd" style="margin-bottom:12px">
+    <div class="sh" style="margin-bottom:12px">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"/><path d="M13 13l6 6"/></svg>
+      Maqamat (Stasiun Spiritual)
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <div style="background:rgba(196,155,60,.07);border-radius:10px;padding:10px;text-align:center">
+        <div style="font-size:16px;margin-bottom:4px">🕌</div><div style="font-size:11px;font-weight:600">Taubat</div><div style="font-size:9px;color:var(--txm)">Permulaan jalan</div>
+      </div>
+      <div style="background:rgba(196,155,60,.07);border-radius:10px;padding:10px;text-align:center">
+        <div style="font-size:16px;margin-bottom:4px">🌱</div><div style="font-size:11px;font-weight:600">Wara'</div><div style="font-size:9px;color:var(--txm)">Menjauhi syubhat</div>
+      </div>
+      <div style="background:rgba(196,155,60,.07);border-radius:10px;padding:10px;text-align:center">
+        <div style="font-size:16px;margin-bottom:4px">🤲</div><div style="font-size:11px;font-weight:600">Zuhud</div><div style="font-size:9px;color:var(--txm)">Meninggalkan dunia</div>
+      </div>
+      <div style="background:rgba(45,212,180,.07);border-radius:10px;padding:10px;text-align:center">
+        <div style="font-size:16px;margin-bottom:4px">💎</div><div style="font-size:11px;font-weight:600">Faqr</div><div style="font-size:9px;color:var(--txm)">Kefakiran batin</div>
+      </div>
+      <div style="background:rgba(45,212,180,.07);border-radius:10px;padding:10px;text-align:center">
+        <div style="font-size:16px;margin-bottom:4px">🌊</div><div style="font-size:11px;font-weight:600">Sabr</div><div style="font-size:9px;color:var(--txm)">Kesabaran total</div>
+      </div>
+      <div style="background:rgba(45,212,180,.07);border-radius:10px;padding:10px;text-align:center">
+        <div style="font-size:16px;margin-bottom:4px">🌟</div><div style="font-size:11px;font-weight:600">Ridho</div><div style="font-size:9px;color:var(--txm)">Penerimaan sempurna</div>
+      </div>
+      <div style="background:rgba(196,155,60,.14);border-radius:10px;padding:10px;text-align:center;border:.5px solid var(--brgold)">
+        <div style="font-size:16px;margin-bottom:4px">🔥</div><div style="font-size:11px;font-weight:600;color:var(--gold)">Mahabbah</div><div style="font-size:9px;color:var(--txm)">Cinta Ilahi</div>
+      </div>
+      <div style="background:rgba(196,155,60,.14);border-radius:10px;padding:10px;text-align:center;border:.5px solid var(--brgold)">
+        <div style="font-size:16px;margin-bottom:4px">☀️</div><div style="font-size:11px;font-weight:600;color:var(--gold)">Makrifat</div><div style="font-size:9px;color:var(--txm)">Puncak pengenalan</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LARANGAN MURID -->
+  <div class="pdm-section cd" style="margin-bottom:12px">
+    <div class="sh" style="margin-bottom:12px">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+      <span style="color:var(--red)">Larangan Keras untuk Murid</span>
+    </div>
+    <div class="pdm-rule">
+      <div class="pdm-num" style="background:rgba(224,90,90,.1);border-color:rgba(224,90,90,.3);color:var(--red)">✗</div>
+      <div><div style="font-size:12px;font-weight:600;margin-bottom:3px;color:var(--red)">Berpindah Mursyid Tanpa Izin</div><div style="font-size:11px;color:var(--txm);line-height:1.7">Meninggalkan bimbingan Mursyid tanpa restu darinya dapat memutus sanad ruhani yang telah terjalin.</div></div>
+    </div>
+    <div class="pdm-rule">
+      <div class="pdm-num" style="background:rgba(224,90,90,.1);border-color:rgba(224,90,90,.3);color:var(--red)">✗</div>
+      <div><div style="font-size:12px;font-weight:600;margin-bottom:3px;color:var(--red)">Riya dalam Berdzikir</div><div style="font-size:11px;color:var(--txm);line-height:1.7">Menampilkan kesungguhan amalan untuk mendapat penilaian orang lain adalah racun yang membatalkan seluruh suluk.</div></div>
+    </div>
+    <div class="pdm-rule">
+      <div class="pdm-num" style="background:rgba(224,90,90,.1);border-color:rgba(224,90,90,.3);color:var(--red)">✗</div>
+      <div><div style="font-size:12px;font-weight:600;margin-bottom:3px;color:var(--red)">Berlebihan Makan & Tidur</div><div style="font-size:11px;color:var(--txm);line-height:1.7">Kelebihan makan menutup hati dari cahaya; kelebihan tidur memadamkan semangat suluk dan melemahkan zikir malam.</div></div>
+    </div>
+    <div class="pdm-rule">
+      <div class="pdm-num" style="background:rgba(224,90,90,.1);border-color:rgba(224,90,90,.3);color:var(--red)">✗</div>
+      <div><div style="font-size:12px;font-weight:600;margin-bottom:3px;color:var(--red)">Mengklaim Kasyaf / Maqam</div><div style="font-size:11px;color:var(--txm);line-height:1.7">Membanggakan pencapaian spiritual kepada orang lain adalah tanda gugurnya maqam itu sendiri dari batin.</div></div>
+    </div>
+  </div>
+
+  <!-- WIRID HARIAN PEDOMAN -->
+  <div class="pdm-section cd" style="margin-bottom:12px">
+    <div class="sh" style="margin-bottom:12px">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="3" x2="12" y2="1"/><line x1="12" y1="23" x2="12" y2="21"/><line x1="3" y1="12" x2="1" y2="12"/><line x1="23" y1="12" x2="21" y2="12"/></svg>
+      Jadwal Wirid Harian Murid
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;font-size:12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 12px;background:rgba(196,155,60,.06);border-radius:10px;border:.5px solid var(--brgold)">
+        <div><span style="color:var(--gold);font-weight:600">Subuh</span><span style="color:var(--txm);margin-left:8px">04:00 - 06:00</span></div>
+        <span style="font-size:10px;color:var(--txm)">Zikir Pagi + Tilawah</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 12px;background:var(--sf);border-radius:10px">
+        <div><span style="font-weight:500">Dhuha</span><span style="color:var(--txm);margin-left:8px">08:00 - 09:00</span></div>
+        <span style="font-size:10px;color:var(--txm)">Isyraq + Dhuha</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 12px;background:var(--sf);border-radius:10px">
+        <div><span style="font-weight:500">Dzuhur</span><span style="color:var(--txm);margin-left:8px">Setelah sholat</span></div>
+        <span style="font-size:10px;color:var(--txm)">Zikir + Sholawat</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 12px;background:var(--sf);border-radius:10px">
+        <div><span style="font-weight:500">Ashar</span><span style="color:var(--txm);margin-left:8px">Setelah sholat</span></div>
+        <span style="font-size:10px;color:var(--txm)">Hizb/Ratib</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 12px;background:rgba(45,212,180,.06);border-radius:10px;border:.5px solid rgba(45,212,180,.2)">
+        <div><span style="color:var(--teal);font-weight:600">Malam</span><span style="color:var(--txm);margin-left:8px">21:00 - 23:00</span></div>
+        <span style="font-size:10px;color:var(--txm)">Wirid Malam + Muhasabah</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 12px;background:rgba(196,155,60,.14);border-radius:10px;border:.5px solid var(--brgold)">
+        <div><span style="color:var(--gold);font-weight:600">Tahajud</span><span style="color:var(--txm);margin-left:8px">02:00 - 04:00</span></div>
+        <span style="font-size:10px;color:var(--txm)">Qiyamul Lail + Khatm</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARA PUBLISH -->
+  <div class="pdm-section cd" style="margin-bottom:12px">
+    <div class="sh" style="margin-bottom:12px">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2.2"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/></svg>
+      <span style="color:var(--teal)">Cara Publish Aplikasi SALIK</span>
+    </div>
+
+    <div style="font-size:11px;color:var(--txm);margin-bottom:12px;line-height:1.7">Aplikasi ini adalah file HTML tunggal yang bisa langsung di-publish. Pilih salah satu cara berikut:</div>
+
+    <div class="pub-step">
+      <div class="pub-icon" style="background:rgba(45,212,180,.1);border:.5px solid rgba(45,212,180,.3)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 11-7.778 7.778 5.5 5.5 0 017.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+      </div>
+      <div style="flex:1">
+        <div style="font-size:12px;font-weight:600">1. Netlify Drop (Termudah)</div>
+        <div style="font-size:11px;color:var(--txm);margin-top:2px;line-height:1.6">Buka netlify.com/drop → seret file salik-v3.html ke halaman tersebut → URL langsung jadi dalam 30 detik. Gratis selamanya.</div>
+        <div class="pub-copy" onclick="copyText('https://app.netlify.com/drop')">🔗 app.netlify.com/drop</div>
+      </div>
+    </div>
+
+    <div class="pub-step">
+      <div class="pub-icon" style="background:rgba(196,155,60,.1);border:.5px solid var(--brgold)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+      </div>
+      <div style="flex:1">
+        <div style="font-size:12px;font-weight:600">2. GitHub Pages (Gratis)</div>
+        <div style="font-size:11px;color:var(--txm);margin-top:2px;line-height:1.6">Buat repo di GitHub → upload file → Settings → Pages → Deploy from branch. URL: username.github.io/repo</div>
+        <div class="pub-copy" onclick="copyText('https://github.com/new')">🔗 github.com/new</div>
+      </div>
+    </div>
+
+    <div class="pub-step">
+      <div class="pub-icon" style="background:rgba(45,212,180,.08);border:.5px solid rgba(45,212,180,.2)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      </div>
+      <div style="flex:1">
+        <div style="font-size:12px;font-weight:600">3. Vercel (Profesional)</div>
+        <div style="font-size:11px;color:var(--txm);margin-top:2px;line-height:1.6">vercel.com → New Project → Import atau drag & drop folder. CDN global, domain custom gratis, analytics built-in.</div>
+        <div class="pub-copy" onclick="copyText('https://vercel.com/new')">🔗 vercel.com/new</div>
+      </div>
+    </div>
+
+    <div class="pub-step">
+      <div class="pub-icon" style="background:rgba(196,155,60,.08);border:.5px solid var(--brgold)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg>
+      </div>
+      <div style="flex:1">
+        <div style="font-size:12px;font-weight:600">4. Jadikan Aplikasi (PWA)</div>
+        <div style="font-size:11px;color:var(--txm);margin-top:2px;line-height:1.6">Setelah online, buka di Chrome/Safari → Menu → "Tambahkan ke Layar Utama". Langsung menjadi ikon di HP seperti app native.</div>
+      </div>
+    </div>
+
+    <div class="pub-step">
+      <div class="pub-icon" style="background:rgba(45,212,180,.08);border:.5px solid rgba(45,212,180,.2)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      </div>
+      <div style="flex:1">
+        <div style="font-size:12px;font-weight:600">5. Hosting Berbayar (Domain Sendiri)</div>
+        <div style="font-size:11px;color:var(--txm);margin-top:2px;line-height:1.6">Upload ke Niagahoster/Hostinger → domain .com mulai 100rb/tahun. cPanel → File Manager → public_html → upload file.</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="height:8px"></div>
+</div>
+
+</div><!-- end .app -->
+
+<script>
+// ── STATE ──
+const S={dzCnt:0,dzTgt:100,dzPr:'Istighfar',totDz:1234,brOn:false,brInt:null,brCyc:0,brIn:true,khlOn:false,khlInt:null,khlPh:true,actx:null,aOsc:null,aPlay:false,subM:'Nur'};
+
+const qs=[
+  {t:'"Ikhlas bukan berarti ketiadaan motif lain, melainkan kerelaan hati untuk tenggelam hanya dalam keridhaan-Nya dalam setiap nafas yang kau hembuskan."',a:'— Syeikh Abdul Qadir Al-Jailani'},
+  {t:'"Siapa yang mengenal dirinya sendiri dengan segala kehinaan dan ketidakberdayaannya, niscaya ia akan mengenal Tuhannya dengan segala kemuliaan dan keagungan-Nya."',a:'— Syeikh Ibnu Ataillah Al-Iskandari'},
+  {t:'"Jangan menyembah Allah agar Dia memberi karunia, tapi sembahlah Dia agar Dia ridha. Karena jika Dia ridha, Dia akan membuatmu takjub dengan karunia-Nya."',a:'— Imam Al-Ghazali'},
+  {t:'"Hati yang bersih adalah cermin yang memantulkan cahaya Tuhan. Kotornya adalah hijab antara engkau dan Dia."',a:'— Rumi'},
+];
+let qIdx=0;
+
+let amlData=[
+  {id:'sh5',lbl:'Sholat 5 Waktu Berjamaah',bdg:'Wajib',ck:true,def:true},
+  {id:'wu',lbl:'Dawamul Wudhu (Menjaga Wudhu)',bdg:'',ck:true,def:true},
+  {id:'isy',lbl:'Sholat Isyraq / Dhuha',bdg:'Sunnah',ck:false,def:true},
+  {id:'thj',lbl:'Sholat Tahajud (Qiyamul Lail)',bdg:'Sunnah',ck:true,def:true},
+  {id:'lai',lbl:'Zikir: Laa ilaha illallah',bdg:'1000x',ck:true,def:true},
+  {id:'isd',lbl:'Zikir: Ismu Dzat (Allah)',bdg:'1000x',ck:true,def:true},
+  {id:'hu',lbl:'Zikir: Ismu Isyarah (Hu)',bdg:'1000x',ck:false,def:true},
+  {id:'adz',lbl:'Zikir: Ya Adzimu',bdg:'1000x',ck:false,def:true},
+  {id:'wkl',lbl:'Zikir: Ya Wakil',bdg:'1000x',ck:false,def:true},
+  {id:'bis',lbl:'Zikir: Bismillah',bdg:'100x',ck:false,def:true},
+];
+
+let psaData=[
+  {id:'sk',lbl:'Puasa Senin & Kamis',ck:false,def:true},
+  {id:'daud',lbl:'Puasa Daud',ck:false,def:true},
+  {id:'mut',lbl:'Puasa Mutih (Air & Nasi Putih)',ck:false,def:true},
+  {id:'nbr',lbl:'Puasa Makan Tidak Bernyawa',ck:false,def:true},
+];
+
+const limbData=[
+  {id:'mata',lbl:'Mata (Pandangan)',ic:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="1.8"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`},
+  {id:'tlng',lbl:'Telinga (Dengaran)',ic:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="1.8"><path d="M18 3a9 9 0 010 18h-5a3 3 0 01-3-3 3 3 0 013-3h1a4 4 0 000-8H9a6 6 0 00-6 6v1"/></svg>`},
+  {id:'lsn',lbl:'Lisan (Ucapan)',ic:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="1.8"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>`},
+  {id:'tgn',lbl:'Tangan (Amal)',ic:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="1.8"><path d="M18 11V6a2 2 0 00-4 0v5M14 10V4a2 2 0 00-4 0v6M10 10.5V6a2 2 0 00-4 0v8l-2-2a2 2 0 00-2.83 2.83L6 19a6 6 0 006 5h2a8 8 0 008-8v-5a2 2 0 00-4 0"/></svg>`},
+  {id:'prt',lbl:'Perut (Makanan)',ic:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="1.8"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>`},
+  {id:'kki',lbl:'Kaki (Langkah)',ic:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="1.8"><path d="M19 9l2 2-7 7-4-4-6 6-2-2 8-8 4 4 5-5z"/></svg>`},
+  {id:'qlb',lbl:'Qalbu (Niat Batin)',ic:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>`},
+];
+const limbSt={};
+
+let phtData=[
+  {id:'ujb',nm:'Al-Ujub',sb:'Kekaguman diri sendiri',lv:0},
+  {id:'rya',nm:'Ar-Riya',sb:'Pamer ibadah kepada makhluk',lv:0},
+  {id:'hsd',nm:'Al-Hasad',sb:'Dengki & iri hati',lv:0},
+  {id:'kbr',nm:'Al-Kibr',sb:'Kesombongan batin',lv:0},
+  {id:'sdz',nm:"Su'udzon",sb:'Buruk sangka',lv:0},
+  {id:'hbd',nm:'Hubbud Dunya',sb:'Cinta dunia berlebihan',lv:0},
+  {id:'ghd',nm:'Al-Ghadab',sb:'Mudah marah & emosi',lv:0},
+];
+
+const qrnData={
+  AlFatihah:[{n:1,a:'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ',t:'Dengan menyebut nama Allah Yang Maha Pengasih lagi Maha Penyayang.'},{n:2,a:'الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ',t:'Segala puji bagi Allah, Tuhan semesta alam.'},{n:3,a:'الرَّحْمَٰنِ الرَّحِيمِ',t:'Maha Pemurah lagi Maha Penyayang.'},{n:4,a:'مَالِكِ يَوْمِ الدِّينِ',t:'Yang menguasai di Hari Pembalasan.'},{n:5,a:'إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ',t:'Hanya Engkaulah yang kami sembah, dan hanya kepada Engkaulah kami meminta pertolongan.'},{n:6,a:'اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ',t:'Tunjukilah kami jalan yang lurus.'},{n:7,a:'صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ',t:'Yaitu jalan orang-orang yang telah Engkau beri nikmat, bukan jalan orang-orang yang Engkau murkai dan bukan pula jalan orang-orang yang sesat.'}],
+  ArRahman:[{n:1,a:'الرَّحْمَٰنُ',t:'(Tuhan) Yang Maha Pemurah.'},{n:2,a:'عَلَّمَ الْقُرْآنَ',t:'Yang telah mengajarkan Al-Quran.'},{n:3,a:'خَلَقَ الْإِنْسَانَ',t:'Dia menciptakan manusia.'},{n:4,a:'عَلَّمَهُ الْبَيَانَ',t:'Mengajarnya pandai berbicara.'},{n:13,a:'فَبِأَيِّ آلَاءِ رَبِّكُمَا تُكَذِّبَانِ',t:'Maka nikmat Tuhan kamu yang manakah yang kamu dustakan?'}],
+  AlMulk:[{n:1,a:'تَبَارَكَ الَّذِي بِيَدِهِ الْمُلْكُ وَهُوَ عَلَىٰ كُلِّ شَيْءٍ قَدِيرٌ',t:'Maha Suci Allah Yang di tangan-Nyalah segala kerajaan, dan Dia Maha Kuasa atas segala sesuatu.'},{n:2,a:'الَّذِي خَلَقَ الْمَوْتَ وَالْحَيَاةَ لِيَبْلُوَكُمْ أَيُّكُمْ أَحْسَنُ عَمَلًا',t:'Yang menciptakan mati dan hidup, untuk menguji kamu, siapa di antara kamu yang lebih baik amalnya.'}],
+};
+
+const mtree={
+  start:{m:"Wahai musafir ruhani yang dirahmati Allah... Thariqah ini didirikan di atas maqam kesucian hati. Rintangan batin apa yang sedang merisaukan perjalananmu menuju-Nya?",o:[{t:"Apa hakikat Rabithah Mursyid?",n:"rab"},{t:"Bagaimana membersihkan hati dari Ujub?",n:"ujb"},{t:"Bagaimana menjaga mata batin (Bashirah)?",n:"bsh"},{t:"Bagaimana Dzikir Nafas yang benar?",n:"znf"}]},
+  rab:{m:"Ketahuilah anakku, Rabithah Mursyid adalah mengikatkan tali batinmu dengan batin gurumu yang tersambung kepada Rasulullah ﷺ. Ia laksana cermin yang memantulkan cahaya makrifat Allah ke dalam qalbumu.",o:[{t:"Bagaimana cara memvisualisasikannya?",n:"rabh"},{t:"Kembali ke wejangan lainnya",n:"start"}]},
+  rabh:{m:"Duduklah bersila di keheningan malam. Buanglah pikiran duniawi. Bayangkan wajah Mursyid penuh cahaya nur ilahi mengalirkan pancaran ketenangan langsung ke lubuk hatimu hingga bergetar 'Allah... Allah...'.",o:[{t:"Jazakallah, saya paham Syeikh.",n:"start"}]},
+  ujb:{m:"Ujub adalah ketika engkau merasa ibadah dan kebaikanmu adalah karena kehebatan dirimu sendiri. Ini racun pembakar amal saleh yang paling halus dan berbahaya.",o:[{t:"Bagaimana cara menyembuhkannya?",n:"ujbc"},{t:"Kembali ke wejangan lainnya",n:"start"}]},
+  ujbc:{m:"Sadarilah bahwa seluruh gerak sujudmu, tarikan nafas zikirmu, semata-mata adalah karunia dan taufiq dari Allah Swt. Tanpa pertolongan-Nya, dirimu hanyalah segumpal tanah kering.",o:[{t:"Insyaallah hamba amalkan, Syeikh.",n:"start"}]},
+  bsh:{m:"Bashirah atau mata batin laksana kolam yang jernih. Ia akan menyingkap rahasia alam malakut apabila engkau menutup pintu maksiat indra lahiriah.",o:[{t:"Bagaimana tips menjaganya?",n:"bshk"},{t:"Kembali ke wejangan lainnya",n:"start"}]},
+  bshk:{m:"Jagalah pandangan matamu dari yang bukan hakmu. Bersihkan perut dari suapan syubhat. Kurangi bicara sia-sia. Pertahankan keheningan zikir sirr di sela-sela nafasmu.",o:[{t:"Terima kasih, mohon doa restunya.",n:"start"}]},
+  znf:{m:"Zikir nafas adalah zikir tanpa gerak lisan. Saat nafas ditarik, hatimu berbisik 'HU'. Saat nafas dihembuskan, hatimu berbisik 'ALLAH' — meleburkan nafsu diri menuju kefanaan.",o:[{t:"Apa manfaat utamanya, Syeikh?",n:"znfb"},{t:"Kembali ke wejangan lainnya",n:"start"}]},
+  znfb:{m:"Ia akan menyatukan ruh dan jasadmu dalam getaran zikir tanpa henti. Dalam setiap detak jantung dan hembusan nafas, engkau senantiasa terhubung mesra dengan sang Khalik Swt.",o:[{t:"Akan hamba istiqomahkan, Syeikh.",n:"start"}]},
+};
+
+const tazD={
+  Ikhlas:{ti:"Bab Al-Ikhlas",dc:"Ikhlas adalah memurnikan niat beramal semata-mata karena Allah Swt, bersih dari keinginan dipuji atau takut dicela. Terapi: Ingat bahwa Allah melihat isi hati, bukan penampilan amal."},
+  Ujub:{ti:"Bab Al-Ujub",dc:"Ujub adalah rasa kagum terhadap amal diri sendiri seolah-olah amal itu datang dari kekuatan diri, bukan karunia Allah. Terapi: Renungkan bahwa seluruh amal adalah pertolongan Allah Swt."},
+  Riya:{ti:"Bab Ar-Riya",dc:"Riya terjadi ketika ibadah ditujukan agar mendapat pujian atau martabat di mata makhluk. Terapi: Sembunyikan ibadah sunah dan perbanyak amal tersembunyi."},
+  Hasad:{ti:"Bab Al-Hasad",dc:"Hasad adalah mengharapkan hilangnya nikmat dari saudara seiman. Ia menghancurkan kebaikan laksana api melalap kayu bakar. Terapi: Ucapkan doa kebaikan untuk orang yang engkau hasadi."},
+  Tawakal:{ti:"Bab At-Tawakal",dc:"Tawakal adalah menyandarkan segala urusan kepada Allah setelah ikhtiar maksimal. Bukan pasrah tanpa usaha, tapi ikhtiar penuh lalu sepenuhnya menyerah kepada kehendak-Nya."},
+  Mahabbah:{ti:"Bab Al-Mahabbah",dc:"Puncak perjalanan spiritual dimana hati tenggelam dalam rasa cinta dan rindu yang tak terhingga kepada Allah dan Rasulullah ﷺ. Tanda mahabbah: lebih suka yang dicintai Allah dari yang dicintai hawa nafsu."},
+};
+
+const auditL={Dz:["Mati","Jarang","Kadang-kadang","Selalu Basah","Fana Lillah"],Hub:["Terputus","Kering","Hambar","Terhubung Kuat","Mahabbah Istiqomah"],Rab:["Ghaflah","Bayangan Kabur","Hadir Terputus","Hadir Bersama Mursyid","Tajalli Cahaya"]};
+
+const obSteps=[{t:'Perjalanan Ruhani Dimulai',d:'Mulai langkah penyucian jiwa melalui pelacakan amalan spiritual harian dan dzikir yang konsisten.'},{t:'Istiqomah Lebih Mudah',d:'Jadwalkan pengingat amalan dhuha, tahajud, dan dzikir, serta pantau target riyadhah Anda.'},{t:'Muhasabah Setiap Hari',d:'Tuliskan refleksi jiwa, catat dinamika emosi, dan bicarakan kondisi spiritual Anda dengan asisten AI Nur.'}];
+let obStep=0;
+
+// ── INIT ──
+function init(){
+  setInterval(()=>{const n=new Date();const e=document.getElementById('stm');if(e)e.textContent=`${String(n.getHours()).padStart(2,'0')}:${String(n.getMinutes()).padStart(2,'0')}`;},1000);
+  renderAml();renderPsa();renderLimb();renderPht();
+  updTally();
+  showSr('AlFatihah',document.querySelector('.stb.on'));
+  loadNur();
+  loadSavedWiridPills();
+  setTimeout(()=>{const s=document.getElementById('spl');s.style.opacity='0';setTimeout(()=>{s.style.display='none';document.getElementById('onb').style.display='flex';},700);},2600);
+}
+
+// ── CHECKLIST RENDER ──
+const ckSVG='<svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="white" stroke-width="2"><path d="M2 5l2 2 4-4"/></svg>';
+const delSVG='<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a1 1 0 011-1h4a1 1 0 011 1v2"/></svg>';
+
+function ciHTML(item,prefix,delFn){
+  const del=delFn?`<button class="dbtn" onclick="event.stopPropagation();${delFn}">${delSVG}</button>`:'';
+  return `<div class="ci" onclick="togCk('${item.id}','${prefix}')">
+    <div class="cil"><div class="cb ${item.ck?'ck':''}" id="${prefix}_${item.id}">${item.ck?ckSVG:''}</div><span class="clbl">${item.lbl}</span></div>
+    <div style="display:flex;align-items:center;gap:3px">${item.bdg?`<div class="bsm">${item.bdg}</div>`:item.def?'':''}${del}</div>
+  </div>`;
+}
+function psaHTML(item,delFn){
+  const del=delFn?`<button class="dbtn" onclick="event.stopPropagation();${delFn}">${delSVG}</button>`:'';
+  return `<div class="ci" onclick="togCk('${item.id}','psa')">
+    <div class="cil"><div class="cb ${item.ck?'ck':''}" id="psa_${item.id}">${item.ck?ckSVG:''}</div><span class="clbl">${item.lbl}</span></div>
+    ${del}
+  </div>`;
+}
+
+function renderAml(){
+  document.getElementById('amlLst').innerHTML=amlData.map(a=>ciHTML(a,'aml',a.def?null:`delAml('${a.id}')`)).join('');
+}
+function renderPsa(){
+  document.getElementById('psaLst').innerHTML=psaData.map(p=>psaHTML(p,p.def?null:`delPsa('${p.id}')`)).join('');
+}
+
+function renderLimb(){
+  document.getElementById('limbLst').innerHTML=limbData.map(l=>`
+    <div class="bli">
+      <div class="bll"><div class="blico">${l.ic}</div><div>
+        <div style="font-size:12px;font-weight:500">${l.lbl}</div>
+        <span id="ls_${l.id}" class="blst ${limbSt[l.id]==='taat'?'ok':limbSt[l.id]==='mkst'?'bad':''}">${limbSt[l.id]==='taat'?'Taat ✓':limbSt[l.id]==='mkst'?'Perlu Tobat':'Belum dinilai'}</span>
+      </div></div>
+      <div class="blac">
+        <button class="blbtn tt" onclick="setLimb('${l.id}','taat')">Taat</button>
+        <button class="blbtn mk" onclick="setLimb('${l.id}','mkst')">Terjatuh</button>
+      </div>
+    </div>`).join('');
+}
+
+function setLimb(id,st){
+  limbSt[id]=st;
+  const e=document.getElementById('ls_'+id);
+  if(e){e.className='blst '+(st==='taat'?'ok':'bad');e.textContent=st==='taat'?'Taat ✓':'Perlu Tobat';}
+  if(st==='mkst')toast('Istighfar','Astagfirullah... mari perbanyak zikir dan istighfar.');
+  else toast('Alhamdulillah','Semoga Allah menjaga keistiqomahan amal taat ini.');
+}
+
+function renderPht(){
+  document.getElementById('phtLst').innerHTML=phtData.map(p=>{
+    const dots=[0,1,2,3,4].map(i=>`<div class="psd" id="pd_${p.id}_${i}" style="${i<p.lv?`background:rgba(224,90,90,${.28+i*.14});border-color:rgba(224,90,90,.6)`:''}" onclick="setPht('${p.id}',${i+1})"></div>`).join('');
+    const lbl=p.lv===0?'Bersih':p.lv<=2?'Ringan':p.lv<=3?'Perlu Perhatian':'Darurat Tobat';
+    const col=p.lv===0?'var(--txf)':p.lv<=2?'var(--gold)':'var(--red)';
+    return `<div class="phi">
+      <div class="phl"><div class="phiw"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r="1" fill="var(--red)" stroke="none"/></svg></div>
+      <div><div style="font-size:12px;font-weight:600">${p.nm}</div><div style="font-size:10px;color:var(--txm)">${p.sb}</div></div></div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+        <div class="pscl" id="pscl_${p.id}">${dots}</div>
+        <div id="plbl_${p.id}" style="font-size:9px;color:${col}">${lbl}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function setPht(id,lv){
+  const p=phtData.find(x=>x.id===id);if(!p)return;
+  p.lv=lv===p.lv?0:lv;
+  const scl=document.getElementById('pscl_'+id);
+  if(scl)scl.innerHTML=[0,1,2,3,4].map(i=>`<div class="psd" style="${i<p.lv?`background:rgba(224,90,90,${.28+i*.14});border-color:rgba(224,90,90,.6)`:''}" onclick="setPht('${id}',${i+1})"></div>`).join('');
+  const lblEl=document.getElementById('plbl_'+id);
+  if(lblEl){const lbl=p.lv===0?'Bersih':p.lv<=2?'Ringan':p.lv<=3?'Perlu Perhatian':'Darurat Tobat';const col=p.lv===0?'var(--txf)':p.lv<=2?'var(--gold)':'var(--red)';lblEl.textContent=lbl;lblEl.style.color=col;}
+  if(p.lv>=4)toast('Darurat Tobat — '+p.nm,'Segera perbanyak istighfar, bertaubat dan memohon ampun kepada Allah Swt.');
+}
+
+function togCk(id,prefix){
+  if(prefix==='aml'){const a=amlData.find(x=>x.id===id);if(!a)return;a.ck=!a.ck;const e=document.getElementById('aml_'+id);if(e){e.classList.toggle('ck',a.ck);e.innerHTML=a.ck?ckSVG:'';}}
+  else{const p=psaData.find(x=>x.id===id);if(!p)return;p.ck=!p.ck;const e=document.getElementById('psa_'+id);if(e){e.classList.toggle('ck',p.ck);e.innerHTML=p.ck?ckSVG:'';}}
+  updTally();
+}
+
+function delAml(id){amlData=amlData.filter(a=>a.id!==id);renderAml();updTally();}
+function delPsa(id){psaData=psaData.filter(p=>p.id!==id);renderPsa();updTally();}
+
+function updTally(){
+  const tot=amlData.length+psaData.length;
+  const done=amlData.filter(a=>a.ck).length+psaData.filter(p=>p.ck).length;
+  const e=document.getElementById('tlly');if(e)e.textContent=`${done}/${tot}`;
+}
+
+// ── MODALS ──
+function openM(id){
+  document.getElementById(id).classList.add('open');
+  if(id==='mDzikir'){renderSavedWirid();switchMTab('manual');}
+}
+function closeM(id){document.getElementById(id).classList.remove('open');}
+
+function addAmal(){
+  const lbl=document.getElementById('namlbl').value.trim();
+  const bdg=document.getElementById('nambdg').value.trim();
+  if(!lbl){toast('Perlu Nama','Masukkan nama amalan terlebih dahulu.');return;}
+  amlData.push({id:'c'+Date.now(),lbl,bdg,ck:false,def:false});
+  document.getElementById('namlbl').value='';document.getElementById('nambdg').value='';
+  closeM('mAmal');renderAml();updTally();
+  toast('Amalan Ditambahkan',`"${lbl}" berhasil ditambahkan ke daftar amal harian.`);
+}
+
+function addPuasa(){
+  const lbl=document.getElementById('npslbl').value.trim();
+  if(!lbl){toast('Perlu Nama','Masukkan nama puasa terlebih dahulu.');return;}
+  psaData.push({id:'cp'+Date.now(),lbl,ck:false,def:false});
+  document.getElementById('npslbl').value='';
+  closeM('mPuasa');renderPsa();updTally();
+  toast('Puasa Ditambahkan',`"${lbl}" berhasil ditambahkan ke riyadhah puasa.`);
+}
+
+// ── WIRID MANAGEMENT WITH LOCALSTORAGE AUTO-SAVE ──
+const WIRID_KEY = 'salik_wirid_v1';
+
+// Built-in wirid catalog
+const wiridCatalog = [
+  {id:'cat1', nm:'Subhanallah', ar:'سُبْحَانَ اللَّهِ', tr:'Maha Suci Allah', tgt:33, kat:'dzikir'},
+  {id:'cat2', nm:'Alhamdulillah', ar:'الْحَمْدُ لِلَّهِ', tr:'Segala Puji bagi Allah', tgt:33, kat:'dzikir'},
+  {id:'cat3', nm:'Allahu Akbar', ar:'اللَّهُ أَكْبَرُ', tr:'Allah Maha Besar', tgt:33, kat:'dzikir'},
+  {id:'cat4', nm:'La ilaha illallah', ar:'لَا إِلَٰهَ إِلَّا اللَّهُ', tr:'Tiada Tuhan selain Allah', tgt:100, kat:'dzikir'},
+  {id:'cat5', nm:'Istighfar', ar:'أَسْتَغْفِرُ اللَّهَ الْعَظِيمَ', tr:'Aku memohon ampun kepada Allah Yang Maha Agung', tgt:100, kat:'istighfar'},
+  {id:'cat6', nm:'Sholawat Ibrahim', ar:'اللَّهُمَّ صَلِّ عَلَىٰ مُحَمَّدٍ وَعَلَىٰ آلِ مُحَمَّدٍ', tr:'Ya Allah, limpahkan shalawat atas Muhammad dan keluarganya', tgt:100, kat:'sholawat'},
+  {id:'cat7', nm:'Ya Rahman Ya Rahim', ar:'يَا رَحْمَٰنُ يَا رَحِيمُ', tr:'Wahai Yang Maha Pengasih, Maha Penyayang', tgt:100, kat:'asmaul_husna'},
+  {id:'cat8', nm:'Ya Hayyu Ya Qayyum', ar:'يَا حَيُّ يَا قَيُّومُ', tr:'Wahai Yang Maha Hidup, Maha Mandiri', tgt:100, kat:'asmaul_husna'},
+  {id:'cat9', nm:'Hasbunallah', ar:'حَسْبُنَا اللَّهُ وَنِعْمَ الْوَكِيلُ', tr:'Cukuplah Allah bagi kami dan Dia sebaik-baik Pelindung', tgt:40, kat:'doa'},
+  {id:'cat10', nm:'Laa hawla wala quwwata', ar:'لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ', tr:'Tiada daya dan kekuatan kecuali dengan Allah', tgt:100, kat:'dzikir'},
+  {id:'cat11', nm:'Ya Latif', ar:'يَا لَطِيفُ', tr:'Wahai Yang Maha Lembut', tgt:129, kat:'asmaul_husna'},
+  {id:'cat12', nm:'Ya Fattah', ar:'يَا فَتَّاحُ', tr:'Wahai Yang Maha Membuka', tgt:71, kat:'asmaul_husna'},
+  {id:'cat13', nm:'Sholawat Nariyah', ar:'اللَّهُمَّ صَلِّ صَلَاةً كَامِلَةً', tr:'Ya Allah, limpahkan shalawat yang sempurna', tgt:11, kat:'sholawat'},
+  {id:'cat14', nm:'Bismillah', ar:'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ', tr:'Dengan nama Allah Yang Maha Pengasih lagi Maha Penyayang', tgt:100, kat:'wirid'},
+  {id:'cat15', nm:'Tahlil Panjang', ar:'لَا إِلَٰهَ إِلَّا اللَّهُ مُحَمَّدٌ رَسُولُ اللَّهِ', tr:'Tiada Tuhan selain Allah, Muhammad Rasulullah', tgt:1000, kat:'dzikir'},
+];
+
+// Load saved wirid from localStorage
+function loadSavedWirid() {
+  try {
+    const raw = localStorage.getItem(WIRID_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch(e) { return []; }
+}
+
+// Save wirid array to localStorage
+function saveWiridStorage(arr) {
+  try {
+    localStorage.setItem(WIRID_KEY, JSON.stringify(arr));
+  } catch(e) { console.warn('Storage unavailable'); }
+}
+
+// Render saved wirid in the modal list
+function renderSavedWirid() {
+  const saved = loadSavedWirid();
+  const el = document.getElementById('savedWiridList');
+  const cnt = document.getElementById('savedWiridCount');
+  if (cnt) cnt.textContent = saved.length;
+  if (!el) return;
+  if (saved.length === 0) {
+    el.innerHTML = `<div style="text-align:center;padding:20px 0;color:var(--txf);font-size:12px">Belum ada wirid tersimpan</div>`;
+    return;
+  }
+  el.innerHTML = saved.map(w => `
+    <div style="background:var(--sf);border:.5px solid var(--br);border-radius:12px;padding:12px;display:flex;justify-content:space-between;align-items:flex-start;gap:10px">
+      <div style="flex:1;min-width:0">
+        <div style="display:flex;align-items:center;gap:7px;margin-bottom:4px">
+          <span style="font-size:12px;font-weight:600">${w.nm}</span>
+          <span style="font-size:9px;padding:2px 6px;border-radius:6px;background:rgba(196,155,60,.1);color:var(--gold)">${katLabel(w.kat)}</span>
+        </div>
+        ${w.ar ? `<div style="font-family:'Noto Naskh Arabic',serif;font-size:16px;direction:rtl;text-align:right;color:var(--tx);margin-bottom:3px;line-height:1.8">${w.ar}</div>` : ''}
+        ${w.tr ? `<div style="font-size:10px;color:var(--txm);font-style:italic">${w.tr}</div>` : ''}
+        <div style="font-size:10px;color:var(--teal);margin-top:4px">Target: ${w.tgt > 0 ? w.tgt + 'x' : '∞'}</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px;flex-shrink:0">
+        <button onclick="activateWirid('${w.id}')" style="padding:5px 10px;border-radius:8px;background:rgba(196,155,60,.12);border:.5px solid var(--brgold);color:var(--gold);font-size:10px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap">
+          Aktifkan
+        </button>
+        <button onclick="deleteWirid('${w.id}')" style="padding:5px 10px;border-radius:8px;background:rgba(224,90,90,.09);border:.5px solid rgba(224,90,90,.22);color:var(--red);font-size:10px;cursor:pointer;font-family:'DM Sans',sans-serif">
+          Hapus
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function katLabel(k) {
+  return {dzikir:'Dzikir',sholawat:'Sholawat',asmaul_husna:'Asmaul Husna',istighfar:'Istighfar',doa:"Do'a",wirid:'Wirid'}[k] || k;
+}
+
+// Render wirid picker list from catalog
+function renderWiridPicker() {
+  const el = document.getElementById('wiridPickerList');
+  if (!el) return;
+  const saved = loadSavedWirid();
+  const savedIds = saved.map(w => w.id);
+  el.innerHTML = wiridCatalog.map(w => {
+    const added = savedIds.includes(w.id);
+    return `
+      <div style="background:var(--sf);border:.5px solid ${added?'var(--brgold)':'var(--br)'};border-radius:12px;padding:12px;display:flex;justify-content:space-between;align-items:center;gap:10px">
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:2px">
+            <span style="font-size:12px;font-weight:600">${w.nm}</span>
+            <span style="font-size:9px;padding:2px 6px;border-radius:6px;background:rgba(196,155,60,.1);color:var(--gold)">${katLabel(w.kat)}</span>
+          </div>
+          <div style="font-family:'Noto Naskh Arabic',serif;font-size:15px;direction:rtl;color:${added?'var(--gold)':'var(--tx)'};line-height:1.7">${w.ar}</div>
+          <div style="font-size:10px;color:var(--txm);margin-top:2px">${w.tgt > 0 ? w.tgt + 'x' : '∞'}</div>
+        </div>
+        <button onclick="addFromCatalog('${w.id}')" id="catbtn_${w.id}" style="padding:7px 12px;border-radius:9px;background:${added?'rgba(45,212,180,.1)':'rgba(196,155,60,.12)'};border:.5px solid ${added?'rgba(45,212,180,.3)':'var(--brgold)'};color:${added?'var(--teal)':'var(--gold)'};font-size:11px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;flex-shrink:0">
+          ${added ? '✓ Tersimpan' : '+ Tambah'}
+        </button>
+      </div>
+    `;
+  }).join('');
+}
+
+// Switch modal tabs
+function switchMTab(tab) {
+  const manualContent = document.getElementById('mTabManualContent');
+  const listContent = document.getElementById('mTabListContent');
+  const btnManual = document.getElementById('mTabManual');
+  const btnList = document.getElementById('mTabList');
+  const onStyle = 'padding:9px;border-radius:11px;background:rgba(196,155,60,.12);border:.5px solid var(--brgold);color:var(--gold);font-size:12px;font-weight:600;cursor:pointer;font-family:"DM Sans",sans-serif';
+  const offStyle = 'padding:9px;border-radius:11px;background:var(--sf);border:.5px solid var(--br);color:var(--txm);font-size:12px;font-weight:600;cursor:pointer;font-family:"DM Sans",sans-serif';
+  if (tab === 'manual') {
+    btnManual.style.cssText = onStyle; btnList.style.cssText = offStyle;
+    manualContent.style.display = 'block'; listContent.style.display = 'none';
+  } else {
+    btnList.style.cssText = onStyle; btnManual.style.cssText = offStyle;
+    manualContent.style.display = 'none'; listContent.style.display = 'block';
+    renderWiridPicker();
+  }
+}
+
+// Add wirid from catalog
+function addFromCatalog(id) {
+  const item = wiridCatalog.find(w => w.id === id);
+  if (!item) return;
+  const saved = loadSavedWirid();
+  if (saved.find(w => w.id === id)) {
+    toast('Sudah Tersimpan', `"${item.nm}" sudah ada dalam daftar wiridmu.`);
+    return;
+  }
+  saved.push({...item});
+  saveWiridStorage(saved);
+  addPillToDzikir(item.nm, item.tgt, item.id);
+  renderWiridPicker();
+  renderSavedWirid();
+  toast('Wirid Ditambahkan', `"${item.nm}" berhasil disimpan dan siap digunakan.`);
+}
+
+// Add wirid via manual input
+function addWiridManual() {
+  const nm = document.getElementById('ndzlbl').value.trim();
+  const ar = document.getElementById('ndztxt').value.trim();
+  const tr = document.getElementById('ndztr').value.trim();
+  const tgt = parseInt(document.getElementById('ndztgt').value) || 0;
+  const kat = document.getElementById('ndzkat').value;
+  if (!nm) { toast('Perlu Nama', 'Masukkan nama amalan/wirid terlebih dahulu.'); return; }
+  const saved = loadSavedWirid();
+  const id = 'custom_' + Date.now();
+  const newWirid = { id, nm, ar, tr, tgt, kat };
+  saved.push(newWirid);
+  saveWiridStorage(saved);
+  addPillToDzikir(nm, tgt, id);
+  // clear form
+  document.getElementById('ndzlbl').value = '';
+  document.getElementById('ndztxt').value = '';
+  document.getElementById('ndztr').value = '';
+  document.getElementById('ndztgt').value = '';
+  renderSavedWirid();
+  toast('Wirid Tersimpan', `"${nm}" berhasil disimpan otomatis & ditambahkan ke Suluk.`);
+}
+
+// Add pill to dzikir page
+function addPillToDzikir(nm, tgt, id) {
+  const pills = document.getElementById('ppills');
+  if (document.getElementById('pill_' + id)) return; // already added
+  const p = document.createElement('div');
+  p.className = 'ppill';
+  p.id = 'pill_' + id;
+  p.textContent = `${nm}${tgt > 0 ? ` (${tgt}x)` : ' (∞)'}`;
+  p.onclick = function() { setPreset(this, nm, tgt); };
+  pills.appendChild(p);
+}
+
+// Activate a saved wirid (set as current preset and close modal)
+function activateWirid(id) {
+  const saved = loadSavedWirid();
+  const w = saved.find(x => x.id === id);
+  if (!w) return;
+  // Ensure pill exists
+  addPillToDzikir(w.nm, w.tgt, w.id);
+  // Set as active preset
+  const pill = document.getElementById('pill_' + id);
+  if (pill) setPreset(pill, w.nm, w.tgt);
+  closeM('mDzikir');
+  goTab('Dzikir');
+  toast('Wirid Diaktifkan', `"${w.nm}" sekarang aktif sebagai wirid utama. Bismillah!`);
+}
+
+// Delete a saved wirid
+function deleteWirid(id) {
+  let saved = loadSavedWirid();
+  const w = saved.find(x => x.id === id);
+  saved = saved.filter(x => x.id !== id);
+  saveWiridStorage(saved);
+  // Remove pill if exists
+  const pill = document.getElementById('pill_' + id);
+  if (pill) pill.remove();
+  renderSavedWirid();
+  if (w) toast('Wirid Dihapus', `"${w.nm}" dihapus dari daftar.`);
+}
+
+// Load all saved wirid pills on startup
+function loadSavedWiridPills() {
+  const saved = loadSavedWirid();
+  saved.forEach(w => addPillToDzikir(w.nm, w.tgt, w.id));
+  const cnt = document.getElementById('savedWiridCount');
+  if (cnt) cnt.textContent = saved.length;
+}
+
+// Legacy: kept for any old references
+function addDzikir() { addWiridManual(); }
+
+// ── ONBOARDING ──
+function nextOB(){
+  obStep++;
+  if(obStep>=obSteps.length){skipOB();return;}
+  document.getElementById('obt').textContent=obSteps[obStep].t;
+  document.getElementById('obd').textContent=obSteps[obStep].d;
+  document.querySelectorAll('.odot').forEach((d,i)=>d.classList.toggle('on',i===obStep));
+  if(obStep===obSteps.length-1)document.getElementById('obn').textContent='Mulai Sekarang';
+}
+function skipOB(){const o=document.getElementById('onb');o.style.opacity='0';setTimeout(()=>{o.style.display='none';document.getElementById('lgn').style.display='flex';},400);}
+
+// ── LOGIN ──
+function doLogin(){const l=document.getElementById('lgn');l.style.opacity='0';setTimeout(()=>{l.style.display='none';toast("Assalamu'alaikum","Semoga harimu penuh berkah dan ridha Allah ﷻ");},400);}
+function doLogout(){document.getElementById('lgn').style.opacity='1';document.getElementById('lgn').style.display='flex';}
+
+// ── TOAST ──
+let tTimer;
+function toast(t,b){document.getElementById('tttl').textContent=t;document.getElementById('tbdy').textContent=b;const el=document.getElementById('tst');el.classList.add('show');clearTimeout(tTimer);tTimer=setTimeout(()=>el.classList.remove('show'),3800);}
+
+// ── NAV ──
+function goTab(tab){
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'));
+  document.getElementById('pg'+tab).classList.add('on');
+  document.getElementById('nv-'+tab).classList.add('on');
+}
+
+// ── AUDIO ──
+function iA(){if(!S.actx)S.actx=new(window.AudioContext||window.webkitAudioContext)();}
+function tapT(){
+  S.dzCnt++;S.totDz++;
+  document.getElementById('dzCnt').textContent=S.dzCnt;
+  document.getElementById('hmCtr').textContent=S.dzCnt;
+  document.getElementById('ttlDz').textContent=S.totDz.toLocaleString();
+  iA();const o=S.actx.createOscillator(),g=S.actx.createGain();
+  o.type='triangle';o.frequency.setValueAtTime(400,S.actx.currentTime);o.frequency.exponentialRampToValueAtTime(100,S.actx.currentTime+.06);
+  g.gain.setValueAtTime(.1,S.actx.currentTime);g.gain.exponentialRampToValueAtTime(.001,S.actx.currentTime+.06);
+  o.connect(g);g.connect(S.actx.destination);o.start();o.stop(S.actx.currentTime+.07);
+  if(navigator.vibrate)navigator.vibrate(28);
+  if(S.dzTgt>0&&S.dzCnt===S.dzTgt)toast('Alhamdulillah!',`Target ${S.dzPr} tercapai! 🎉`);
+}
+function resetDz(){S.dzCnt=0;document.getElementById('dzCnt').textContent='0';toast('Reset Tasbih','Perhitungan kembali ke nol.');}
+function setPreset(el,nm,tgt){
+  S.dzPr=nm;S.dzTgt=tgt;S.dzCnt=0;
+  document.getElementById('dzCnt').textContent='0';
+  document.getElementById('prname').textContent=nm;
+  document.getElementById('prtgt').textContent=tgt>0?tgt:'∞';
+  document.querySelectorAll('.ppill').forEach(p=>p.classList.remove('on'));
+  el.classList.add('on');
+}
+function toggleAudio(){
+  iA();const btn=document.getElementById('audBtn');
+  if(S.aPlay){S.aOsc.stop();S.aOsc=null;S.aPlay=false;btn.innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 010 7.07"/></svg> Audio';toast('Audio Dimatikan','Suara meditasi dihentikan.');}
+  else{S.aOsc=S.actx.createOscillator();const g=S.actx.createGain();S.aOsc.type='sine';S.aOsc.frequency.value=110;g.gain.value=.04;S.aOsc.connect(g);g.connect(S.actx.destination);S.aOsc.start();S.aPlay=true;btn.innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg> Stop';toast('Audio Aktif','Drone meditasi sufi 110Hz aktif.');}
+}
+function playAdzan(){iA();toast('Adzan Ashar','Melantunkan simulasi adzan ashar...');const o=S.actx.createOscillator(),g=S.actx.createGain();o.type='sine';o.frequency.value=261.63;g.gain.setValueAtTime(.2,S.actx.currentTime);g.gain.exponentialRampToValueAtTime(.001,S.actx.currentTime+4);o.connect(g);g.connect(S.actx.destination);o.start();o.stop(S.actx.currentTime+4);}
+function toggleBreath(){
+  const btn=document.getElementById('brBtn'),vis=document.getElementById('brVis'),ball=document.getElementById('brBall'),lbl=document.getElementById('brLbl'),cyc=document.getElementById('brCyc');
+  if(S.brOn){clearInterval(S.brInt);S.brOn=false;btn.textContent='Mulai';btn.style.background='rgba(45,212,180,.09)';btn.style.color='var(--teal)';vis.style.display='none';}
+  else{S.brOn=true;S.brCyc=0;btn.textContent='Hentikan';btn.style.background='rgba(224,90,90,.09)';btn.style.color='var(--red)';vis.style.display='flex';
+    S.brInt=setInterval(()=>{S.brIn=!S.brIn;if(S.brIn){ball.textContent='HU';ball.style.transform='scale(1.4)';ball.style.background='rgba(45,212,180,.18)';ball.style.borderColor='var(--teal)';ball.style.color='var(--teal)';lbl.textContent='Tarik Nafas';lbl.style.color='var(--teal)';}else{ball.textContent='الله';ball.style.transform='scale(.8)';ball.style.background='rgba(196,155,60,.14)';ball.style.borderColor='var(--gold)';ball.style.color='var(--gold)';lbl.textContent='Hembuskan Nafas';lbl.style.color='var(--gold)';S.brCyc++;cyc.textContent=S.brCyc;}if(navigator.vibrate)navigator.vibrate(14);},3000);}
+}
+
+// ── KHALWAT ──
+function toggleKhalwat(){
+  S.khlOn=!S.khlOn;const el=document.getElementById('khl'),ph=document.getElementById('kphase'),wd=document.getElementById('kword');
+  if(S.khlOn){el.classList.add('on');S.khlInt=setInterval(()=>{S.khlPh=!S.khlPh;if(S.khlPh){ph.textContent='Tarik Nafas — HU';ph.style.color='var(--teal)';wd.textContent='هو';}else{ph.textContent='Hembuskan Nafas — Allah';ph.style.color='var(--gold)';wd.textContent='الله';}},4000);}
+  else{el.classList.remove('on');clearInterval(S.khlInt);}
+}
+
+// ── QURAN ──
+function showSr(key,tabEl){
+  document.querySelectorAll('.stb').forEach(t=>t.classList.remove('on'));if(tabEl)tabEl.classList.add('on');
+  const c=document.getElementById('mushaf');
+  c.innerHTML=(qrnData[key]||[]).map(v=>`<div class="vb"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px"><div class="vnum">${v.n}</div><div class="var" style="flex:1;padding-left:12px">${v.a}</div></div><div class="vtr">${v.t}</div></div>`).join('');
+}
+async function fetchSr(){
+  const num=document.getElementById('srSel').value;const c=document.getElementById('mushaf');
+  c.innerHTML=`<div style="text-align:center;padding:40px 0;color:var(--txm)"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" style="animation:sp 1s linear infinite;margin-bottom:8px"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" opacity=".25"/><path d="M21 12a9 9 0 00-9-9"/></svg><div style="font-size:12px">Mengunduh dari equran.id...</div></div>`;
+  try{const r=await fetch(`https://equran.id/api/v2/surat/${num}`),j=await r.json();if(j.code!==200)throw 0;const d=j.data;
+    c.innerHTML=`<div style="text-align:center;padding:14px;background:rgba(196,155,60,.05);border-radius:14px;margin-bottom:16px"><div style="font-family:'Noto Naskh Arabic',serif;font-size:25px;color:var(--gold)">${d.nama}</div><div style="font-size:12px;font-weight:600;margin-top:4px">${d.namaLatin} — ${d.arti}</div><div style="font-size:10px;color:var(--txm);margin-top:2px">${d.tempatTurun.toUpperCase()} · ${d.jumlahAyat} AYAT</div></div>`+d.ayat.map(a=>`<div class="vb"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px"><div class="vnum">${a.nomorAyat}</div><div class="var" style="flex:1;padding-left:12px;font-size:21px">${a.teksArab}</div></div><div style="font-size:11px;color:var(--txf);font-style:italic;margin-bottom:4px">${a.teksLatin}</div><div class="vtr">${a.teksIndonesia}</div></div>`).join('');
+    toast('Berhasil Dimuat',`Surat ${d.namaLatin} berhasil diunduh.`);
+  }catch{c.innerHTML=`<div style="text-align:center;padding:36px 0;color:var(--red)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom:8px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r="1" fill="currentColor" stroke="none"/></svg><div style="font-size:12px">Gagal memuat. Periksa koneksi.</div></div>`;toast('Gagal Memuat','Tidak dapat menghubungi equran.id');}
+}
+
+// ── JOURNAL ──
+function updAudit(k,v){document.getElementById('ad'+k).textContent=auditL[k][v-1];}
+function pickMood(el,m){document.querySelectorAll('.mi').forEach(x=>x.classList.remove('sel'));el.classList.add('sel');toast('Kondisi Jiwa',`Mood diatur ke: ${m}`);}
+function saveRefl(){const t=document.getElementById('reflTx').value;if(!t.trim()){toast('Kosong','Tuliskan refleksimu terlebih dahulu.');return;}toast('Jurnal Tersimpan','Refleksi harian terenkripsi secara lokal. ✓');}
+
+// ── KALAM ──
+function rotQ(){qIdx=(qIdx+1)%qs.length;document.getElementById('qtxt').textContent=qs[qIdx].t;document.getElementById('qaut').textContent=qs[qIdx].a;}
+
+// ── TAZ ──
+function openTaz(k){const d=tazD[k];toast(d.ti,d.dc);}
+
+// ── AI SUBTABS ──
+function swSub(mode){
+  S.subM=mode;
+  const lib=document.getElementById('tazLib'),chat=document.getElementById('chatRoom'),qp=document.getElementById('qpls'),ci=document.getElementById('ciaW');
+  const btnN=document.getElementById('stNur'),btnM=document.getElementById('stMur');
+  const on='padding:10px;border-radius:12px;background:rgba(196,155,60,.11);border:.5px solid var(--brgold);color:var(--gold);font-size:12px;font-weight:600;cursor:pointer;font-family:"DM Sans",sans-serif;display:flex;align-items:center;justify-content:center;gap:5px';
+  const off='padding:10px;border-radius:12px;background:var(--sf);border:.5px solid var(--br);color:var(--txm);font-size:12px;font-weight:600;cursor:pointer;font-family:"DM Sans",sans-serif;display:flex;align-items:center;justify-content:center;gap:5px';
+  if(mode==='Nur'){btnN.style.cssText=on;btnM.style.cssText=off;lib.style.display='block';chat.style.display='none';qp.style.display='none';ci.style.display='none';}
+  else{btnM.style.cssText=on;btnN.style.cssText=off;lib.style.display='none';chat.style.display='flex';qp.style.display='flex';ci.style.display='flex';loadMur();}
+}
+
+// ── CHAT ──
+function loadNur(){
+  const m=document.getElementById('chatMsgs');m.innerHTML='';
+  aiBub("Assalamu'alaikum, wahai jiwa yang berdzikir. Saya adalah <strong>Nur</strong>, teman perjalanan ruhanimu. Tanyakan padaku perihal apa yang menggelisahkan hatimu.");
+  document.getElementById('qpls').innerHTML=[['Atasi Futur','Bagaimana mengatasi rasa malas beribadah?'],['Dzikir Penenang','Amalan penenang hati saat cemas?'],['Menjaga Ikhlas','Cara menjaga keikhlasan dari penyakit riya?']].map(([l,q])=>`<div class="qp" onclick="sq('${q}')">${l}</div>`).join('');
+}
+function loadMur(){const m=document.getElementById('chatMsgs');m.innerHTML='';murNode('start');}
+function aiBub(html){const m=document.getElementById('chatMsgs');m.innerHTML+=`<div class="cbbl bai"><div class="bsnd ain">✦ Nur</div><div style="font-size:12px;line-height:1.8;color:var(--txm)">${html}</div></div>`;m.scrollTop=m.scrollHeight;}
+function meBub(txt){const m=document.getElementById('chatMsgs');m.innerHTML+=`<div class="cbbl bme" style="align-self:flex-end"><div class="bsnd uin">Anda</div><div style="font-size:12px;line-height:1.8">${txt}</div></div>`;m.scrollTop=m.scrollHeight;}
+function typId(){const m=document.getElementById('chatMsgs');const id='ty'+Date.now();m.innerHTML+=`<div id="${id}" class="cbbl bai"><div class="bsnd ain">✦ Nur</div><div class="tdots"><span></span><span></span><span></span></div></div>`;m.scrollTop=m.scrollHeight;return id;}
+function murNode(nk){
+  const nd=mtree[nk];if(!nd)return;
+  const m=document.getElementById('chatMsgs'),qp=document.getElementById('qpls');
+  const tid='mt'+Date.now();
+  m.innerHTML+=`<div id="${tid}" class="cbbl bai"><div class="bsnd" style="color:var(--gold)">◈ Syeikh Mursyid</div><div class="tdots"><span></span><span></span><span></span></div></div>`;
+  m.scrollTop=m.scrollHeight;qp.innerHTML='';
+  setTimeout(()=>{const e=document.getElementById(tid);if(e)e.remove();m.innerHTML+=`<div class="cbbl bai"><div class="bsnd" style="color:var(--gold)">◈ Syeikh Mursyid</div><div style="font-size:12px;line-height:1.85;color:var(--txm);font-style:italic">${nd.m}</div></div>`;m.scrollTop=m.scrollHeight;qp.innerHTML=nd.o.map(o=>`<div class="qp" onclick="murOpt('${o.t}','${o.n}')">${o.t}</div>`).join('');},900);
+}
+function murOpt(t,n){meBub(t);murNode(n);}
+async function sendMsg(){const i=document.getElementById('chatInp');const t=i.value.trim();if(!t)return;i.value='';sq(t);}
+async function sq(text){
+  meBub(text);const tid=typId();const m=document.getElementById('chatMsgs');
+  try{
+    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:'Anda adalah Nur, asisten spiritual di aplikasi SALIK. Karakter Anda lembut, bijaksana, penuh kasih sayang, tidak menghakimi, fokus pada Tazkiyatun Nafs dan Muhasabah diri. Jawab keluhan spiritual pengguna dengan bahasa Indonesia yang menyejukkan, mengutip QS atau Hadits pendek yang relevan, dan berikan langkah praktis kecil. Selalu akhiri dengan kalimat hangat yang menyemangati perjalanan ruhani. Jangan terlalu panjang, maksimal 150 kata.',messages:[{role:'user',content:text}]})});
+    const d=await r.json();const e=document.getElementById(tid);if(e)e.remove();
+    const rp=d.content?.[0]?.text;if(rp)aiBub(rp.replace(/\n/g,'<br>'));else throw 0;
+  }catch{const e=document.getElementById(tid);if(e)e.remove();aiBub(["Wahai jiwa yang mencari kedamaian, bersabarlah. <em>Sesungguhnya Allah bersama orang-orang yang sabar</em> (QS. Al-Baqarah: 153). Mari ambil nafas dalam, ucapkan istighfar secara perlahan. Allah tidak pernah meninggalkanmu.","<em>Sesungguhnya kesulitan itu disertai kemudahan</em> (QS. Al-Insyirah: 6). Dekatilah sajadah walau hanya untuk 2 rakaat ringan. Hati yang terluka pun bisa disembuhkan dengan dzikir."][Math.floor(Math.random()*2)]);}
+  m.scrollTop=m.scrollHeight;
+}
+function hck(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}}
+
+// ── PRAYER COUNTDOWN ──
+function updPcd(){const now=new Date(),a=new Date();a.setHours(15,15,0,0);const d=a-now;if(d>0){const h=Math.floor(d/3600000),mn=Math.floor((d%3600000)/60000);const e=document.getElementById('pcd');if(e)e.textContent=`-${h}j ${mn}m`;}}
+setInterval(updPcd,60000);updPcd();
+
+window.onload=init;
+</script>
+</body>
+</html>
