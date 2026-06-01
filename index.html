@@ -238,12 +238,33 @@ select.inf{background:var(--bg3)}
 /* QURAN INPUT */
 .surah-saved-item{display:flex;justify-content:space-between;align-items:flex-start;background:var(--sf);border:.5px solid var(--br);border-radius:12px;padding:12px;margin-bottom:8px}
 /* PUBLISH GUIDE */
-.pub-step{display:flex;gap:12px;padding:12px 0;border-bottom:.5px solid var(--br)}
-.pub-step:last-child{border-bottom:none;padding-bottom:0}
-.pub-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.pub-copy{background:rgba(196,155,60,.08);border:.5px solid var(--brgold);border-radius:10px;padding:8px 12px;font-size:11px;color:var(--gold);font-family:monospace;margin-top:6px;word-break:break-all;cursor:pointer;transition:background .18s}
-.pub-copy:active{background:rgba(196,155,60,.2)}
 
+
+/* ADMIN DASHBOARD */
+.adm-bg{position:absolute;inset:0;background:rgba(4,6,12,.95);z-index:850;display:flex;align-items:flex-start;overflow:hidden;opacity:0;pointer-events:none;transition:opacity .35s}
+.adm-bg.open{opacity:1;pointer-events:auto}
+.adm-panel{width:100%;height:100%;overflow-y:auto;scrollbar-width:none;padding-bottom:40px}
+.adm-panel::-webkit-scrollbar{display:none}
+.adm-header{position:sticky;top:0;z-index:10;background:rgba(4,6,12,.98);padding:48px 18px 14px;border-bottom:.5px solid var(--br)}
+.adm-sec{padding:16px 18px;border-bottom:.5px solid var(--br)}
+.adm-sec-title{font-size:10px;color:var(--gold);text-transform:uppercase;letter-spacing:.14em;font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.adm-row{display:flex;align-items:center;justify-content:space-between;padding:8px 10px;background:var(--sf);border-radius:10px;margin-bottom:6px;gap:8px}
+.adm-row-left{flex:1;min-width:0}
+.adm-row-title{font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.adm-row-sub{font-size:10px;color:var(--txm);margin-top:1px}
+.adm-edit-btn{width:28px;height:28px;border-radius:8px;background:rgba(196,155,60,.1);border:.5px solid var(--brgold);color:var(--gold);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px}
+.adm-del-btn{width:28px;height:28px;border-radius:8px;background:rgba(224,90,90,.08);border:.5px solid rgba(224,90,90,.2);color:var(--red);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px}
+.adm-stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:4px}
+.adm-stat{background:var(--sf);border:.5px solid var(--br);border-radius:12px;padding:12px;text-align:center}
+.adm-stat-num{font-family:'Playfair Display',serif;font-size:26px;color:var(--gold)}
+.adm-stat-lbl{font-size:10px;color:var(--txm);margin-top:2px;text-transform:uppercase;letter-spacing:.07em}
+.adm-toggle{width:36px;height:20px;border-radius:10px;position:relative;cursor:pointer;transition:background .2s;flex-shrink:0}
+.adm-toggle.on{background:var(--tdim)}
+.adm-toggle.off{background:rgba(255,255,255,.12)}
+.adm-toggle-dot{width:16px;height:16px;border-radius:50%;background:white;position:absolute;top:2px;transition:left .2s}
+.adm-toggle.on .adm-toggle-dot{left:18px}
+.adm-toggle.off .adm-toggle-dot{left:2px}
+.adm-inline-edit{width:100%;background:var(--bg3);border:.5px solid var(--brgold);border-radius:8px;padding:6px 10px;color:var(--tx);font-size:12px;outline:none;font-family:'DM Sans',sans-serif;margin-top:6px}
 </style>
 </head>
 <body>
@@ -286,29 +307,7 @@ select.inf{background:var(--bg3)}
   <div style="font-size:10px;color:var(--txf);letter-spacing:.1em">Edisi Tasawuf & Suluk · v3.0</div>
 </div>
 
-<!-- ONBOARDING -->
-<div id="onb" class="ovl" style="display:none;width:100%">
-  <div style="align-self:flex-end"><button class="bg" onclick="skipOB()">Lewati</button></div>
-  <div style="display:flex;flex-direction:column;align-items:center;gap:24px">
-    <div class="owrap">
-      <div id="obIco" style="color:var(--gold);position:relative;z-index:1">
-        <svg width="54" height="54" viewBox="0 0 54 54" fill="none" stroke="currentColor" stroke-width="1.2">
-          <circle cx="27" cy="27" r="17"/><path d="M27 10L27 6M27 44L27 48M10 27L6 27M44 27L48 27"/>
-          <circle cx="27" cy="27" r="7" fill="rgba(196,155,60,.14)" stroke="none"/>
-          <circle cx="27" cy="27" r="3" fill="rgba(196,155,60,.38)" stroke="none"/>
-        </svg>
-      </div>
-    </div>
-    <div class="odots" id="odots"><div class="odot on"></div><div class="odot"></div><div class="odot"></div></div>
-    <div style="text-align:center">
-      <div id="obt" style="font-family:'Playfair Display',serif;font-size:23px;margin-bottom:10px">Perjalanan Ruhani Dimulai</div>
-      <div id="obd" style="font-size:13px;color:var(--txm);line-height:1.82">Mulai langkah penyucian jiwa melalui pelacakan amalan spiritual harian dan dzikir yang konsisten.</div>
-    </div>
-  </div>
-  <button class="bp" id="obn" onclick="nextOB()">Lanjutkan</button>
-</div>
-
-<!-- LOGIN -->
+<!-- LOGIN REMOVED -->
 <div id="lgn" class="ovl" style="display:none;padding:28px;width:100%">
   <div style="text-align:center;margin-bottom:32px">
     <div class="lm">SALIK</div>
@@ -345,7 +344,12 @@ select.inf{background:var(--bg3)}
 <div class="mbg" id="mAmal" onclick="closeM('mAmal')">
   <div class="msh" onclick="event.stopPropagation()">
     <div class="mhd"></div>
-    <div style="font-family:'Playfair Display',serif;font-size:18px;margin-bottom:16px">Tambah Amal Harian</div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+      <div style="font-family:'Playfair Display',serif;font-size:18px">Tambah Amal Harian</div>
+      <button onclick="closeM('mAmal')" style="background:rgba(255,255,255,.06);border:.5px solid var(--br);border-radius:8px;color:var(--txm);cursor:pointer;width:28px;height:28px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .18s" onmouseover="this.style.background='rgba(224,90,90,.12)';this.style.borderColor='rgba(224,90,90,.3)';this.style.color='var(--red)'" onmouseout="this.style.background='rgba(255,255,255,.06)';this.style.borderColor='var(--br)';this.style.color='var(--txm)'">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
     <input id="namlbl" class="inf" type="text" placeholder="Nama amalan (mis: Sholat Rawatib)">
     <input id="nambdg" class="inf" type="text" placeholder="Target / keterangan (mis: 12 Rakaat)">
     <button class="bp" onclick="addAmal()">Tambah Amalan</button>
@@ -439,7 +443,7 @@ select.inf{background:var(--bg3)}
 <!-- ══ HOME ══ -->
 <div id="pgHome" class="pg on">
   <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;padding-top:4px">
-    <div><div class="pgdate">10 Dzulhijjah 1447 H</div><div class="pgname">Para Penempuh Jalan</div></div>
+    <div><div class="pgdate" id="homeHijriDate">— Dzulhijjah 1447 H</div><div class="pgname" id="homeMiladiDate">Senin, 1 Juni 2026</div></div>
     <div style="display:flex;align-items:center;gap:6px">
       <span class="ph" style="color:var(--red)">
         <svg width="14" height="13" viewBox="0 0 24 22" fill="var(--red)" stroke="none"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402C1 3.08 4.068 1 6.281 1c1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447C20.57 1.01 23 3.14 23 7.191c0 4.06-5.421 8.862-11 14.402z"/></svg>
@@ -456,20 +460,34 @@ select.inf{background:var(--bg3)}
 
   <div class="cd" style="margin-bottom:14px">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-      <div><div style="font-size:10px;color:var(--txm);margin-bottom:2px">Sholat Berikutnya</div><div class="bigp">Ashar</div></div>
-      <div style="text-align:right"><div style="font-size:22px;font-weight:600;color:var(--gold)">15:15</div><div style="font-size:12px;color:var(--teal);margin-top:3px;display:flex;align-items:center;gap:4px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span id="pcd">-02j 45m</span></div></div>
+      <div>
+        <div style="font-size:10px;color:var(--txm);margin-bottom:2px">Sholat Berikutnya</div>
+        <div class="bigp" id="nextPrayerName">—</div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:22px;font-weight:600;color:var(--gold)" id="nextPrayerTime">--:--</div>
+        <div style="font-size:12px;color:var(--teal);margin-top:3px;display:flex;align-items:center;justify-content:flex-end;gap:4px">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          <span id="pcd">--</span>
+        </div>
+      </div>
     </div>
-    <div class="pgrid">
-      <div class="pi"><div class="pn">Subuh</div><div class="pt">04:35</div></div>
-      <div class="pi"><div class="pn">Dzuhur</div><div class="pt">12:02</div></div>
-      <div class="pi act"><div class="pn">Ashar</div><div class="pt">15:15</div></div>
-      <div class="pi"><div class="pn">Maghrib</div><div class="pt">17:58</div></div>
-      <div class="pi"><div class="pn">Isya</div><div class="pt">19:10</div></div>
+    <div class="pgrid" id="prayerGrid">
+      <div class="pi" id="pg-subuh"><div class="pn">Subuh</div><div class="pt" id="pt-subuh">--:--</div></div>
+      <div class="pi" id="pg-dzuhur"><div class="pn">Dzuhur</div><div class="pt" id="pt-dzuhur">--:--</div></div>
+      <div class="pi" id="pg-ashar"><div class="pn">Ashar</div><div class="pt" id="pt-ashar">--:--</div></div>
+      <div class="pi" id="pg-maghrib"><div class="pn">Maghrib</div><div class="pt" id="pt-maghrib">--:--</div></div>
+      <div class="pi" id="pg-isya"><div class="pn">Isya</div><div class="pt" id="pt-isya">--:--</div></div>
     </div>
-    <button onclick="playAdzan()" style="width:100%;margin-top:12px;padding:10px;border-radius:10px;background:rgba(45,212,180,.07);border:.5px solid rgba(45,212,180,.17);color:var(--teal);font-size:12px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;font-family:'DM Sans',sans-serif">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 010 7.07"/><path d="M19.07 4.93a10 10 0 010 14.14"/></svg>
-      Putar Adzan Ashar
-    </button>
+    <div style="display:flex;gap:8px;margin-top:12px">
+      <button onclick="playAdzan()" id="btnAdzan" style="flex:1;padding:10px;border-radius:10px;background:rgba(45,212,180,.07);border:.5px solid rgba(45,212,180,.17);color:var(--teal);font-size:12px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;font-family:'DM Sans',sans-serif">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 010 7.07"/><path d="M19.07 4.93a10 10 0 010 14.14"/></svg>
+        Putar Adzan
+      </button>
+      <button onclick="stopAdzan()" id="btnStopAdzan" style="display:none;padding:10px 14px;border-radius:10px;background:rgba(224,90,90,.1);border:.5px solid rgba(224,90,90,.25);color:var(--red);font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+      </button>
+    </div>
   </div>
 
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
@@ -562,18 +580,28 @@ select.inf{background:var(--bg3)}
 
 <!-- ══ QURAN ══ -->
 <div id="pgQuran" class="pg">
-  <div style="padding-top:4px;margin-bottom:14px"><div style="font-size:11px;color:var(--txm)">Mushaf Al-Quran</div><div style="font-family:'Playfair Display',serif;font-size:22px">Membaca & Tadabbur</div></div>
+  <div style="padding-top:4px;margin-bottom:14px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start">
+      <div><div style="font-size:11px;color:var(--txm)">Mushaf Al-Quran</div><div style="font-family:'Playfair Display',serif;font-size:22px">Membaca & Tadabbur</div></div>
+      <div style="text-align:right">
+        <div style="font-size:9px;color:var(--txf);text-transform:uppercase;letter-spacing:.08em">Tersimpan Offline</div>
+        <div id="quranCacheCnt" style="font-size:12px;color:var(--teal);font-weight:600;margin-top:1px">0 surah</div>
+      </div>
+    </div>
+  </div>
   <div class="cd" style="margin-bottom:14px">
     <div style="display:flex;gap:8px;align-items:center">
       <select id="srSel" class="inf" style="flex:1;margin-bottom:0">
-        <option value="1">1. Al-Fatihah</option><option value="18">18. Al-Kahf</option>
-        <option value="36">36. Yasin</option><option value="55">55. Ar-Rahman</option>
-        <option value="56">56. Al-Waqi'ah</option><option value="67">67. Al-Mulk</option>
+        <option value="1">1. Al-Fatihah</option><option value="2">2. Al-Baqarah</option><option value="3">3. Ali Imran</option><option value="4">4. An-Nisa</option><option value="5">5. Al-Maidah</option><option value="6">6. Al-An'am</option><option value="7">7. Al-A'raf</option><option value="8">8. Al-Anfal</option><option value="9">9. At-Taubah</option><option value="10">10. Yunus</option><option value="11">11. Hud</option><option value="12">12. Yusuf</option><option value="13">13. Ar-Ra'd</option><option value="14">14. Ibrahim</option><option value="15">15. Al-Hijr</option><option value="16">16. An-Nahl</option><option value="17">17. Al-Isra</option><option value="18">18. Al-Kahf</option><option value="19">19. Maryam</option><option value="20">20. Ta Ha</option><option value="21">21. Al-Anbiya</option><option value="22">22. Al-Hajj</option><option value="23">23. Al-Mu'minun</option><option value="24">24. An-Nur</option><option value="25">25. Al-Furqan</option><option value="26">26. Asy-Syu'ara</option><option value="27">27. An-Naml</option><option value="28">28. Al-Qasas</option><option value="29">29. Al-Ankabut</option><option value="30">30. Ar-Rum</option><option value="31">31. Luqman</option><option value="32">32. As-Sajdah</option><option value="33">33. Al-Ahzab</option><option value="34">34. Saba</option><option value="35">35. Fatir</option><option value="36">36. Yasin</option><option value="37">37. As-Saffat</option><option value="38">38. Sad</option><option value="39">39. Az-Zumar</option><option value="40">40. Gafir</option><option value="41">41. Fussilat</option><option value="42">42. Asy-Syura</option><option value="43">43. Az-Zukhruf</option><option value="44">44. Ad-Dukhan</option><option value="45">45. Al-Jasiyah</option><option value="46">46. Al-Ahqaf</option><option value="47">47. Muhammad</option><option value="48">48. Al-Fath</option><option value="49">49. Al-Hujurat</option><option value="50">50. Qaf</option><option value="51">51. Az-Zariyat</option><option value="52">52. At-Tur</option><option value="53">53. An-Najm</option><option value="54">54. Al-Qamar</option><option value="55">55. Ar-Rahman</option><option value="56">56. Al-Waqi'ah</option><option value="57">57. Al-Hadid</option><option value="58">58. Al-Mujadilah</option><option value="59">59. Al-Hasyr</option><option value="60">60. Al-Mumtahanah</option><option value="61">61. As-Saf</option><option value="62">62. Al-Jumu'ah</option><option value="63">63. Al-Munafiqun</option><option value="64">64. At-Tagabun</option><option value="65">65. At-Talaq</option><option value="66">66. At-Tahrim</option><option value="67">67. Al-Mulk</option><option value="68">68. Al-Qalam</option><option value="69">69. Al-Haqqah</option><option value="70">70. Al-Ma'arij</option><option value="71">71. Nuh</option><option value="72">72. Al-Jinn</option><option value="73">73. Al-Muzzammil</option><option value="74">74. Al-Muddassir</option><option value="75">75. Al-Qiyamah</option><option value="76">76. Al-Insan</option><option value="77">77. Al-Mursalat</option><option value="78">78. An-Naba</option><option value="79">79. An-Nazi'at</option><option value="80">80. Abasa</option><option value="81">81. At-Takwir</option><option value="82">82. Al-Infitar</option><option value="83">83. Al-Mutaffifin</option><option value="84">84. Al-Insyiqaq</option><option value="85">85. Al-Buruj</option><option value="86">86. At-Tariq</option><option value="87">87. Al-A'la</option><option value="88">88. Al-Gasyiyah</option><option value="89">89. Al-Fajr</option><option value="90">90. Al-Balad</option><option value="91">91. Asy-Syams</option><option value="92">92. Al-Lail</option><option value="93">93. Ad-Duha</option><option value="94">94. Al-Insyirah</option><option value="95">95. At-Tin</option><option value="96">96. Al-Alaq</option><option value="97">97. Al-Qadr</option><option value="98">98. Al-Bayyinah</option><option value="99">99. Az-Zalzalah</option><option value="100">100. Al-Adiyat</option><option value="101">101. Al-Qari'ah</option><option value="102">102. At-Takasur</option><option value="103">103. Al-Asr</option><option value="104">104. Al-Humazah</option><option value="105">105. Al-Fil</option><option value="106">106. Quraisy</option><option value="107">107. Al-Ma'un</option><option value="108">108. Al-Kausar</option><option value="109">109. Al-Kafirun</option><option value="110">110. An-Nasr</option><option value="111">111. Al-Masad</option><option value="112">112. Al-Ikhlas</option><option value="113">113. Al-Falaq</option><option value="114">114. An-Nas</option>
       </select>
-      <button onclick="fetchSr()" style="padding:9px 16px;border-radius:10px;background:rgba(45,212,180,.08);border:.5px solid rgba(45,212,180,.18);color:var(--teal);font-size:12px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:5px">
+      <button onclick="fetchSr()" id="btnMuat" style="padding:9px 16px;border-radius:10px;background:rgba(45,212,180,.08);border:.5px solid rgba(45,212,180,.18);color:var(--teal);font-size:12px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:5px;flex-shrink:0">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         Muat
       </button>
+    </div>
+    <div id="surahCacheInfo" style="display:none;margin-top:8px;font-size:10px;color:var(--teal);display:flex;align-items:center;gap:5px">
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg>
+      <span id="surahCacheText"></span>
     </div>
   </div>
   <!-- QURAN SAVED TABS -->
@@ -779,10 +807,16 @@ select.inf{background:var(--bg3)}
     </div>
   </div>
   <div class="cd">
-    <div class="sh" style="margin-bottom:12px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/></svg>Pengaturan</div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+      <div class="sh" style="margin-bottom:0"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/></svg>Pengaturan</div>
+      <button onclick="openAdmin()" style="padding:6px 14px;border-radius:10px;background:rgba(196,155,60,.12);border:.5px solid var(--brgold);color:var(--gold);font-size:11px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:5px">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        Admin Panel
+      </button>
+    </div>
     <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:.5px solid var(--br)"><span style="font-size:12px">Pemberitahuan Adzan</span><div style="width:36px;height:20px;border-radius:10px;background:var(--tdim);position:relative;cursor:pointer"><div style="width:16px;height:16px;border-radius:50%;background:white;position:absolute;right:2px;top:2px"></div></div></div>
     <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:.5px solid var(--br)"><span style="font-size:12px">Getaran Tasbih</span><div style="width:36px;height:20px;border-radius:10px;background:var(--tdim);position:relative;cursor:pointer"><div style="width:16px;height:16px;border-radius:50%;background:white;position:absolute;right:2px;top:2px"></div></div></div>
-    <div onclick="doLogout()" style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;cursor:pointer"><span style="font-size:12px;color:var(--red)">Keluar Akun</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></div>
+
   </div>
   <div style="height:8px"></div>
 </div>
@@ -985,72 +1019,41 @@ select.inf{background:var(--bg3)}
     </div>
   </div>
 
-  <!-- CARA PUBLISH -->
-  <div class="pdm-section cd" style="margin-bottom:12px">
-    <div class="sh" style="margin-bottom:12px">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2.2"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/></svg>
-      <span style="color:var(--teal)">Cara Publish Aplikasi SALIK</span>
-    </div>
-
-    <div style="font-size:11px;color:var(--txm);margin-bottom:12px;line-height:1.7">Aplikasi ini adalah file HTML tunggal yang bisa langsung di-publish. Pilih salah satu cara berikut:</div>
-
-    <div class="pub-step">
-      <div class="pub-icon" style="background:rgba(45,212,180,.1);border:.5px solid rgba(45,212,180,.3)">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 11-7.778 7.778 5.5 5.5 0 017.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
-      </div>
-      <div style="flex:1">
-        <div style="font-size:12px;font-weight:600">1. Netlify Drop (Termudah)</div>
-        <div style="font-size:11px;color:var(--txm);margin-top:2px;line-height:1.6">Buka netlify.com/drop → seret file salik-v3.html ke halaman tersebut → URL langsung jadi dalam 30 detik. Gratis selamanya.</div>
-        <div class="pub-copy" onclick="copyText('https://app.netlify.com/drop')">🔗 app.netlify.com/drop</div>
-      </div>
-    </div>
-
-    <div class="pub-step">
-      <div class="pub-icon" style="background:rgba(196,155,60,.1);border:.5px solid var(--brgold)">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
-      </div>
-      <div style="flex:1">
-        <div style="font-size:12px;font-weight:600">2. GitHub Pages (Gratis)</div>
-        <div style="font-size:11px;color:var(--txm);margin-top:2px;line-height:1.6">Buat repo di GitHub → upload file → Settings → Pages → Deploy from branch. URL: username.github.io/repo</div>
-        <div class="pub-copy" onclick="copyText('https://github.com/new')">🔗 github.com/new</div>
-      </div>
-    </div>
-
-    <div class="pub-step">
-      <div class="pub-icon" style="background:rgba(45,212,180,.08);border:.5px solid rgba(45,212,180,.2)">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-      </div>
-      <div style="flex:1">
-        <div style="font-size:12px;font-weight:600">3. Vercel (Profesional)</div>
-        <div style="font-size:11px;color:var(--txm);margin-top:2px;line-height:1.6">vercel.com → New Project → Import atau drag & drop folder. CDN global, domain custom gratis, analytics built-in.</div>
-        <div class="pub-copy" onclick="copyText('https://vercel.com/new')">🔗 vercel.com/new</div>
-      </div>
-    </div>
-
-    <div class="pub-step">
-      <div class="pub-icon" style="background:rgba(196,155,60,.08);border:.5px solid var(--brgold)">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg>
-      </div>
-      <div style="flex:1">
-        <div style="font-size:12px;font-weight:600">4. Jadikan Aplikasi (PWA)</div>
-        <div style="font-size:11px;color:var(--txm);margin-top:2px;line-height:1.6">Setelah online, buka di Chrome/Safari → Menu → "Tambahkan ke Layar Utama". Langsung menjadi ikon di HP seperti app native.</div>
-      </div>
-    </div>
-
-    <div class="pub-step">
-      <div class="pub-icon" style="background:rgba(45,212,180,.08);border:.5px solid rgba(45,212,180,.2)">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-      </div>
-      <div style="flex:1">
-        <div style="font-size:12px;font-weight:600">5. Hosting Berbayar (Domain Sendiri)</div>
-        <div style="font-size:11px;color:var(--txm);margin-top:2px;line-height:1.6">Upload ke Niagahoster/Hostinger → domain .com mulai 100rb/tahun. cPanel → File Manager → public_html → upload file.</div>
-      </div>
-    </div>
-  </div>
-
   <div style="height:8px"></div>
 </div>
 
+
+<!-- ══ ADMIN DASHBOARD ══ -->
+<div class="adm-bg" id="admPanel">
+  <div class="adm-panel">
+    <div class="adm-header">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div>
+          <div style="font-size:10px;color:var(--gold);letter-spacing:.14em;text-transform:uppercase;font-weight:600">Dashboard</div>
+          <div style="font-family:'Playfair Display',serif;font-size:22px;margin-top:2px">Admin Panel</div>
+        </div>
+        <button onclick="closeAdmin()" style="width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,.07);border:.5px solid var(--br);color:var(--txm);cursor:pointer;display:flex;align-items:center;justify-content:center">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <!-- ADMIN SUB TABS -->
+      <div style="display:flex;gap:6px;overflow-x:auto;padding:12px 0 0;scrollbar-width:none" id="admTabs">
+        <button class="adm-tab-btn on" onclick="admTab('stats')" id="admt-stats" style="flex-shrink:0;padding:6px 14px;border-radius:20px;font-size:11px;font-weight:600;background:rgba(196,155,60,.14);border:.5px solid var(--brgold);color:var(--gold);cursor:pointer;font-family:'DM Sans',sans-serif">Statistik</button>
+        <button class="adm-tab-btn" onclick="admTab('amal')" id="admt-amal" style="flex-shrink:0;padding:6px 14px;border-radius:20px;font-size:11px;font-weight:600;background:var(--sf);border:.5px solid var(--br);color:var(--txm);cursor:pointer;font-family:'DM Sans',sans-serif">Amal</button>
+        <button class="adm-tab-btn" onclick="admTab('wirid')" id="admt-wirid" style="flex-shrink:0;padding:6px 14px;border-radius:20px;font-size:11px;font-weight:600;background:var(--sf);border:.5px solid var(--br);color:var(--txm);cursor:pointer;font-family:'DM Sans',sans-serif">Wirid</button>
+        <button class="adm-tab-btn" onclick="admTab('ref')" id="admt-ref" style="flex-shrink:0;padding:6px 14px;border-radius:20px;font-size:11px;font-weight:600;background:var(--sf);border:.5px solid var(--br);color:var(--txm);cursor:pointer;font-family:'DM Sans',sans-serif">Referensi</button>
+        <button class="adm-tab-btn" onclick="admTab('quran')" id="admt-quran" style="flex-shrink:0;padding:6px 14px;border-radius:20px;font-size:11px;font-weight:600;background:var(--sf);border:.5px solid var(--br);color:var(--txm);cursor:pointer;font-family:'DM Sans',sans-serif">Quran</button>
+        <button class="adm-tab-btn" onclick="admTab('pedoman')" id="admt-pedoman" style="flex-shrink:0;padding:6px 14px;border-radius:20px;font-size:11px;font-weight:600;background:var(--sf);border:.5px solid var(--br);color:var(--txm);cursor:pointer;font-family:'DM Sans',sans-serif">Pedoman</button>
+        <button class="adm-tab-btn" onclick="admTab('kalam')" id="admt-kalam" style="flex-shrink:0;padding:6px 14px;border-radius:20px;font-size:11px;font-weight:600;background:var(--sf);border:.5px solid var(--br);color:var(--txm);cursor:pointer;font-family:'DM Sans',sans-serif">Kalam</button>
+        <button class="adm-tab-btn" onclick="admTab('reset')" id="admt-reset" style="flex-shrink:0;padding:6px 14px;border-radius:20px;font-size:11px;font-weight:600;background:rgba(224,90,90,.1);border:.5px solid rgba(224,90,90,.3);color:var(--red);cursor:pointer;font-family:'DM Sans',sans-serif">Reset</button>
+      </div>
+    </div>
+
+    <!-- TAB CONTENTS -->
+    <div id="admContent" style="padding:0"></div>
+  </div>
+</div>
 </div><!-- end .app -->
 
 <script>
@@ -1146,7 +1149,16 @@ function init(){
   showSr('AlFatihah',document.querySelector('.stb.on'));
   loadNur();
   loadSavedWiridPills();
-  setTimeout(()=>{const s=document.getElementById('spl');s.style.opacity='0';setTimeout(()=>{s.style.display='none';document.getElementById('onb').style.display='flex';},700);},2600);
+  updateDateDisplay();
+  updPcd();
+  renderRefList('all');
+  renderSavedSurahList();
+  // Update jumlah surah yang sudah di-cache
+  getCachedSurahCount().then(cnt=>{
+    const el=document.getElementById('quranCacheCnt');
+    if(el) el.textContent = cnt+' surah';
+  });
+  setTimeout(()=>{const s=document.getElementById('spl');s.style.opacity='0';setTimeout(()=>{s.style.display='none';},700);},2200);
 }
 
 // ── CHECKLIST RENDER ──
@@ -1483,11 +1495,11 @@ function nextOB(){
   document.querySelectorAll('.odot').forEach((d,i)=>d.classList.toggle('on',i===obStep));
   if(obStep===obSteps.length-1)document.getElementById('obn').textContent='Mulai Sekarang';
 }
-function skipOB(){const o=document.getElementById('onb');o.style.opacity='0';setTimeout(()=>{o.style.display='none';document.getElementById('lgn').style.display='flex';},400);}
+function skipOB(){const o=document.getElementById('onb');o.style.opacity='0';setTimeout(()=>{o.style.display='none';toast("Bismillah","Selamat datang dalam perjalanan menuju Allah ﷻ");},400);}
 
 // ── LOGIN ──
-function doLogin(){const l=document.getElementById('lgn');l.style.opacity='0';setTimeout(()=>{l.style.display='none';toast("Assalamu'alaikum","Semoga harimu penuh berkah dan ridha Allah ﷻ");},400);}
-function doLogout(){document.getElementById('lgn').style.opacity='1';document.getElementById('lgn').style.display='flex';}
+function doLogin(){toast("Bismillah","Selamat datang dalam perjalanan menuju Allah ﷻ");}
+function doLogout(){toast('Info','Fitur akun dinonaktifkan.');}
 
 // ── TOAST ──
 let tTimer;
@@ -1544,19 +1556,260 @@ function toggleKhalwat(){
   else{el.classList.remove('on');clearInterval(S.khlInt);}
 }
 
-// ── QURAN ──
-function showSr(key,tabEl){
+// ── QURAN INDEXEDDB OFFLINE CACHE ──
+const QURAN_DB_NAME = 'salik_quran_db';
+const QURAN_DB_VER = 1;
+const QURAN_STORE = 'surahs';
+
+function openQuranDB() {
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open(QURAN_DB_NAME, QURAN_DB_VER);
+    req.onupgradeneeded = e => {
+      const db = e.target.result;
+      if (!db.objectStoreNames.contains(QURAN_STORE)) {
+        db.createObjectStore(QURAN_STORE, { keyPath: 'num' });
+      }
+    };
+    req.onsuccess = e => resolve(e.target.result);
+    req.onerror = () => reject(req.error);
+  });
+}
+
+async function getSurahCache(num) {
+  try {
+    const db = await openQuranDB();
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction(QURAN_STORE, 'readonly');
+      const req = tx.objectStore(QURAN_STORE).get(Number(num));
+      req.onsuccess = () => resolve(req.result || null);
+      req.onerror = () => resolve(null);
+    });
+  } catch { return null; }
+}
+
+async function saveSurahCache(num, data) {
+  try {
+    const db = await openQuranDB();
+    return new Promise((resolve) => {
+      const tx = db.transaction(QURAN_STORE, 'readwrite');
+      tx.objectStore(QURAN_STORE).put({ num: Number(num), ...data, cachedAt: Date.now() });
+      tx.oncomplete = () => resolve(true);
+      tx.onerror = () => resolve(false);
+    });
+  } catch { return false; }
+}
+
+async function getCachedSurahCount() {
+  try {
+    const db = await openQuranDB();
+    return new Promise((resolve) => {
+      const tx = db.transaction(QURAN_STORE, 'readonly');
+      const req = tx.objectStore(QURAN_STORE).count();
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => resolve(0);
+    });
+  } catch { return 0; }
+}
+
+function renderSurahFromData(data, fromCache) {
+  const c = document.getElementById('mushaf');
+  const cacheInfo = document.getElementById('surahCacheInfo');
+  const cacheText = document.getElementById('surahCacheText');
+
+  // Header surah
+  let html = `<div style="text-align:center;padding:16px 12px;background:rgba(196,155,60,.05);border-radius:14px;margin-bottom:16px;border:.5px solid var(--brgold)">`;
+  html += `<div style="font-family:'Noto Naskh Arabic',serif;font-size:26px;color:var(--gold);line-height:1.6">${data.nama_arab||data.name_short||''}</div>`;
+  html += `<div style="font-size:13px;font-weight:600;margin-top:4px">${data.nama_latin||data.name_latin||''} — ${data.arti||data.name||''}</div>`;
+  html += `<div style="font-size:10px;color:var(--txm);margin-top:3px;text-transform:uppercase;letter-spacing:.06em">${data.tempat_turun||''} · ${data.jumlah_ayat||''} AYAT</div>`;
+  if(fromCache) html += `<div style="font-size:9px;color:var(--tdim);margin-top:5px;display:flex;align-items:center;justify-content:center;gap:4px"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Tersimpan Offline</div>`;
+  html += `</div>`;
+
+  // Basmalah (kecuali At-Taubah no.9)
+  if(data.nomor != 9 && data.nomor != 1) {
+    html += `<div style="text-align:center;font-family:'Noto Naskh Arabic',serif;font-size:22px;color:var(--txm);padding:12px 0;border-bottom:.5px solid var(--br);margin-bottom:14px;direction:rtl">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>`;
+  }
+
+  // Ayat-ayat
+  const ayats = data.ayat || data.verses || [];
+  html += ayats.map(a => {
+    const num = a.nomor || a.verse_number || a.id;
+    const arab = a.ar || a.teks_arab || a.text_uthmani || a.text || '';
+    const latin = a.latin || a.teks_latin || a.transliteration || '';
+    const indo = a.idn || a.teks_indonesia || a.translation || '';
+    return `<div class="vb">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
+        <div class="vnum">${num}</div>
+        <div class="var" style="flex:1;padding-left:12px;font-size:22px;line-height:2.2">${arab}</div>
+      </div>
+      ${latin?`<div style="font-size:11px;color:var(--txf);font-style:italic;margin-bottom:5px;line-height:1.7">${latin}</div>`:''}
+      <div class="vtr">${indo}</div>
+    </div>`;
+  }).join('');
+
+  c.innerHTML = html;
+
+  // Cache indicator
+  if(cacheInfo && cacheText) {
+    cacheInfo.style.display = fromCache ? 'flex' : 'none';
+    if(fromCache && data.cachedAt) {
+      const d = new Date(data.cachedAt);
+      cacheText.textContent = `Surah ini tersimpan offline sejak ${d.toLocaleDateString('id-ID')}`;
+    }
+  }
+}
+
+async function fetchSr() {
+  const num = document.getElementById('srSel').value;
+  const c = document.getElementById('mushaf');
+  const btn = document.getElementById('btnMuat');
+  const selEl = document.getElementById('srSel');
+  const surahName = selEl.options[selEl.selectedIndex].text;
+
+  // Check cache first
+  const cached = await getSurahCache(num);
+
+  if (cached && cached.ayat && cached.ayat.length > 0) {
+    // Ada di cache — tampilkan langsung, lalu refresh di background
+    renderSurahFromData(cached, true);
+    toast('Dari Cache', `${surahName} dimuat dari penyimpanan offline.`);
+    // Update cache di background tanpa blocking UI
+    fetchAndCacheSurah(num, surahName, false);
+    return;
+  }
+
+  // Tidak ada cache — fetch dari internet
+  await fetchAndCacheSurah(num, surahName, true);
+}
+
+async function fetchAndCacheSurah(num, surahName, showLoading) {
+  const c = document.getElementById('mushaf');
+  const btn = document.getElementById('btnMuat');
+
+  if (showLoading) {
+    c.innerHTML = `<div style="text-align:center;padding:44px 0;color:var(--txm)">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" style="animation:sp 1s linear infinite;margin-bottom:10px;display:block;margin-left:auto;margin-right:auto"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" opacity=".2"/><path d="M21 12a9 9 0 00-9-9"/></svg>
+      <div style="font-size:12px">Mengunduh dari quran.kemenag.go.id...</div>
+      <div style="font-size:10px;color:var(--txf);margin-top:4px">Data akan tersimpan untuk akses offline</div>
+    </div>`;
+    if (btn) { btn.disabled = true; btn.style.opacity = '.5'; }
+  }
+
+  // Kemenag API endpoints (coba beberapa)
+  const endpoints = [
+    `https://quran.kemenag.go.id/api/v1/ayatwithtrjm/20/${num}/1/1000`,
+    `https://equran.id/api/v2/surat/${num}`,
+  ];
+
+  let success = false;
+
+  // Coba Kemenag API
+  try {
+    const r = await fetch(endpoints[0], { signal: AbortSignal.timeout(8000) });
+    if (r.ok) {
+      const j = await r.json();
+      // Format data kemenag
+      if (j.data && j.data.length > 0) {
+        // Ambil metadata surah dari item pertama
+        const first = j.data[0];
+        const surahMeta = {
+          nomor: Number(num),
+          nama_arab: first.sname_arabic || '',
+          nama_latin: first.sname || surahName.split('. ')[1] || surahName,
+          arti: first.sname_en || '',
+          tempat_turun: first.tanzil_type === 'Makkiyah' ? 'Makkiyah' : first.tanzil_type === 'Madaniyah' ? 'Madaniyah' : '',
+          jumlah_ayat: j.data.length,
+          ayat: j.data.map(a => ({
+            nomor: a.aya_number,
+            ar: a.aya_text,
+            latin: '',
+            idn: a.translation_aya || ''
+          }))
+        };
+        await saveSurahCache(num, surahMeta);
+        if (showLoading) renderSurahFromData(surahMeta, false);
+        if (showLoading) toast('Tersimpan Offline', `${surahName} berhasil diunduh & disimpan.`);
+        success = true;
+      }
+    }
+  } catch(e) { /* fallback */ }
+
+  // Fallback ke equran.id jika kemenag gagal
+  if (!success) {
+    try {
+      const r = await fetch(endpoints[1], { signal: AbortSignal.timeout(8000) });
+      if (r.ok) {
+        const j = await r.json();
+        if (j.code === 200 && j.data) {
+          const d = j.data;
+          const surahMeta = {
+            nomor: Number(num),
+            nama_arab: d.nama || '',
+            nama_latin: d.namaLatin || '',
+            arti: d.arti || '',
+            tempat_turun: d.tempatTurun || '',
+            jumlah_ayat: d.jumlahAyat || 0,
+            ayat: (d.ayat || []).map(a => ({
+              nomor: a.nomorAyat,
+              ar: a.teksArab,
+              latin: a.teksLatin,
+              idn: a.teksIndonesia
+            }))
+          };
+          await saveSurahCache(num, surahMeta);
+          if (showLoading) renderSurahFromData(surahMeta, false);
+          if (showLoading) toast('Tersimpan Offline', `${surahName} berhasil diunduh & disimpan.`);
+          success = true;
+        }
+      }
+    } catch(e2) { /* all failed */ }
+  }
+
+  if (!success && showLoading) {
+    // Cek sekali lagi di cache siapa tahu ada versi lama
+    const cached = await getSurahCache(num);
+    if (cached && cached.ayat) {
+      renderSurahFromData(cached, true);
+      toast('Dari Cache', `${surahName} dimuat dari cache (offline).`);
+    } else {
+      c.innerHTML = `<div style="text-align:center;padding:36px 0;color:var(--red)">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom:8px;display:block;margin-left:auto;margin-right:auto"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r="1" fill="currentColor" stroke="none"/></svg>
+        <div style="font-size:12px;margin-bottom:4px">Gagal memuat surah</div>
+        <div style="font-size:10px;color:var(--txf)">Periksa koneksi internet, lalu coba lagi.</div>
+      </div>`;
+      toast('Gagal Memuat', 'Tidak dapat terhubung ke server Al-Quran.');
+    }
+  }
+
+  if (btn) { btn.disabled = false; btn.style.opacity = '1'; }
+
+  // Update cache count di tab header
+  const cnt = await getCachedSurahCount();
+  const cacheCountEl = document.getElementById('quranCacheCnt');
+  if(cacheCountEl) cacheCountEl.textContent = cnt + ' surah';
+}
+
+// Tab map untuk tombol tab surah
+const surahTabMap = {'AlFatihah':1,'AlBaqarah':2,'AliImran':3,'ArRahman':55,'AlWaqiah':56,'AlMulk':67,'AlKahf':18,'Yasin':36};
+async function showSr(key,tabEl){
   document.querySelectorAll('.stb').forEach(t=>t.classList.remove('on'));if(tabEl)tabEl.classList.add('on');
+  const num = surahTabMap[key];
+  if(num) {
+    const cached = await getSurahCache(num);
+    if(cached && cached.ayat && cached.ayat.length>0){ renderSurahFromData(cached,true); return; }
+    // Belum di-cache, load dari bawaan lalu tawarkan download
+    const c=document.getElementById('mushaf');
+    const d=(qrnData[key]||[]);
+    if(d.length>0){
+      c.innerHTML=d.map(v=>`<div class="vb"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px"><div class="vnum">${v.n}</div><div class="var" style="flex:1;padding-left:12px">${v.a}</div></div><div class="vtr">${v.t}</div></div>`).join('');
+    } else {
+      // Otomatis fetch jika tidak ada data statis
+      document.getElementById('srSel').value = num;
+      await fetchSr();
+    }
+    return;
+  }
   const c=document.getElementById('mushaf');
   c.innerHTML=(qrnData[key]||[]).map(v=>`<div class="vb"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px"><div class="vnum">${v.n}</div><div class="var" style="flex:1;padding-left:12px">${v.a}</div></div><div class="vtr">${v.t}</div></div>`).join('');
-}
-async function fetchSr(){
-  const num=document.getElementById('srSel').value;const c=document.getElementById('mushaf');
-  c.innerHTML=`<div style="text-align:center;padding:40px 0;color:var(--txm)"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" style="animation:sp 1s linear infinite;margin-bottom:8px"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" opacity=".25"/><path d="M21 12a9 9 0 00-9-9"/></svg><div style="font-size:12px">Mengunduh dari equran.id...</div></div>`;
-  try{const r=await fetch(`https://equran.id/api/v2/surat/${num}`),j=await r.json();if(j.code!==200)throw 0;const d=j.data;
-    c.innerHTML=`<div style="text-align:center;padding:14px;background:rgba(196,155,60,.05);border-radius:14px;margin-bottom:16px"><div style="font-family:'Noto Naskh Arabic',serif;font-size:25px;color:var(--gold)">${d.nama}</div><div style="font-size:12px;font-weight:600;margin-top:4px">${d.namaLatin} — ${d.arti}</div><div style="font-size:10px;color:var(--txm);margin-top:2px">${d.tempatTurun.toUpperCase()} · ${d.jumlahAyat} AYAT</div></div>`+d.ayat.map(a=>`<div class="vb"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px"><div class="vnum">${a.nomorAyat}</div><div class="var" style="flex:1;padding-left:12px;font-size:21px">${a.teksArab}</div></div><div style="font-size:11px;color:var(--txf);font-style:italic;margin-bottom:4px">${a.teksLatin}</div><div class="vtr">${a.teksIndonesia}</div></div>`).join('');
-    toast('Berhasil Dimuat',`Surat ${d.namaLatin} berhasil diunduh.`);
-  }catch{c.innerHTML=`<div style="text-align:center;padding:36px 0;color:var(--red)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom:8px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r="1" fill="currentColor" stroke="none"/></svg><div style="font-size:12px">Gagal memuat. Periksa koneksi.</div></div>`;toast('Gagal Memuat','Tidak dapat menghubungi equran.id');}
 }
 
 // ── JOURNAL ──
@@ -1612,9 +1865,790 @@ async function sq(text){
 }
 function hck(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}}
 
-// ── PRAYER COUNTDOWN ──
-function updPcd(){const now=new Date(),a=new Date();a.setHours(15,15,0,0);const d=a-now;if(d>0){const h=Math.floor(d/3600000),mn=Math.floor((d%3600000)/60000);const e=document.getElementById('pcd');if(e)e.textContent=`-${h}j ${mn}m`;}}
-setInterval(updPcd,60000);updPcd();
+// ── DYNAMIC DATE & PRAYER TIMES ENGINE ──
+let adzanAudio = null;
+let adzanPlaying = false;
+let lastAdzanKey = '';
+
+// Hijri months in Arabic
+const hijriMonths = ['Muharram','Shafar',"Rabi'ul Awwal","Rabi'ul Akhir",'Jumadal Ula','Jumadal Akhirah','Rajab',"Sya'ban",'Ramadhan','Syawal',"Dzulqa'dah",'Dzulhijjah'];
+const dayNames = ['Ahad','Senin','Selasa','Rabu','Kamis',"Jum'at",'Sabtu'];
+const monthNamesID = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+
+function toHijri(date) {
+  const jd = Math.floor((date.getTime() / 86400000) + 2440587.5);
+  let l = jd - 1948440 + 10632;
+  const n = Math.floor((l - 1) / 10631);
+  l = l - 10631 * n + 354;
+  const j = (Math.floor((10985 - l) / 5316)) * (Math.floor((50 * l) / 17719)) + (Math.floor(l / 5670)) * (Math.floor((43 * l) / 15238));
+  l = l - (Math.floor((30 - j) / 15)) * (Math.floor((17719 * j) / 50)) - (Math.floor(j / 16)) * (Math.floor((15238 * j) / 43)) + 29;
+  const month = Math.floor((24 * l) / 709);
+  const day = l - Math.floor((709 * month) / 24);
+  const year = 30 * n + j - 30;
+  return { day, month, year };
+}
+
+function updateDateDisplay() {
+  const now = new Date();
+  const hijri = toHijri(now);
+  const hEl = document.getElementById('homeHijriDate');
+  const mEl = document.getElementById('homeMiladiDate');
+  if(hEl) hEl.textContent = `${hijri.day} ${hijriMonths[hijri.month-1]} ${hijri.year} H`;
+  if(mEl) mEl.textContent = `${dayNames[now.getDay()]}, ${now.getDate()} ${monthNamesID[now.getMonth()]} ${now.getFullYear()}`;
+}
+
+// Calculate prayer times using simplified formula for Indonesia (lat -6, lng 106)
+function calcPrayerTimes(date) {
+  const lat = -6.2; const lng = 106.8; // Jakarta default
+  const timezone = 7;
+  const julianDay = Math.floor(date/86400000) + 2440587.5;
+  const D = julianDay - 2451545.0;
+  const g = (357.529 + 0.98560028*D) % 360;
+  const q = (280.459 + 0.98564736*D) % 360;
+  const L = (q + 1.915*Math.sin(g*Math.PI/180) + 0.020*Math.sin(2*g*Math.PI/180)) % 360;
+  const e = 23.439 - 0.00000036*D;
+  const RA = Math.atan2(Math.cos(e*Math.PI/180)*Math.sin(L*Math.PI/180), Math.cos(L*Math.PI/180))*180/Math.PI/15;
+  const sind = Math.sin(e*Math.PI/180)*Math.sin(L*Math.PI/180);
+  const decl = Math.asin(sind)*180/Math.PI;
+  const EqT = q/15 - RA;
+  const Dhuhr = 12 + timezone - lng/15 - EqT;
+  const calcT = (angle) => {
+    const cosH = (Math.sin(angle*Math.PI/180) - Math.sin(lat*Math.PI/180)*Math.sin(decl*Math.PI/180)) / (Math.cos(lat*Math.PI/180)*Math.cos(decl*Math.PI/180));
+    if(Math.abs(cosH) > 1) return NaN;
+    return Math.acos(cosH)*180/Math.PI/15;
+  };
+  const Fajr = Dhuhr - calcT(-18);
+  const Sunrise = Dhuhr - calcT(-0.833);
+  const Asr = Dhuhr + Math.atan2(1, Math.tan(Math.abs(lat-decl)*Math.PI/180)+1)*180/Math.PI/15;
+  const Maghrib = Dhuhr + calcT(-0.833);
+  const Isha = Dhuhr + calcT(-17);
+  const fmt = v => {const h=Math.floor(v);const m=Math.round((v-h)*60);return `${String(h).padStart(2,'0')}:${String(m<60?m:59).padStart(2,'0')}`;};
+  return {subuh:fmt(Fajr),dzuhur:fmt(Dhuhr),ashar:fmt(Asr),maghrib:fmt(Maghrib),isya:fmt(Isha)};
+}
+
+let prayerTimes = {};
+let lastPrayerDate = '';
+
+function refreshPrayerTimes() {
+  const now = new Date();
+  const todayKey = now.toDateString();
+  if(todayKey === lastPrayerDate) return;
+  lastPrayerDate = todayKey;
+  prayerTimes = calcPrayerTimes(now);
+  // Update prayer grid
+  const names = ['subuh','dzuhur','ashar','maghrib','isya'];
+  names.forEach(n => {
+    const t = document.getElementById('pt-'+n);
+    if(t) t.textContent = prayerTimes[n] || '--:--';
+  });
+}
+
+function timeToMins(t) {
+  const [h,m] = t.split(':').map(Number);
+  return h*60+m;
+}
+
+function updPcd() {
+  refreshPrayerTimes();
+  const now = new Date();
+  const curMins = now.getHours()*60 + now.getMinutes();
+  const prayers = [
+    {k:'subuh',n:'Subuh',t:prayerTimes.subuh},
+    {k:'dzuhur',n:'Dzuhur',t:prayerTimes.dzuhur},
+    {k:'ashar',n:'Ashar',t:prayerTimes.ashar},
+    {k:'maghrib',n:'Maghrib',t:prayerTimes.maghrib},
+    {k:'isya',n:"Isya'",t:prayerTimes.isya},
+  ];
+  // Highlight active + find next
+  let next = null;
+  prayers.forEach(p => {
+    const el = document.getElementById('pg-'+p.k);
+    if(el) el.classList.remove('act');
+  });
+  for(const p of prayers) {
+    if(!p.t) continue;
+    const mins = timeToMins(p.t);
+    if(mins > curMins) { next = p; break; }
+  }
+  if(!next) next = prayers[0]; // wrap to Subuh
+  if(next) {
+    const el = document.getElementById('pg-'+next.k);
+    if(el) el.classList.add('act');
+    const np = document.getElementById('nextPrayerName');
+    const nt = document.getElementById('nextPrayerTime');
+    if(np) np.textContent = next.n;
+    if(nt) nt.textContent = next.t || '--:--';
+    const diff = timeToMins(next.t) - curMins;
+    const h = Math.floor(diff/60), m = diff%60;
+    const cntEl = document.getElementById('pcd');
+    if(cntEl) cntEl.textContent = h>0 ? `-${h}j ${m}m` : `-${m}m`;
+    // Auto-adzan trigger: fire at exact prayer time
+    const key = next.k + '_' + lastPrayerDate;
+    if(diff === 0 && key !== lastAdzanKey) {
+      lastAdzanKey = key;
+      playAdzan(true);
+    }
+  }
+  const btnA = document.getElementById('btnAdzan');
+  if(btnA && next) btnA.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 010 7.07"/></svg> Adzan ${next.n}`;
+}
+
+function playAdzan(auto = false) {
+  if(adzanPlaying) { stopAdzan(); return; }
+  const src = 'https://islamdownload.net/wp-content/uploads/2019/08/Adzan-Mesir-3.mp3';
+  adzanAudio = new Audio(src);
+  adzanAudio.volume = 0.9;
+  adzanAudio.onended = () => { adzanPlaying = false; document.getElementById('btnStopAdzan').style.display='none'; };
+  adzanAudio.onerror = () => {
+    // Fallback to Web Audio API tone
+    initAudio();
+    const o=S.actx.createOscillator(),g=S.actx.createGain();
+    o.type='sine';o.frequency.value=261.63;
+    g.gain.setValueAtTime(.25,S.actx.currentTime);
+    g.gain.exponentialRampToValueAtTime(.001,S.actx.currentTime+5);
+    o.connect(g);g.connect(S.actx.destination);o.start();o.stop(S.actx.currentTime+5);
+    adzanPlaying = false;
+  };
+  adzanAudio.play().then(() => {
+    adzanPlaying = true;
+    const sBtn = document.getElementById('btnStopAdzan');
+    if(sBtn) sBtn.style.display = 'flex';
+    if(auto) toast('🕌 Waktu Sholat','Allahu Akbar! Telah masuk waktu sholat.');
+    else toast('Adzan','Memutar Adzan Mesir...');
+  }).catch(() => {
+    toast('Adzan','Tap tombol sekali lagi untuk memulai audio.');
+  });
+}
+
+function stopAdzan() {
+  if(adzanAudio) { adzanAudio.pause(); adzanAudio.currentTime=0; adzanAudio=null; }
+  adzanPlaying = false;
+  const sBtn = document.getElementById('btnStopAdzan');
+  if(sBtn) sBtn.style.display = 'none';
+}
+
+setInterval(updPcd, 30000);
+setInterval(updateDateDisplay, 60000);
+
+
+// ── ADMIN PANEL ──
+let admCurrentTab = 'stats';
+
+function openAdmin(){
+  document.getElementById('admPanel').classList.add('open');
+  admTab('stats');
+}
+
+function closeAdmin(){
+  document.getElementById('admPanel').classList.remove('open');
+}
+
+function admTab(tab){
+  admCurrentTab = tab;
+  // Update tab buttons
+  document.querySelectorAll('.adm-tab-btn').forEach(b=>{
+    const id = b.id.replace('admt-','');
+    if(id===tab){b.style.background='rgba(196,155,60,.14)';b.style.borderColor='var(--brgold)';b.style.color='var(--gold)';}
+    else if(id==='reset'){b.style.background='rgba(224,90,90,.1)';b.style.borderColor='rgba(224,90,90,.3)';b.style.color='var(--red)';}
+    else{b.style.background='var(--sf)';b.style.borderColor='var(--br)';b.style.color='var(--txm)';}
+  });
+  const c = document.getElementById('admContent');
+  c.innerHTML = '';
+  if(tab==='stats') admRenderStats();
+  else if(tab==='amal') admRenderAmal();
+  else if(tab==='wirid') admRenderWirid();
+  else if(tab==='ref') admRenderRef();
+  else if(tab==='quran') admRenderQuran();
+  else if(tab==='pedoman') admRenderPedoman();
+  else if(tab==='kalam') admRenderKalam();
+  else if(tab==='reset') admRenderReset();
+}
+
+function admRenderStats(){
+  const saved = loadSavedWirid();
+  const refData = JSON.parse(localStorage.getItem('salik_ref_v1')||'[]');
+  const surahData = JSON.parse(localStorage.getItem('salik_surah_v1')||'[]');
+  const total = S.totDz;
+  const amlDone = amlData.filter(a=>a.ck).length;
+  const c = document.getElementById('admContent');
+  c.innerHTML = `
+    <div class="adm-sec">
+      <div class="adm-sec-title"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Ringkasan Data</div>
+      <div class="adm-stat-grid">
+        <div class="adm-stat"><div class="adm-stat-num">${total.toLocaleString()}</div><div class="adm-stat-lbl">Total Dzikir</div></div>
+        <div class="adm-stat"><div class="adm-stat-num">${amlDone}/${amlData.length}</div><div class="adm-stat-lbl">Amal Selesai</div></div>
+        <div class="adm-stat"><div class="adm-stat-num">${saved.length}</div><div class="adm-stat-lbl">Wirid Tersimpan</div></div>
+        <div class="adm-stat"><div class="adm-stat-num">${refData.length}</div><div class="adm-stat-lbl">Referensi</div></div>
+      </div>
+      <div class="adm-stat-grid" style="margin-top:8px">
+        <div class="adm-stat"><div class="adm-stat-num">${surahData.length}</div><div class="adm-stat-lbl">Ayat Disimpan</div></div>
+        <div class="adm-stat"><div class="adm-stat-num">${psaData.filter(p=>p.ck).length}/${psaData.length}</div><div class="adm-stat-lbl">Puasa Hari Ini</div></div>
+      </div>
+    </div>
+    <div class="adm-sec">
+      <div class="adm-sec-title"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>Status Amal Hari Ini</div>
+      ${amlData.map(a=>`<div class="adm-row"><div class="adm-row-left"><div class="adm-row-title">${a.lbl}</div><div class="adm-row-sub">${a.bdg||'Amalan Harian'}</div></div><div style="width:20px;height:20px;border-radius:6px;background:${a.ck?'var(--tdim)':'var(--sf)'};border:.5px solid ${a.ck?'var(--teal)':'var(--br)'};display:flex;align-items:center;justify-content:center">${a.ck?'<svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="white" stroke-width="2"><path d="M2 5l2 2 4-4"/></svg>':''}</div></div>`).join('')}
+    </div>`;
+}
+
+function admRenderAmal(){
+  const c = document.getElementById('admContent');
+  c.innerHTML = `
+    <div class="adm-sec">
+      <div class="adm-sec-title"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>Kelola Amal Harian (${amlData.length})</div>
+      <div id="admAmlList"></div>
+      <div style="margin-top:12px">
+        <div style="font-size:11px;color:var(--txm);margin-bottom:8px">Tambah Amal Baru</div>
+        <input id="admNewAml" class="adm-inline-edit" type="text" placeholder="Nama amalan baru...">
+        <input id="admNewAmlBdg" class="adm-inline-edit" type="text" placeholder="Badge / target (opsional)" style="margin-top:6px">
+        <button onclick="admAddAml()" style="width:100%;margin-top:8px;padding:10px;border-radius:10px;background:rgba(196,155,60,.12);border:.5px solid var(--brgold);color:var(--gold);font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif">+ Tambah</button>
+      </div>
+    </div>
+    <div class="adm-sec">
+      <div class="adm-sec-title"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/></svg>Kelola Riyadhah Puasa (${psaData.length})</div>
+      <div id="admPsaList"></div>
+      <div style="margin-top:12px">
+        <input id="admNewPsa" class="adm-inline-edit" type="text" placeholder="Nama puasa baru...">
+        <button onclick="admAddPsa()" style="width:100%;margin-top:8px;padding:10px;border-radius:10px;background:rgba(196,155,60,.12);border:.5px solid var(--brgold);color:var(--gold);font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif">+ Tambah</button>
+      </div>
+    </div>`;
+  admRenderAmlList();
+  admRenderPsaList();
+}
+
+function admRenderAmlList(){
+  const el=document.getElementById('admAmlList');
+  if(!el)return;
+  el.innerHTML=amlData.map(a=>`
+    <div class="adm-row">
+      <div class="adm-row-left">
+        <div class="adm-row-title">${a.lbl}</div>
+        <div class="adm-row-sub">${a.bdg||'—'} · ${a.ck?'✓ Selesai':'Belum'}</div>
+      </div>
+      <div style="display:flex;gap:5px">
+        <button class="adm-edit-btn" onclick="admEditAml('${a.id}')" title="Edit">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        </button>
+        ${!a.def?`<button class="adm-del-btn" onclick="admDelAml('${a.id}')" title="Hapus"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg></button>`:'<div style="width:28px"></div>'}
+      </div>
+    </div>`).join('');
+}
+
+function admEditAml(id){
+  const a=amlData.find(x=>x.id===id);if(!a)return;
+  const nm=prompt('Edit nama amalan:',a.lbl);
+  if(nm&&nm.trim()){a.lbl=nm.trim();renderAml();admRenderAmlList();toast('Tersimpan',`Amalan "${nm.trim()}" diperbarui.`);}
+}
+function admDelAml(id){
+  amlData=amlData.filter(a=>a.id!==id);
+  renderAml();updTally();admRenderAmlList();
+  toast('Dihapus','Amalan berhasil dihapus dari daftar.');
+}
+function admAddAml(){
+  const lbl=document.getElementById('admNewAml').value.trim();
+  const bdg=document.getElementById('admNewAmlBdg').value.trim();
+  if(!lbl)return;
+  amlData.push({id:'c'+Date.now(),lbl,bdg,ck:false,def:false});
+  document.getElementById('admNewAml').value='';document.getElementById('admNewAmlBdg').value='';
+  renderAml();updTally();admRenderAmlList();
+  toast('Ditambahkan',`"${lbl}" berhasil ditambahkan.`);
+}
+function admRenderPsaList(){
+  const el=document.getElementById('admPsaList');
+  if(!el)return;
+  el.innerHTML=psaData.map(p=>`
+    <div class="adm-row">
+      <div class="adm-row-left"><div class="adm-row-title">${p.lbl}</div><div class="adm-row-sub">${p.ck?'✓ Selesai':'Belum'}</div></div>
+      <div style="display:flex;gap:5px">
+        <button class="adm-edit-btn" onclick="admEditPsa('${p.id}')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+        ${!p.def?`<button class="adm-del-btn" onclick="admDelPsa('${p.id}')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg></button>`:'<div style="width:28px"></div>'}
+      </div>
+    </div>`).join('');
+}
+function admEditPsa(id){const p=psaData.find(x=>x.id===id);if(!p)return;const nm=prompt('Edit nama puasa:',p.lbl);if(nm&&nm.trim()){p.lbl=nm.trim();renderPsa();admRenderPsaList();toast('Tersimpan','Puasa diperbarui.');}}
+function admDelPsa(id){psaData=psaData.filter(p=>p.id!==id);renderPsa();updTally();admRenderPsaList();toast('Dihapus','Puasa dihapus.');}
+function admAddPsa(){const lbl=document.getElementById('admNewPsa').value.trim();if(!lbl)return;psaData.push({id:'cp'+Date.now(),lbl,ck:false,def:false});document.getElementById('admNewPsa').value='';renderPsa();updTally();admRenderPsaList();toast('Ditambahkan',`"${lbl}" ditambahkan.`);}
+
+function admRenderWirid(){
+  const saved = loadSavedWirid();
+  const c = document.getElementById('admContent');
+  c.innerHTML = `
+    <div class="adm-sec">
+      <div class="adm-sec-title"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg>Kelola Wirid & Tasbih (${saved.length})</div>
+      ${saved.length===0?'<div style="text-align:center;padding:24px;color:var(--txf);font-size:12px">Belum ada wirid tersimpan</div>':
+        saved.map(w=>`
+          <div class="adm-row">
+            <div class="adm-row-left">
+              <div class="adm-row-title">${w.nm}</div>
+              <div class="adm-row-sub">${katLabel(w.kat)} · ${w.tgt>0?w.tgt+'x':'∞'}</div>
+              ${w.ar?`<div style="font-family:'Noto Naskh Arabic',serif;font-size:14px;direction:rtl;color:var(--gold);margin-top:3px">${w.ar}</div>`:''}
+            </div>
+            <div style="display:flex;gap:5px">
+              <button class="adm-edit-btn" onclick="admEditWirid('${w.id}')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+              <button class="adm-del-btn" onclick="admDelWirid('${w.id}')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg></button>
+            </div>
+          </div>`).join('')}
+      <div style="margin-top:12px">
+        <div style="font-size:11px;color:var(--txm);margin-bottom:8px">Tambah Wirid Baru</div>
+        <input id="admWNm" class="adm-inline-edit" type="text" placeholder="Nama wirid...">
+        <input id="admWAr" class="adm-inline-edit" type="text" placeholder="Teks Arab (opsional)" dir="rtl" style="font-family:'Noto Naskh Arabic',serif;font-size:16px;text-align:right;margin-top:6px">
+        <input id="admWTgt" class="adm-inline-edit" type="number" placeholder="Target (0=∞)" style="margin-top:6px">
+        <button onclick="admAddWirid()" style="width:100%;margin-top:8px;padding:10px;border-radius:10px;background:rgba(196,155,60,.12);border:.5px solid var(--brgold);color:var(--gold);font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif">+ Tambah Wirid</button>
+      </div>
+    </div>`;
+}
+function admEditWirid(id){
+  const saved=loadSavedWirid();const w=saved.find(x=>x.id===id);if(!w)return;
+  const nm=prompt('Edit nama wirid:',w.nm);if(!nm||!nm.trim())return;
+  w.nm=nm.trim();saveWiridStorage(saved);
+  const pill=document.getElementById('pill_'+id);if(pill)pill.textContent=`${w.nm}${w.tgt>0?` (${w.tgt}x)`:' (∞)'}`;
+  admRenderWirid();toast('Tersimpan','Wirid diperbarui.');
+}
+function admDelWirid(id){deleteWirid(id);admRenderWirid();}
+function admAddWirid(){
+  const nm=document.getElementById('admWNm').value.trim();
+  const ar=document.getElementById('admWAr').value.trim();
+  const tgt=parseInt(document.getElementById('admWTgt').value)||0;
+  if(!nm)return;
+  const saved=loadSavedWirid();
+  const id='custom_'+Date.now();
+  saved.push({id,nm,ar,tr:'',tgt,kat:'wirid'});
+  saveWiridStorage(saved);addPillToDzikir(nm,tgt,id);
+  document.getElementById('admWNm').value='';document.getElementById('admWAr').value='';document.getElementById('admWTgt').value='';
+  admRenderWirid();toast('Ditambahkan',`"${nm}" berhasil ditambahkan.`);
+}
+
+function admRenderRef(){
+  const refData=JSON.parse(localStorage.getItem('salik_ref_v1')||'[]');
+  const c=document.getElementById('admContent');
+  c.innerHTML=`
+    <div class="adm-sec">
+      <div class="adm-sec-title">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+        Tambah Referensi Amalan Baru
+      </div>
+      <div style="font-size:10px;color:var(--txm);margin-bottom:4px">Nama Amalan / Referensi</div>
+      <input id="admRNm" class="adm-inline-edit" type="text" placeholder="mis: Hizb Nawawi, Ratib Al-Haddad..." style="width:100%;margin-bottom:8px">
+      <div style="font-size:10px;color:var(--txm);margin-bottom:4px">Teks Arab</div>
+      <textarea id="admRAr" class="adm-inline-edit" rows="3" dir="rtl" placeholder="بِسْمِ اللَّهِ..." style="font-family:'Noto Naskh Arabic',serif;font-size:17px;text-align:right;resize:none;width:100%;margin-bottom:8px"></textarea>
+      <div style="font-size:10px;color:var(--txm);margin-bottom:4px">Terjemahan / Faedah</div>
+      <textarea id="admRTr" class="adm-inline-edit" rows="2" placeholder="Arti atau keutamaan amalan ini..." style="resize:none;width:100%;margin-bottom:8px"></textarea>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+        <div>
+          <div style="font-size:10px;color:var(--txm);margin-bottom:4px">Kategori</div>
+          <select id="admRKat" class="adm-inline-edit" style="width:100%">
+            <option value="doa">Do'a</option>
+            <option value="zikir">Zikir</option>
+            <option value="wirid">Wirid</option>
+            <option value="hizb">Hizb</option>
+            <option value="ratib">Ratib</option>
+            <option value="sholawat">Sholawat</option>
+            <option value="lainnya">Lainnya</option>
+          </select>
+        </div>
+        <div>
+          <div style="font-size:10px;color:var(--txm);margin-bottom:4px">Sumber / Pengarang</div>
+          <input id="admRSrc" class="adm-inline-edit" type="text" placeholder="mis: Imam Al-Ghazali" style="width:100%">
+        </div>
+      </div>
+      <div style="font-size:10px;color:var(--txm);margin-bottom:4px">Keterangan / Anjuran</div>
+      <input id="admRNote" class="adm-inline-edit" type="text" placeholder="mis: Dibaca setelah Subuh, 7x sehari..." style="width:100%;margin-bottom:10px">
+      <button onclick="admSaveRef()" style="width:100%;padding:11px;border-radius:10px;background:rgba(196,155,60,.12);border:.5px solid var(--brgold);color:var(--gold);font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;gap:6px">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v13a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/></svg>
+        Simpan & Sinkron ke Referensi
+      </button>
+    </div>
+    <div class="adm-sec" style="padding-bottom:8px">
+      <div class="adm-sec-title">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h6a4 4 0 014 4v12H4V4z"/><path d="M20 4h-6a4 4 0 00-4 4v12h10V4z"/></svg>
+        Data Tersimpan (${refData.length})
+      </div>
+      ${refData.length===0?'<div style="text-align:center;padding:20px;color:var(--txf);font-size:12px">Belum ada referensi tersimpan.</div>':
+        refData.map(r=>`
+          <div class="adm-row" style="flex-direction:column;align-items:flex-start;gap:5px">
+            <div style="display:flex;justify-content:space-between;width:100%;align-items:flex-start">
+              <div style="flex:1;min-width:0">
+                <div class="adm-row-title">${r.nm}</div>
+                <div class="adm-row-sub">${r.kat} · ${r.src||'—'}</div>
+              </div>
+              <div style="display:flex;gap:5px;flex-shrink:0;margin-left:8px">
+                <button class="adm-edit-btn" onclick="admEditRef('${r.id}')" title="Edit Referensi"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+                <button class="adm-del-btn" onclick="admDelRef('${r.id}')" title="Hapus"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg></button>
+              </div>
+            </div>
+            ${r.ar?`<div style="font-family:'Noto Naskh Arabic',serif;font-size:15px;direction:rtl;text-align:right;color:var(--gold);width:100%;line-height:1.9">${r.ar.length>60?r.ar.substring(0,60)+'...':r.ar}</div>`:''}
+            ${r.tr?`<div style="font-size:11px;color:var(--txm);font-style:italic;line-height:1.5">${r.tr.length>80?r.tr.substring(0,80)+'...':r.tr}</div>`:''}
+            ${r.note?`<div style="font-size:10px;color:var(--teal)">${r.note}</div>`:''}
+          </div>`).join('')}
+    </div>`;
+}
+function admSaveRef(){
+  const nm=document.getElementById('admRNm').value.trim();
+  const ar=document.getElementById('admRAr').value.trim();
+  const tr=document.getElementById('admRTr').value.trim();
+  const kat=document.getElementById('admRKat').value;
+  const src=document.getElementById('admRSrc').value.trim();
+  const note=document.getElementById('admRNote').value.trim();
+  if(!nm){toast('Perlu Nama','Masukkan nama referensi terlebih dahulu.');return;}
+  const ref=JSON.parse(localStorage.getItem('salik_ref_v1')||'[]');
+  ref.push({id:'r'+Date.now(),nm,ar,tr,kat,src,note,ts:Date.now()});
+  localStorage.setItem('salik_ref_v1',JSON.stringify(ref));
+  document.getElementById('admRNm').value='';document.getElementById('admRAr').value='';
+  document.getElementById('admRTr').value='';document.getElementById('admRSrc').value='';
+  document.getElementById('admRNote').value='';
+  if(typeof renderRefList==='function')renderRefList('all');
+  admRenderRef();
+  toast('Tersimpan!',`"${nm}" berhasil disimpan & disinkron ke halaman Referensi.`);
+}
+function admDelRef(id){
+  let ref=JSON.parse(localStorage.getItem('salik_ref_v1')||'[]');
+  ref=ref.filter(r=>r.id!==id);
+  localStorage.setItem('salik_ref_v1',JSON.stringify(ref));
+  if(typeof renderRefList==='function')renderRefList('all');
+  admRenderRef();toast('Dihapus','Referensi berhasil dihapus.');
+}
+
+function admEditRef(id){
+  let ref=JSON.parse(localStorage.getItem('salik_ref_v1')||'[]');
+  const r=ref.find(x=>x.id===id);if(!r)return;
+  // Fill form fields with existing data
+  document.getElementById('admRNm').value=r.nm||'';
+  document.getElementById('admRAr').value=r.ar||'';
+  document.getElementById('admRTr').value=r.tr||'';
+  document.getElementById('admRKat').value=r.kat||'lainnya';
+  document.getElementById('admRSrc').value=r.src||'';
+  document.getElementById('admRNote').value=r.note||'';
+  // Change save button to update mode
+  const saveBtn=document.querySelector('[onclick="admSaveRef()"]');
+  if(saveBtn){
+    saveBtn.innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-2px;margin-right:6px"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg> Perbarui Referensi';
+    saveBtn.setAttribute('onclick',`admUpdateRef('${id}')`);
+  }
+  // Scroll to form
+  document.getElementById('admRNm').scrollIntoView({behavior:'smooth',block:'center'});
+  document.getElementById('admRNm').focus();
+  toast('Edit Mode','Ubah data di form atas, lalu klik Perbarui.');
+}
+function admUpdateRef(id){
+  const nm=document.getElementById('admRNm').value.trim();
+  const ar=document.getElementById('admRAr').value.trim();
+  const tr=document.getElementById('admRTr').value.trim();
+  const kat=document.getElementById('admRKat').value;
+  const src=document.getElementById('admRSrc').value.trim();
+  const note=document.getElementById('admRNote').value.trim();
+  if(!nm){toast('Perlu Nama','Masukkan nama referensi.');return;}
+  let ref=JSON.parse(localStorage.getItem('salik_ref_v1')||'[]');
+  const idx=ref.findIndex(r=>r.id===id);
+  if(idx>-1) ref[idx]={...ref[idx],nm,ar,tr,kat,src,note};
+  localStorage.setItem('salik_ref_v1',JSON.stringify(ref));
+  document.getElementById('admRNm').value='';document.getElementById('admRAr').value='';
+  document.getElementById('admRTr').value='';document.getElementById('admRSrc').value='';
+  document.getElementById('admRNote').value='';
+  if(typeof renderRefList==='function')renderRefList('all');
+  admRenderRef();
+  toast('Diperbarui!',`"${nm}" berhasil diperbarui.`);
+}
+
+function admRenderQuran(){
+  const sq=JSON.parse(localStorage.getItem('salik_surah_v1')||'[]');
+  const c=document.getElementById('admContent');
+  c.innerHTML=`
+    <div class="adm-sec">
+      <div class="adm-sec-title"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>Surah Al-Quran (Cache Offline)</div>
+      <div id="admCachedSurahList"><div style="text-align:center;padding:18px;color:var(--txf);font-size:12px">Memuat data cache...</div></div>
+      <div style="margin-top:12px">
+        <button onclick="admClearQuranCache()" style="width:100%;padding:10px;border-radius:10px;background:rgba(224,90,90,.08);border:.5px solid rgba(224,90,90,.22);color:var(--red);font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif">🗑 Hapus Semua Cache Surah</button>
+      </div>
+    </div>
+    <div class="adm-sec">
+      <div class="adm-sec-title"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v13a2 2 0 01-2 2z"/></svg>Ayat Tersimpan Manual (${sq.length})</div>
+      ${sq.length===0?'<div style="text-align:center;padding:24px;color:var(--txf);font-size:12px">Belum ada ayat tersimpan. Input dari halaman Quran.</div>':
+        sq.map(s=>`
+          <div class="adm-row">
+            <div class="adm-row-left">
+              <div class="adm-row-title">${s.surah} : ${s.ayat}</div>
+              <div class="adm-row-sub">${s.tag||'Tanpa tag'}</div>
+              ${s.ar?`<div style="font-family:'Noto Naskh Arabic',serif;font-size:15px;direction:rtl;color:var(--gold);margin-top:3px;line-height:1.8">${s.ar.substring(0,50)}${s.ar.length>50?'...':''}</div>`:''}
+              ${s.tr?`<div style="font-size:10px;color:var(--txm);font-style:italic;margin-top:3px">${s.tr.substring(0,60)}${s.tr.length>60?'...':''}</div>`:''}
+            </div>
+            <button class="adm-del-btn" onclick="admDelSurah('${s.id}')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg></button>
+          </div>`).join('')}
+    </div>`;
+  // Render cached surahs async
+  admRenderCachedSurahList();
+}
+
+async function admRenderCachedSurahList() {
+  const el = document.getElementById('admCachedSurahList');
+  if(!el) return;
+  try {
+    const db = await openQuranDB();
+    const all = await new Promise((resolve) => {
+      const tx = db.transaction(QURAN_STORE, 'readonly');
+      const req = tx.objectStore(QURAN_STORE).getAll();
+      req.onsuccess = () => resolve(req.result || []);
+      req.onerror = () => resolve([]);
+    });
+    if(all.length === 0) {
+      el.innerHTML = '<div style="text-align:center;padding:20px;color:var(--txf);font-size:12px">Belum ada surah ter-cache.<br>Muat surah dari halaman Al-Quran untuk menyimpan offline.</div>';
+      return;
+    }
+    all.sort((a,b) => a.num - b.num);
+    el.innerHTML = all.map(s => {
+      const d = s.cachedAt ? new Date(s.cachedAt).toLocaleDateString('id-ID') : '—';
+      const ayatCount = (s.ayat||[]).length;
+      return `<div class="adm-row">
+        <div class="adm-row-left">
+          <div class="adm-row-title">${s.num}. ${s.nama_latin||''}</div>
+          <div class="adm-row-sub">${s.nama_arab||''} · ${ayatCount} ayat · Cache: ${d}</div>
+        </div>
+        <button class="adm-del-btn" onclick="admDelCachedSurah(${s.num})" title="Hapus cache"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg></button>
+      </div>`;
+    }).join('');
+  } catch {
+    el.innerHTML = '<div style="text-align:center;padding:20px;color:var(--txf);font-size:12px">Gagal membaca cache.</div>';
+  }
+}
+
+async function admDelCachedSurah(num) {
+  try {
+    const db = await openQuranDB();
+    await new Promise((resolve) => {
+      const tx = db.transaction(QURAN_STORE, 'readwrite');
+      tx.objectStore(QURAN_STORE).delete(Number(num));
+      tx.oncomplete = resolve;
+    });
+    admRenderCachedSurahList();
+    const cnt = await getCachedSurahCount();
+    const el = document.getElementById('quranCacheCnt');
+    if(el) el.textContent = cnt + ' surah';
+    toast('Cache Dihapus', `Surah nomor ${num} dihapus dari penyimpanan offline.`);
+  } catch { toast('Error', 'Gagal menghapus cache.'); }
+}
+
+async function admClearQuranCache() {
+  if(!confirm('Hapus semua cache surah Al-Quran offline?')) return;
+  try {
+    const db = await openQuranDB();
+    await new Promise((resolve) => {
+      const tx = db.transaction(QURAN_STORE, 'readwrite');
+      tx.objectStore(QURAN_STORE).clear();
+      tx.oncomplete = resolve;
+    });
+    admRenderCachedSurahList();
+    const el = document.getElementById('quranCacheCnt');
+    if(el) el.textContent = '0 surah';
+    toast('Cache Dibersihkan', 'Semua surah offline telah dihapus.');
+  } catch { toast('Error', 'Gagal menghapus cache.'); }
+}
+function admDelSurah(id){
+  let sq=JSON.parse(localStorage.getItem('salik_surah_v1')||'[]');
+  sq=sq.filter(s=>s.id!==id);
+  localStorage.setItem('salik_surah_v1',JSON.stringify(sq));
+  if(typeof renderSavedSurahList==='function')renderSavedSurahList();
+  admRenderQuran();toast('Dihapus','Ayat berhasil dihapus.');
+}
+
+function admRenderPedoman(){
+  const c=document.getElementById('admContent');
+  c.innerHTML=`
+    <div class="adm-sec">
+      <div class="adm-sec-title"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Pengaturan Pedoman Murid</div>
+      <div style="font-size:12px;color:var(--txm);line-height:1.7;margin-bottom:12px">Pedoman Murid adalah konten statis yang bisa dikembangkan. Fitur edit penuh pedoman akan hadir di versi berikutnya.</div>
+      <div class="adm-row">
+        <div class="adm-row-left"><div class="adm-row-title">Tampilkan Maqamat & Ahwal</div></div>
+        <div class="adm-toggle on" id="tgl-maqamat" onclick="admToggle('maqamat',this)"><div class="adm-toggle-dot"></div></div>
+      </div>
+      <div class="adm-row">
+        <div class="adm-row-left"><div class="adm-row-title">Tampilkan Larangan Keras</div></div>
+        <div class="adm-toggle on" id="tgl-larangan" onclick="admToggle('larangan',this)"><div class="adm-toggle-dot"></div></div>
+      </div>
+      <div class="adm-row">
+        <div class="adm-row-left"><div class="adm-row-title">Tampilkan Jadwal Wirid Harian</div></div>
+        <div class="adm-toggle on" id="tgl-jadwal" onclick="admToggle('jadwal',this)"><div class="adm-toggle-dot"></div></div>
+      </div>
+    </div>`;
+}
+function admToggle(id,el){el.classList.toggle('on');el.classList.toggle('off');toast('Pengaturan','Visibilitas konten diperbarui.');}
+
+function admRenderKalam(){
+  const c=document.getElementById('admContent');
+  c.innerHTML=`
+    <div class="adm-sec">
+      <div class="adm-sec-title"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/></svg>Kalam Mursyid (${qs.length})</div>
+      ${qs.map((q,i)=>`
+        <div class="adm-row" style="flex-direction:column;align-items:flex-start;gap:6px">
+          <div style="display:flex;justify-content:space-between;width:100%;align-items:flex-start">
+            <div style="font-size:11px;color:var(--gold);font-weight:600">${q.a}</div>
+            <button class="adm-del-btn" onclick="admDelKalam(${i})" style="flex-shrink:0;margin-left:8px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg></button>
+          </div>
+          <div style="font-size:11px;color:var(--txm);font-style:italic;line-height:1.7">${q.t.substring(0,100)}...</div>
+        </div>`).join('')}
+      <div style="margin-top:12px">
+        <div style="font-size:11px;color:var(--txm);margin-bottom:8px">Tambah Kalam Baru</div>
+        <textarea id="admKTxt" class="adm-inline-edit" rows="3" placeholder='Teks kalam / hikmah...' style="resize:none;width:100%"></textarea>
+        <input id="admKAut" class="adm-inline-edit" type="text" placeholder="Nama ulama / sumber..." style="margin-top:6px">
+        <button onclick="admAddKalam()" style="width:100%;margin-top:8px;padding:10px;border-radius:10px;background:rgba(196,155,60,.12);border:.5px solid var(--brgold);color:var(--gold);font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif">+ Tambah Kalam</button>
+      </div>
+    </div>`;
+}
+function admDelKalam(i){qs.splice(i,1);if(qIdx>=qs.length)qIdx=0;admRenderKalam();toast('Dihapus','Kalam berhasil dihapus.');}
+function admAddKalam(){
+  const t=document.getElementById('admKTxt').value.trim();
+  const a=document.getElementById('admKAut').value.trim();
+  if(!t||!a)return;
+  qs.push({t:`"${t}"`,a:`— ${a}`});
+  document.getElementById('admKTxt').value='';document.getElementById('admKAut').value='';
+  admRenderKalam();toast('Ditambahkan','Kalam baru berhasil disimpan.');
+}
+
+function admRenderReset(){
+  const c=document.getElementById('admContent');
+  c.innerHTML=`
+    <div class="adm-sec">
+      <div class="adm-sec-title" style="color:var(--red)"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Zona Berbahaya — Reset Data</div>
+      <div style="font-size:12px;color:var(--txm);line-height:1.7;margin-bottom:14px">Tindakan ini <strong style="color:var(--red)">tidak dapat dibatalkan</strong>. Pastikan Anda telah mempertimbangkan dengan matang.</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <button onclick="admResetWirid()" style="width:100%;padding:12px;border-radius:12px;background:rgba(224,90,90,.08);border:.5px solid rgba(224,90,90,.25);color:var(--red);font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;text-align:left;display:flex;align-items:center;justify-content:space-between">
+          Reset Semua Wirid Tersimpan
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
+        </button>
+        <button onclick="admResetRef()" style="width:100%;padding:12px;border-radius:12px;background:rgba(224,90,90,.08);border:.5px solid rgba(224,90,90,.25);color:var(--red);font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;text-align:left;display:flex;align-items:center;justify-content:space-between">
+          Reset Semua Referensi
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
+        </button>
+        <button onclick="admResetSurah()" style="width:100%;padding:12px;border-radius:12px;background:rgba(224,90,90,.08);border:.5px solid rgba(224,90,90,.25);color:var(--red);font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;text-align:left;display:flex;align-items:center;justify-content:space-between">
+          Reset Semua Ayat Tersimpan
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
+        </button>
+        <button onclick="admResetDzikir()" style="width:100%;padding:12px;border-radius:12px;background:rgba(224,90,90,.08);border:.5px solid rgba(224,90,90,.25);color:var(--red);font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;text-align:left;display:flex;align-items:center;justify-content:space-between">
+          Reset Counter Dzikir ke 0
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
+        </button>
+        <button onclick="admResetAll()" style="width:100%;padding:13px;border-radius:12px;background:rgba(224,90,90,.18);border:1px solid rgba(224,90,90,.5);color:var(--red);font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:4px">
+          ⚠️ Reset SEMUA Data Aplikasi
+        </button>
+      </div>
+    </div>`;
+}
+function admResetWirid(){if(!confirm('Reset semua wirid?'))return;localStorage.removeItem(WIRID_KEY);document.getElementById('ppills').querySelectorAll('[id^="pill_"]').forEach(p=>p.remove());admRenderReset();toast('Reset','Semua wirid tersimpan dihapus.');}
+function admResetRef(){if(!confirm('Reset semua referensi?'))return;localStorage.removeItem('salik_ref_v1');if(typeof renderRefList==='function')renderRefList('all');admRenderReset();toast('Reset','Semua referensi dihapus.');}
+function admResetSurah(){if(!confirm('Reset semua ayat tersimpan?'))return;localStorage.removeItem('salik_surah_v1');if(typeof renderSavedSurahList==='function')renderSavedSurahList();admRenderReset();toast('Reset','Semua ayat tersimpan dihapus.');}
+function admResetDzikir(){S.dzCnt=0;S.totDz=0;document.getElementById('dzCnt').textContent='0';document.getElementById('hmCtr').textContent='0';document.getElementById('ttlDz').textContent='0';admRenderReset();toast('Reset','Counter dzikir direset ke 0.');}
+function admResetAll(){
+  if(!confirm('RESET SEMUA DATA? Tindakan ini tidak bisa dibatalkan!'))return;
+  localStorage.clear();S.dzCnt=0;S.totDz=0;
+  document.getElementById('dzCnt').textContent='0';
+  document.getElementById('hmCtr').textContent='0';
+  document.getElementById('ttlDz').textContent='0';
+  amlData=amlData.map(a=>({...a,ck:false}));
+  psaData=psaData.map(p=>({...p,ck:false}));
+  renderAml();renderPsa();updTally();
+  document.getElementById('ppills').querySelectorAll('[id^="pill_"]').forEach(p=>p.remove());
+  closeAdmin();
+  toast('Reset Selesai','Semua data aplikasi telah direset ke kondisi awal.');
+}
+
+
+// ── REFERENSI PAGE RENDER ──
+let currentRefFilter = 'all';
+function renderRefList(filter) {
+  currentRefFilter = filter || currentRefFilter;
+  const refData = JSON.parse(localStorage.getItem('salik_ref_v1')||'[]');
+  const el = document.getElementById('refList');
+  if(!el) return;
+  const search = (document.getElementById('refSearch')||{}).value || '';
+  const filtered = refData.filter(r => {
+    const matchCat = currentRefFilter==='all' || r.kat===currentRefFilter;
+    const matchSearch = !search || r.nm.toLowerCase().includes(search.toLowerCase()) || (r.ar&&r.ar.includes(search)) || (r.tr&&r.tr.toLowerCase().includes(search.toLowerCase()));
+    return matchCat && matchSearch;
+  });
+  if(filtered.length===0){el.innerHTML='<div style="text-align:center;padding:40px 0;color:var(--txf);font-size:12px">Belum ada referensi tersimpan.<br>Tambah dari Admin Panel.</div>';return;}
+  el.innerHTML = filtered.map(r=>`
+    <div class="ref-item">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">
+        <div>
+          <div style="font-size:13px;font-weight:600">${r.nm}</div>
+          <div style="font-size:10px;color:var(--txm)">${r.kat} ${r.src?'· '+r.src:''}</div>
+        </div>
+        <span style="font-size:9px;padding:2px 8px;border-radius:8px;background:rgba(196,155,60,.1);color:var(--gold);flex-shrink:0;margin-left:8px">${r.kat}</span>
+      </div>
+      ${r.ar?`<div class="ref-arabic" style="font-size:20px;line-height:2;margin-bottom:6px">${r.ar}</div>`:''}
+      ${r.tr?`<div style="font-size:11px;color:var(--txm);font-style:italic;line-height:1.7;margin-bottom:4px">${r.tr}</div>`:''}
+      ${r.note?`<div style="font-size:10px;color:var(--teal);background:rgba(45,212,180,.07);border-radius:6px;padding:5px 8px;margin-top:4px">${r.note}</div>`:''}
+    </div>`).join('');
+}
+function filterRef(cat) {
+  document.querySelectorAll('.cat-pill').forEach(p=>{
+    p.style.background='var(--sf)';p.style.borderColor='var(--br)';p.style.color='var(--txm)';
+  });
+  const el=document.getElementById('rcat-'+cat);
+  if(el){el.style.background='rgba(196,155,60,.14)';el.style.borderColor='var(--brgold)';el.style.color='var(--gold)';}
+  renderRefList(cat);
+}
+function searchRef(){renderRefList(currentRefFilter);}
+
+// ── QURAN SAVED SURAH RENDER ──
+function renderSavedSurahList() {
+  const sq = JSON.parse(localStorage.getItem('salik_surah_v1')||'[]');
+  const el = document.getElementById('savedSurahList');
+  const sec = document.getElementById('savedSurahSection');
+  const cnt = document.getElementById('savedSurahCnt');
+  if(cnt) cnt.textContent = sq.length + ' ayat';
+  if(sec) sec.style.display = sq.length>0 ? 'block' : 'none';
+  if(!el) return;
+  el.innerHTML = sq.map(s=>`
+    <div class="surah-saved-item">
+      <div style="flex:1;min-width:0">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
+          <span style="font-size:12px;font-weight:600">${s.surah}</span>
+          ${s.ayat?`<span style="font-size:10px;color:var(--txm)">Ayat ${s.ayat}</span>`:''}
+          ${s.tag?`<span style="font-size:9px;padding:2px 7px;border-radius:6px;background:rgba(196,155,60,.1);color:var(--gold)">${s.tag}</span>`:''}
+        </div>
+        ${s.ar?`<div style="font-family:'Noto Naskh Arabic',serif;font-size:18px;direction:rtl;text-align:right;color:var(--tx);line-height:2;margin-bottom:4px">${s.ar}</div>`:''}
+        ${s.tr?`<div style="font-size:11px;color:var(--txm);font-style:italic;line-height:1.65">${s.tr}</div>`:''}
+      </div>
+      <button onclick="delSavedSurah('${s.id}')" style="width:24px;height:24px;border-radius:6px;background:rgba(224,90,90,.09);border:.5px solid rgba(224,90,90,.2);color:var(--red);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-left:8px;margin-top:2px">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg>
+      </button>
+    </div>`).join('');
+}
+function delSavedSurah(id){
+  let sq=JSON.parse(localStorage.getItem('salik_surah_v1')||'[]');
+  sq=sq.filter(s=>s.id!==id);
+  localStorage.setItem('salik_surah_v1',JSON.stringify(sq));
+  renderSavedSurahList();
+  toast('Dihapus','Ayat berhasil dihapus dari Mushaf.');
+}
+function saveSurahData(){
+  const surah=document.getElementById('qInpSurah').value.trim();
+  const nomor=document.getElementById('qInpNomor').value.trim();
+  const ayat=document.getElementById('qInpAyat').value.trim();
+  const ar=document.getElementById('qInpArab').value.trim();
+  const tr=document.getElementById('qInpTrans').value.trim();
+  const tag=document.getElementById('qInpTag').value.trim();
+  if(!surah){toast('Perlu Nama Surah','Masukkan nama surah terlebih dahulu.');return;}
+  const sq=JSON.parse(localStorage.getItem('salik_surah_v1')||'[]');
+  sq.push({id:'sq'+Date.now(),surah,nomor,ayat:ayat||'—',ar,tr,tag,ts:Date.now()});
+  localStorage.setItem('salik_surah_v1',JSON.stringify(sq));
+  document.getElementById('qInpSurah').value='';
+  document.getElementById('qInpNomor').value='';
+  document.getElementById('qInpAyat').value='';
+  document.getElementById('qInpArab').value='';
+  document.getElementById('qInpTrans').value='';
+  document.getElementById('qInpTag').value='';
+  renderSavedSurahList();
+  toggleQuranForm();
+  toast('Ayat Tersimpan',`Ayat Surah ${surah} berhasil disimpan ke Mushaf.`);
+}
+function toggleQuranForm(){
+  const box=document.getElementById('qFormBox');
+  const btn=document.getElementById('qFormToggle');
+  if(!box)return;
+  const isHidden=box.style.display==='none'||!box.style.display;
+  box.style.display=isHidden?'block':'none';
+  if(btn)btn.textContent=isHidden?'✕ Tutup':'+ Tambah';
+}
 
 window.onload=init;
 </script>
