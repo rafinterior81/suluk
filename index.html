@@ -491,7 +491,7 @@ select.inf{background:var(--bg3)}
   </div>
 
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
-    <div class="cd" style="margin-bottom:0"><div style="font-size:10px;color:var(--teal);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px">Dzikir Hari Ini</div><div style="font-family:'Playfair Display',serif;font-size:29px" id="hmCtr">132</div><div style="font-size:11px;color:var(--txm)">dari 300 target</div><div class="pbar" style="margin-top:10px"><div class="pfill" style="width:44%"></div></div></div>
+    <div class="cd" style="margin-bottom:0"><div style="font-size:10px;color:var(--teal);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px">Dzikir Hari Ini</div><div style="font-family:'Playfair Display',serif;font-size:29px" id="hmCtr">0</div><div style="font-size:11px;color:var(--txm)">dari 300 target</div><div class="pbar" style="margin-top:10px"><div class="pfill" style="width:44%"></div></div></div>
     <div class="cd" style="margin-bottom:0"><div style="font-size:10px;color:var(--teal);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px">Tilawah</div><div style="font-size:13px;font-weight:600">Al-Kahfi</div><div style="font-size:11px;color:var(--txm)">Ayat 1–10</div><div class="pbar" style="margin-top:10px"><div class="pfill" style="width:70%"></div></div></div>
   </div>
 
@@ -599,7 +599,7 @@ select.inf{background:var(--bg3)}
         Muat
       </button>
     </div>
-    <div id="surahCacheInfo" style="display:none;margin-top:8px;font-size:10px;color:var(--teal);display:flex;align-items:center;gap:5px">
+    <div id="surahCacheInfo" style="display:none;margin-top:8px;font-size:10px;color:var(--teal);align-items:center;gap:5px">
       <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg>
       <span id="surahCacheText"></span>
     </div>
@@ -1814,7 +1814,7 @@ async function sendMsg(){const i=document.getElementById('chatInp');const t=i.va
 async function sq(text){
   meBub(text);const tid=typId();const m=document.getElementById('chatMsgs');
   try{
-    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:'Anda adalah Nur, asisten spiritual di aplikasi SALIK. Karakter Anda lembut, bijaksana, penuh kasih sayang, tidak menghakimi, fokus pada Tazkiyatun Nafs dan Muhasabah diri. Jawab keluhan spiritual pengguna dengan bahasa Indonesia yang menyejukkan, mengutip QS atau Hadits pendek yang relevan, dan berikan langkah praktis kecil. Selalu akhiri dengan kalimat hangat yang menyemangati perjalanan ruhani. Jangan terlalu panjang, maksimal 150 kata.',messages:[{role:'user',content:text}]})});
+    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1000,system:'Anda adalah Nur, asisten spiritual di aplikasi SALIK. Karakter Anda lembut, bijaksana, penuh kasih sayang, tidak menghakimi, fokus pada Tazkiyatun Nafs dan Muhasabah diri. Jawab keluhan spiritual pengguna dengan bahasa Indonesia yang menyejukkan, mengutip QS atau Hadits pendek yang relevan, dan berikan langkah praktis kecil. Selalu akhiri dengan kalimat hangat yang menyemangati perjalanan ruhani. Jangan terlalu panjang, maksimal 150 kata.',messages:[{role:'user',content:text}]})});
     const d=await r.json();const e=document.getElementById(tid);if(e)e.remove();
     const rp=d.content?.[0]?.text;if(rp)aiBub(rp.replace(/\n/g,'<br>'));else throw 0;
   }catch{const e=document.getElementById(tid);if(e)e.remove();aiBub(["Wahai jiwa yang mencari kedamaian, bersabarlah. <em>Sesungguhnya Allah bersama orang-orang yang sabar</em> (QS. Al-Baqarah: 153). Mari ambil nafas dalam, ucapkan istighfar secara perlahan. Allah tidak pernah meninggalkanmu.","<em>Sesungguhnya kesulitan itu disertai kemudahan</em> (QS. Al-Insyirah: 6). Dekatilah sajadah walau hanya untuk 2 rakaat ringan. Hati yang terluka pun bisa disembuhkan dengan dzikir."][Math.floor(Math.random()*2)]);}
